@@ -1,0 +1,1394 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict laHTCOphd7EEEXy1o8MVFhSw3VMKViivwL5TXjFfEIOj6fQMUo6rkJp9PfcDEr3
+
+-- Dumped from database version 18.1
+-- Dumped by pg_dump version 18.1
+
+-- Started on 2026-01-30 02:44:16
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 874 (class 1247 OID 16406)
+-- Name: Role; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public."Role" AS ENUM (
+    'admin',
+    'partner'
+);
+
+
+ALTER TYPE public."Role" OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 226 (class 1259 OID 16499)
+-- Name: AdvancedHealthcareInChina; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."AdvancedHealthcareInChina" (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    slug text NOT NULL,
+    "isFeatured" boolean DEFAULT false NOT NULL,
+    description text,
+    "shortDetails" text[],
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."AdvancedHealthcareInChina" OWNER TO postgres;
+
+--
+-- TOC entry 235 (class 1259 OID 16622)
+-- Name: AdvancedHealthcareInChinaMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."AdvancedHealthcareInChinaMedia" (
+    id uuid NOT NULL,
+    "advancedId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."AdvancedHealthcareInChinaMedia" OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 16514)
+-- Name: Blog; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Blog" (
+    id uuid NOT NULL,
+    title text NOT NULL,
+    slug text NOT NULL,
+    excerpt text,
+    content text,
+    "isFeatured" boolean DEFAULT false NOT NULL,
+    tags text[],
+    "shortDetails" text[],
+    "authorId" uuid NOT NULL,
+    "publishedAt" timestamp(3) without time zone,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Blog" OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 16530)
+-- Name: BlogComment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."BlogComment" (
+    id uuid NOT NULL,
+    "blogId" uuid NOT NULL,
+    "userId" uuid,
+    name text,
+    email text,
+    content text NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."BlogComment" OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 16635)
+-- Name: BlogMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."BlogMedia" (
+    id uuid NOT NULL,
+    "blogId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."BlogMedia" OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16438)
+-- Name: City; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."City" (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    "provinceId" uuid NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."City" OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 16468)
+-- Name: Doctor; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Doctor" (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    slug text NOT NULL,
+    title text,
+    specialty text,
+    "isFeatured" boolean DEFAULT false NOT NULL,
+    "hospitalId" uuid,
+    bio text,
+    "shortDetails" text[],
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL,
+    "academicAchievement" text,
+    address text,
+    "clinicalExperience" text,
+    "nameCn" text,
+    "other1DescName" text,
+    "otherDesc" text,
+    phone text,
+    "professionalExpertise" text,
+    "socialAppointments" text,
+    wechat text
+);
+
+
+ALTER TABLE public."Doctor" OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 16596)
+-- Name: DoctorMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."DoctorMedia" (
+    id uuid NOT NULL,
+    "doctorId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."DoctorMedia" OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 16661)
+-- Name: GalleryMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."GalleryMedia" (
+    id uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."GalleryMedia" OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16451)
+-- Name: Hospital; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Hospital" (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    slug text NOT NULL,
+    "isFeatured" boolean DEFAULT false NOT NULL,
+    "provinceId" uuid NOT NULL,
+    "cityId" uuid NOT NULL,
+    address text,
+    description text,
+    "shortDetails" text[],
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL,
+    "logoUrl" text,
+    "videoUrl" text,
+    website text,
+    wechat text,
+    whatsapp text
+);
+
+
+ALTER TABLE public."Hospital" OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 16583)
+-- Name: HospitalMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."HospitalMedia" (
+    id uuid NOT NULL,
+    "hospitalId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."HospitalMedia" OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 16558)
+-- Name: Media; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Media" (
+    id uuid NOT NULL,
+    key text,
+    url text NOT NULL,
+    "keyOriginal" text,
+    "keyThumb" text,
+    "urlOriginal" text,
+    "urlThumb" text,
+    "mimeType" text,
+    title text,
+    alt text,
+    "sizeBytes" integer,
+    width integer,
+    height integer,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Media" OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 16543)
+-- Name: PatientStory; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."PatientStory" (
+    id uuid NOT NULL,
+    title text NOT NULL,
+    slug text NOT NULL,
+    "isFeatured" boolean DEFAULT false NOT NULL,
+    excerpt text,
+    content text,
+    "shortDetails" text[],
+    "authorId" uuid,
+    "publishedAt" timestamp(3) without time zone,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."PatientStory" OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 16648)
+-- Name: PatientStoryMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."PatientStoryMedia" (
+    id uuid NOT NULL,
+    "patientStoryId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."PatientStoryMedia" OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 16426)
+-- Name: Province; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Province" (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Province" OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 16483)
+-- Name: Service; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Service" (
+    id uuid NOT NULL,
+    name text NOT NULL,
+    slug text NOT NULL,
+    "serviceType" text NOT NULL,
+    "isFeatured" boolean DEFAULT false NOT NULL,
+    description text,
+    "shortDetails" text[],
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."Service" OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 16609)
+-- Name: ServiceMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."ServiceMedia" (
+    id uuid NOT NULL,
+    "serviceId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."ServiceMedia" OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16411)
+-- Name: User; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."User" (
+    id uuid NOT NULL,
+    email text NOT NULL,
+    "passwordHash" text NOT NULL,
+    role public."Role" DEFAULT 'partner'::public."Role" NOT NULL,
+    phone text,
+    wechat text,
+    whatsapp text,
+    country text,
+    "contactPerson" text,
+    "companyName" text,
+    address text,
+    age integer,
+    "profileImageId" uuid,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."User" OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 16570)
+-- Name: UserMedia; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."UserMedia" (
+    id uuid NOT NULL,
+    "userId" uuid NOT NULL,
+    "mediaId" uuid NOT NULL,
+    "sortOrder" integer DEFAULT 0 NOT NULL,
+    "createdAt" timestamp(3) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    "updatedAt" timestamp(3) without time zone NOT NULL
+);
+
+
+ALTER TABLE public."UserMedia" OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 16391)
+-- Name: _prisma_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public._prisma_migrations (
+    id character varying(36) NOT NULL,
+    checksum character varying(64) NOT NULL,
+    finished_at timestamp with time zone,
+    migration_name character varying(255) NOT NULL,
+    logs text,
+    rolled_back_at timestamp with time zone,
+    started_at timestamp with time zone DEFAULT now() NOT NULL,
+    applied_steps_count integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE public._prisma_migrations OWNER TO postgres;
+
+--
+-- TOC entry 5175 (class 0 OID 16499)
+-- Dependencies: 226
+-- Data for Name: AdvancedHealthcareInChina; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."AdvancedHealthcareInChina" (id, name, slug, "isFeatured", description, "shortDetails", "createdAt", "updatedAt") FROM stdin;
+8cfcb858-ccb4-4a4e-bf6a-f4e6a473e5f1	Proton Therapy	proton-therapy	t	Proton Therapy in China: overview.\nRadiation precision\nFewer side effects\nCare planning	{"Radiation precision","Fewer side effects","Care planning"}	2026-01-28 08:20:42.423	2026-01-29 09:45:27.479
+32f0cec6-aa4e-4fe1-a2f6-4af0f6ef5676	Genomic Testing	genomic-testing	t	Genomic Testing in China: overview.\nActionable mutations\nPersonalized medicine\nCounseling	{"Actionable mutations","Personalized medicine",Counseling}	2026-01-28 08:20:42.424	2026-01-29 09:45:58.758
+ff96e84b-5338-4cc8-9e04-13a3362b2ac5	CAR-T Therapy	car-t-therapy	t	CAR-T Therapy in China: overview.\nHematologic cancers\nSpecialized centers\nFollow-up care	{"Hematologic cancers","Specialized centers","Follow-up care"}	2026-01-28 08:20:42.423	2026-01-29 09:46:07.854
+103dbe2f-905a-4557-ba98-a19846e42743	Robotic Surgery	robotic-surgery	t	Robotic Surgery in China: overview.\nDa Vinci programs\nFaster recovery\nPrecision procedures	{"Da Vinci programs","Faster recovery","Precision procedures"}	2026-01-28 08:20:42.422	2026-01-29 09:46:57.165
+6c4bf0ce-03cc-4b43-bb8a-c30b820e4e80	IVF & Fertility Care	ivf-fertility-care	t	IVF & Fertility Care in China: overview.\nProtocols\nLab quality\nInternational coordination	{Protocols,"Lab quality","International coordination"}	2026-01-28 08:20:42.424	2026-01-29 09:47:19.472
+665dee9c-bd92-469d-843a-f49e12cb423b	Stroke Intervention	stroke-intervention	t	Stroke Intervention in China: overview.\nRapid triage\nCath lab\nRehab pathway	{"Rapid triage","Cath lab","Rehab pathway"}	2026-01-28 08:20:42.425	2026-01-29 09:47:34.013
+\.
+
+
+--
+-- TOC entry 5184 (class 0 OID 16622)
+-- Dependencies: 235
+-- Data for Name: AdvancedHealthcareInChinaMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."AdvancedHealthcareInChinaMedia" (id, "advancedId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+89406d34-392b-41ba-b1a4-f8ad31e5b604	8cfcb858-ccb4-4a4e-bf6a-f4e6a473e5f1	224a6af5-afaf-49e1-837a-fb425e653545	0	2026-01-29 09:45:27.499	2026-01-29 09:45:27.499
+f65cb148-8757-4bcc-8929-48a832260a9d	32f0cec6-aa4e-4fe1-a2f6-4af0f6ef5676	78ae6ffe-9a1d-442e-b64e-ceca9cf75dbd	0	2026-01-29 09:45:58.777	2026-01-29 09:45:58.777
+bcf48811-5625-4892-b915-f103591f5ddd	ff96e84b-5338-4cc8-9e04-13a3362b2ac5	4c1074b3-8aa8-4603-a98b-8c5d546435a9	0	2026-01-29 09:46:07.863	2026-01-29 09:46:07.863
+8a2b02fc-c255-4c8c-bddc-c0e5fdd64203	103dbe2f-905a-4557-ba98-a19846e42743	89998e87-b45b-46b5-b2ee-a217396d7ba3	0	2026-01-29 09:46:57.212	2026-01-29 09:46:57.212
+16ec7b20-8f24-4411-932c-53be23e268d4	6c4bf0ce-03cc-4b43-bb8a-c30b820e4e80	9c524033-6d38-4e20-b4bb-741944e81cc5	0	2026-01-29 09:47:19.484	2026-01-29 09:47:19.484
+7697c111-adba-4322-9a96-9a3c3f841a79	665dee9c-bd92-469d-843a-f49e12cb423b	2cd5272a-b3f2-44af-bc02-cacb4e11a2af	0	2026-01-29 09:47:34.029	2026-01-29 09:47:34.029
+\.
+
+
+--
+-- TOC entry 5176 (class 0 OID 16514)
+-- Dependencies: 227
+-- Data for Name: Blog; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Blog" (id, title, slug, excerpt, content, "isFeatured", tags, "shortDetails", "authorId", "publishedAt", "createdAt", "updatedAt") FROM stdin;
+1ed72b5d-1439-45b3-8ceb-829b3fb653ca	How to Choose a Hospital in China	how-to-choose-a-hospital-in-china	A simple checklist for evaluating hospitals and teams.	A simple checklist for evaluating hospitals and teams.\n\nThis is sample content for: How to Choose a Hospital in China.	t	{hospital,planning,checklist}	{"Trusted guidance","Clear steps","Coordinated support"}	0b54ba28-8e22-4276-a359-ada7c92d033a	2026-01-28 08:20:42.424	2026-01-28 08:20:42.426	2026-01-28 08:20:42.426
+6986615e-56f1-4f46-a10a-ca71e702bb2c	Patient Journey: From First Call to Discharge	patient-journey-from-first-call-to-discharge	An end-to-end look at how coordination works.	An end-to-end look at how coordination works.\n\nThis is sample content for: Patient Journey: From First Call to Discharge.	f	{"patient experience",coordination,timeline}	{"Trusted guidance","Clear steps","Coordinated support"}	0b54ba28-8e22-4276-a359-ada7c92d033a	2026-01-28 08:20:42.428	2026-01-28 08:20:42.429	2026-01-28 08:20:42.429
+16371e60-7f3c-4c3b-be71-78a13d57642c	Advanced Healthcare in China: Top Trends	advanced-healthcare-in-china-top-trends	Six trends shaping advanced care pathways.	Advanced healthcare in China is defined by rapid AI integration, precision medicine, and smart hospital development, targeting enhanced efficiency for an aging population. Key trends include AI-powered diagnostics, robotic surgery, and "Healthy China 2030" preventative care, with market revenue expected to reach nearly USD 1 trillion by 2027. \nTop Trends in China’s Healthcare Landscape (2025-2026)\nAI & Smart Hospitals: AI is extensively deployed for diagnostic imaging, virtual consultations, and clinical decision support to mitigate resource strain. All public hospitals are transitioning to smart, digital systems by 2025.\nPrecision Medicine: The precision medicine market is booming, utilizing gene sequencing and big data to target complex, chronic, and rare diseases.\nAdvanced Robotics: China is shifting from importing surgical robots to producing them, aiming for lower costs and broader access to advanced surgery.\nPreventative Healthcare (Healthy China 2030): A major shift from disease treatment to, focusing on community health,, and wellness.\nRemote & Digital Care: Telemedicine is expanding, connecting top-tier urban hospitals with rural, grassroots institutions for improved access.\nRegulatory & Data Security: Strict, comprehensive regulations are being applied to data security, AI, and online medical, which is essential to manage digital health risks.\nForeign Investment Access: As of late 2024, regulations were updated to allow wholly foreign-owned hospitals in major cities like Beijing and Shanghai. 	t	{advanced,innovation,china}	{"Trusted guidance","Clear steps","Coordinated support"}	0b54ba28-8e22-4276-a359-ada7c92d033a	2026-01-28 08:20:42.429	2026-01-28 08:20:42.43	2026-01-29 10:33:08.945
+92e40d95-9b69-434a-8590-809217d296ea	Understanding Medical Visa Requirements	understanding-medical-visa-requirements	What you need to prepare before traveling for care.	What you need to prepare before traveling for care.\n\nThis is sample content for: Understanding Medical Visa Requirements.	t	{visa,international,documents}	{"Trusted guidance","Clear steps","Coordinated support"}	0b54ba28-8e22-4276-a359-ada7c92d033a	2026-01-28 08:20:42.426	2026-01-28 08:20:42.427	2026-01-29 10:33:51.503
+\.
+
+
+--
+-- TOC entry 5177 (class 0 OID 16530)
+-- Dependencies: 228
+-- Data for Name: BlogComment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."BlogComment" (id, "blogId", "userId", name, email, content, "createdAt", "updatedAt") FROM stdin;
+d224f620-cabd-411c-b4fb-577d1b7f9908	1ed72b5d-1439-45b3-8ceb-829b3fb653ca	05e6f57c-61e5-4f83-8416-0c7800d81afe	\N	\N	Very helpful checklist. Thanks for sharing.	2026-01-28 08:20:42.43	2026-01-28 08:20:42.43
+695e0b9d-5b42-4605-8e84-ec89af2d4294	92e40d95-9b69-434a-8590-809217d296ea	\N	Guest Reader	guest@example.com	Do you provide document templates?	2026-01-28 08:20:42.43	2026-01-28 08:20:42.43
+\.
+
+
+--
+-- TOC entry 5185 (class 0 OID 16635)
+-- Dependencies: 236
+-- Data for Name: BlogMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."BlogMedia" (id, "blogId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+3f7ab8f4-1c23-470e-bf4a-57a26d1d5c8b	16371e60-7f3c-4c3b-be71-78a13d57642c	cd03cd14-6acc-4b91-b7dd-cb0de1689323	0	2026-01-29 10:33:08.963	2026-01-29 10:33:08.963
+28228e9f-068d-4f32-aa2c-7a608fba362c	16371e60-7f3c-4c3b-be71-78a13d57642c	4248c651-a199-4ef4-bca5-8e635f470dda	1	2026-01-29 10:33:08.963	2026-01-29 10:33:08.963
+29e4679f-f1c4-4220-ae3e-d25b2a0c03b6	16371e60-7f3c-4c3b-be71-78a13d57642c	9f20f6c6-87a6-41f0-abae-97e2b0b53934	2	2026-01-29 10:33:08.963	2026-01-29 10:33:08.963
+e3c5e79f-1814-48d8-b9b2-3c9dc4fa7ef0	92e40d95-9b69-434a-8590-809217d296ea	3e4cc335-de06-4b53-8052-c36d803338fd	0	2026-01-29 10:33:51.521	2026-01-29 10:33:51.521
+\.
+
+
+--
+-- TOC entry 5171 (class 0 OID 16438)
+-- Dependencies: 222
+-- Data for Name: City; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."City" (id, name, "provinceId", "createdAt", "updatedAt") FROM stdin;
+21c59275-4c27-47ef-b10d-39eb9e78bc6f	Guangzhou	d50348c8-1243-4216-a771-e7367e5779a9	2026-01-28 08:20:42.404	2026-01-28 08:20:42.404
+6a19049f-6214-49b9-90e8-db645f4139a9	Shenzhen	d50348c8-1243-4216-a771-e7367e5779a9	2026-01-28 08:20:42.404	2026-01-28 08:20:42.404
+8a137dfd-4723-4054-8135-6042bf42201f	Hangzhou	4fe8420b-c4bc-4928-a352-2279d684006f	2026-01-28 08:20:42.404	2026-01-28 08:20:42.404
+dbc4bb14-92ac-492e-84de-215dd4da24bd	Ningbo	4fe8420b-c4bc-4928-a352-2279d684006f	2026-01-28 08:20:42.404	2026-01-28 08:20:42.404
+81d83eed-d997-4bec-8f03-c26d94392578	Chengdu	dae2f9b1-7846-486b-9a72-ef5032d200c0	2026-01-28 08:20:42.404	2026-01-28 08:20:42.404
+\.
+
+
+--
+-- TOC entry 5173 (class 0 OID 16468)
+-- Dependencies: 224
+-- Data for Name: Doctor; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Doctor" (id, name, slug, title, specialty, "isFeatured", "hospitalId", bio, "shortDetails", "createdAt", "updatedAt", "academicAchievement", address, "clinicalExperience", "nameCn", "other1DescName", "otherDesc", phone, "professionalExpertise", "socialAppointments", wechat) FROM stdin;
+4da9db7c-e2bc-4afd-ab74-92f54e4665ce	Xia Qi	xia-qi	Director	Orthopedics	t	e00307d1-bd10-48db-8ff2-8327da89d593	Dr Xia Zhan William is a Consultant Orthopaedic Surgeon with the Department of Orthopaedic Surgery in Singapore General Hospital. He is passionate in providing comprehensive, patient-centred care for patients with shoulder and elbow conditions, ranging from fractures, sports injuries and degenerative diseases, to complex conditions that require revision surgeries. His special clinical interest is in shoulder and elbow joint replacement for arthritis, complex conditions or revision cases; minimally invasive surgery (MIS) arthroscopic key-hole techniques for rotator cuff tear, labral tear or frozen shoulder; surgical fixation and anatomical reconstruction for complex fractures or tendon/ligament injuries.\n\nDr Xia graduated with Bachelor of Medicine and Bachelor of Surgery (M.B.,B.S.) in 2011. He started further specialist training in SingHealth Orthopaedic Residency Program in 2014 and received MOH Training Award in the same year. He was awarded the SingHealth Outstanding Resident during his training. He attained his Master of Medicine (Orthopaedic Surgery) from National University of Singapore in 2018, and was subsequently appointed Fellow of the Royal College of Surgeons	{"Education and Training","​Fellow of the Royal College of Surgeons of Edinburgh (Trauma & Orthopaedic Surgery)","Ministry of Health, Singapore, Specialist Accreditation in Orthopaedic Surgery","Master of Medicine (Orthopaedic Surgery)","Member of the Royal College of Surgeons of Edinburgh","Bachelor of Medicine and Bachelor of Surgery"}	2026-01-29 08:56:22.228	2026-01-29 08:56:22.228	​Fellow of the Royal College of Surgeons of Edinburgh (Trauma & Orthopaedic Surgery)\nMinistry of Health, Singapore, Specialist Accreditation in Orthopaedic Surgery\nMaster of Medicine (Orthopaedic Surgery)\nMember of the Royal College of Surgeons of Edinburgh\nBachelor of Medicine and Bachelor of Surgery	Guangzhou	\N	\N	\N	\N	+8614568923	Member, Singapore Orthopaedic Association\nMember, AO Trauma\nMember, Singapore Shoulder and Elbow Society\nMember, British Elbow and Shoulder Society\nMember, European Society for Shoulder & Elbow Surgery	\N	\N
+6684882d-da95-48f0-8d90-2113fb94a3c1	Wu Yunxin	wu-yunxin	Professor	Oncology	t	acae9159-cfb9-4622-bda4-8b24ac2fe0a4	SingHealth Service With A Heart Award 2024\nSingapore Health Manpower Development Plan (HMDP) Award 2024\nRiSE Awards 2022 – Outstanding Faculty Award\nSingHealth 10 Years Long Service Award 2021\nSingHealth Outstanding Resident Award 2017	{"SingHealth Service With A Heart Award 2024","Singapore Health Manpower Development Plan (HMDP) Award 2024"}	2026-01-29 09:02:33.04	2026-01-29 09:25:31.174	SingHealth Service With A Heart Award 2024\nSingapore Health Manpower Development Plan (HMDP) Award 2024\nRiSE Awards 2022 – Outstanding Faculty Award\nSingHealth 10 Years Long Service Award 2021\nSingHealth Outstanding Resident Award 2017	Guangzhou, Foshan	Member, Singapore Orthopaedic Association\nMember, AO Trauma\nMember, Singapore Shoulder and Elbow Society\nMember, British Elbow and Shoulder Society\nMember, European Society for Shoulder & Elbow Surgery	\N	\N	\N	861665656	Fellow of the Royal College of Surgeons of Edinburgh (Trauma & Orthopaedic Surgery)\nMinistry of Health, Singapore, Specialist Accreditation in Orthopaedic Surgery\nMaster of Medicine (Orthopaedic Surgery)\nMember of the Royal College of Surgeons of Edinburgh\nBachelor of Medicine and Bachelor of Surgery	Dr Xia Zhan William is a Consultant Orthopaedic Surgeon with the Department of Orthopaedic Surgery in Singapore General Hospital. He is passionate in providing comprehensive, patient-centred care for patients with shoulder and elbow conditions, ranging from fractures, sports injuries and degenerative diseases, to complex conditions that require revision surgeries. His special clinical interest is in shoulder and elbow joint replacement for arthritis, complex conditions or revision cases; minimally invasive surgery (MIS) arthroscopic key-hole techniques for rotator cuff tear, labral tear or frozen shoulder; surgical fixation and anatomical reconstruction for complex fractures or tendon/ligament injuries.\n\nDr Xia graduated with Bachelor of Medicine and Bachelor of Surgery (M.B.,B.S.) in 2011. He started further specialist training in SingHealth Orthopaedic Residency Program in 2014 and received MOH Training Award in the same year. He was awarded the SingHealth Outstanding Resident during his training. 	\N
+\.
+
+
+--
+-- TOC entry 5182 (class 0 OID 16596)
+-- Dependencies: 233
+-- Data for Name: DoctorMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."DoctorMedia" (id, "doctorId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+cf8c8250-8ea7-4273-b3d0-985f8918212d	4da9db7c-e2bc-4afd-ab74-92f54e4665ce	7d257e97-443e-496a-9007-eced9f8281c1	0	2026-01-29 08:56:22.262	2026-01-29 08:56:22.262
+ec36bbb2-fbb5-459e-a6b1-7e6949c49f4b	6684882d-da95-48f0-8d90-2113fb94a3c1	236e446c-a202-42de-96e4-3e51e617fcef	0	2026-01-29 09:25:31.194	2026-01-29 09:25:31.194
+\.
+
+
+--
+-- TOC entry 5187 (class 0 OID 16661)
+-- Dependencies: 238
+-- Data for Name: GalleryMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."GalleryMedia" (id, "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5172 (class 0 OID 16451)
+-- Dependencies: 223
+-- Data for Name: Hospital; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Hospital" (id, name, slug, "isFeatured", "provinceId", "cityId", address, description, "shortDetails", "createdAt", "updatedAt", "logoUrl", "videoUrl", website, wechat, whatsapp) FROM stdin;
+2dfb5733-9877-4147-8122-750dcf03581f	Foshan Fosun Chancheng Hospital	foshan-fosun-chancheng-hospital	t	d50348c8-1243-4216-a771-e7367e5779a9	21c59275-4c27-47ef-b10d-39eb9e78bc6f	Foshan city	Foshan Fosun Chancheng Hospital is a modern, internationally recognized multispecialty medical institution located in Foshan, Guangdong Province, China.\n\nIt is a flagship hospital of Fosun Health Group, founded in 1958. The hospital has prestigious qualifications, including recognition as a Grade-A tertiary hospital, the highest hospital rating in China.\n\nFoshan Fosun serves more than 2.86 million outpatients and treats over 67,000 inpatients annually. It has a highly qualified team of renowned experts and medical professionals who follow strict safety standards aligned with international guidelines.\n\nServices are offered across 22 medical specialties, including:	{"Orthopedics and Spinal Surgery","Cardiology and Cardiovascular Care","Oncology and Precision Tumor Treatment,","Neurology and Neurosurgery,","Urology and Reproductive Medicine,","Traditional Chinese Medicine,","Rehabilitation Medicine and Wound Repair"}	2026-01-28 21:36:43.124	2026-01-28 21:47:12.172	\N	\N	\N	\N	\N
+e00307d1-bd10-48db-8ff2-8327da89d593	Jinshazhou Hospital of Guangzhou	jinshazhou-hospital-of-guangzhou	t	d50348c8-1243-4216-a771-e7367e5779a9	21c59275-4c27-47ef-b10d-39eb9e78bc6f	Guangzhou City, sanyuanli	The Deep Integration of Modern Western Medicine and Ancient Eastern Wisdom\nJinshazhou Hospital of Guangzhou University of Chinese Medicine is a large-scale non-profit public Grade A tertiary general hospital approved by the Guangzhou Health Commission. \n\nWe Have Leading Edge Technology\n\n\nHigh Standards & Safety at Hospital\n\nWe Have Professionals In Health.\n\nSpecialist In Diseases & Diagnosis	{"Jinshazhou Hospital of Guangzhou University of Chinese Medicine is a large-scale non-profit public Grade A tertiary general hospital approved by the Guangzhou Health Commission."}	2026-01-29 07:38:52.271	2026-01-29 07:38:52.271	\N	https://www.youtube.com/watch?v=dBjAWvUCgRc	https://www.jszcancer.com/	86 18928918121	86 18928918121
+acae9159-cfb9-4622-bda4-8b24ac2fe0a4	𝗦𝘁. 𝗦𝘁𝗮𝗺𝗳𝗼𝗿𝗱 𝗠𝗼𝗱𝗲𝗿𝗻 𝗖𝗮𝗻𝗰𝗲𝗿 𝗛𝗼𝘀𝗽𝗶𝘁𝗮𝗹 	𝗦𝘁.-𝗦𝘁𝗮𝗺𝗳𝗼𝗿𝗱-𝗠𝗼𝗱𝗲𝗿𝗻-𝗖𝗮𝗻𝗰𝗲𝗿-𝗛𝗼𝘀𝗽𝗶𝘁𝗮𝗹-	t	d50348c8-1243-4216-a771-e7367e5779a9	21c59275-4c27-47ef-b10d-39eb9e78bc6f	The Biopolis Building, 24 Diosdado Macapagal Blvd., Pasay	𝗦𝘁. 𝗦𝘁𝗮𝗺𝗳𝗼𝗿𝗱 𝗠𝗼𝗱𝗲𝗿𝗻 𝗖𝗮𝗻𝗰𝗲𝗿 𝗛𝗼𝘀𝗽𝗶𝘁𝗮𝗹 𝗚𝘂𝗮𝗻𝗴𝘇𝗵𝗼𝘂 𝗜𝗻𝘁𝗲𝗿𝗻𝗮𝘁𝗶𝗼𝗻𝗮𝗹 𝗠𝗲𝗱𝗶𝗰𝗮𝗹 𝗣𝗿𝗲𝗳𝗲𝗿𝗿𝗲𝗱 𝗦𝗲𝗿𝘃𝗶𝗰𝗲 𝗦𝗲𝗿𝗶𝗲𝘀 -- 𝗔𝗱𝗺𝗶𝘀𝘀𝗶𝗼𝗻 𝗦𝗲𝗿𝘃𝗶𝗰𝗲\nHigh-quality medical services are related to the patient's efficacy and comfort. Our comfortable ward environment, consultation with the MDT,👩‍⚕️🧑‍⚕️ and professional and considerate services ensure that you receive scientific and safe treatment!💪\n#medicalservice #hospitalenvironment #patientservice #MDT #cancertreatment #treatmentplan #ststamfordmoderncancerhospitalguangzhou\n------------------\nAny cancer-related concerns, feel free to contact us.\n🔻Address in Manila:\nGuangzhou Modern Cancer Hospital - Manila Office\nThe Biopolis Building, 24 Diosdado Macapagal Blvd., Pasay, Metro Manila\nhttps://maps.app.goo.gl/7SmuBLWLHVCibX8P6\nContact Manila office by:\n❤Telephone: +632 8633-8599\n❤Mobile :\n+63 962 838 9559-Smart\n+63 995 518 4836-Globe\n❤e-mail: GZMCH.PH@gmail.com\n❤Website: https://www.asiancancer.com/	{"High-quality medical services, Related to the patient efficacy and comfort, Comfortable ward environment, English Language Support"}	2026-01-29 07:45:32.247	2026-01-29 07:45:32.247	\N	https://www.youtube.com/watch?v=Fin6DqswM0s&t=1s	https://www.asiancancer.com/	8617396457646	8617396457646
+\.
+
+
+--
+-- TOC entry 5181 (class 0 OID 16583)
+-- Dependencies: 232
+-- Data for Name: HospitalMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."HospitalMedia" (id, "hospitalId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+44fc506f-0bfa-475c-8b1d-1f874b03b6c2	2dfb5733-9877-4147-8122-750dcf03581f	72907651-db71-4860-9716-ae5c4e14dd1c	0	2026-01-28 21:47:12.212	2026-01-28 21:47:12.212
+109134f3-1314-4e1a-8ff8-350528a82a4f	2dfb5733-9877-4147-8122-750dcf03581f	cd03cd14-6acc-4b91-b7dd-cb0de1689323	1	2026-01-28 21:47:12.212	2026-01-28 21:47:12.212
+37396f2a-7f5a-4bb3-8178-49542f4b1bcf	e00307d1-bd10-48db-8ff2-8327da89d593	a1994695-10e4-4bd3-ab0b-dcebdee38ad0	0	2026-01-29 07:38:52.305	2026-01-29 07:38:52.305
+7b5616bd-66bb-4d39-8a19-f7e5066ec1f1	e00307d1-bd10-48db-8ff2-8327da89d593	b148973c-4517-41ed-8371-62321a8d8fbe	1	2026-01-29 07:38:52.305	2026-01-29 07:38:52.305
+f5ba457d-980c-4719-b83c-4e77f244747f	acae9159-cfb9-4622-bda4-8b24ac2fe0a4	3d955fbb-0802-42e9-8fd5-71d91fbc6cad	0	2026-01-29 07:45:32.309	2026-01-29 07:45:32.309
+45dad622-912d-45fa-848d-2680a7a74d77	acae9159-cfb9-4622-bda4-8b24ac2fe0a4	3e4cc335-de06-4b53-8052-c36d803338fd	1	2026-01-29 07:45:32.309	2026-01-29 07:45:32.309
+\.
+
+
+--
+-- TOC entry 5179 (class 0 OID 16558)
+-- Dependencies: 230
+-- Data for Name: Media; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Media" (id, key, url, "keyOriginal", "keyThumb", "urlOriginal", "urlThumb", "mimeType", title, alt, "sizeBytes", width, height, "createdAt", "updatedAt") FROM stdin;
+a63f5549-b0cf-434a-a78c-eb0c7794ed0a	service/2026/01/5575936a-7321-4acf-96bb-fd4cf3ee6a99-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/service/2026/01/5575936a-7321-4acf-96bb-fd4cf3ee6a99-original.jpg	service/2026/01/5575936a-7321-4acf-96bb-fd4cf3ee6a99-original.jpg	service/2026/01/5575936a-7321-4acf-96bb-fd4cf3ee6a99-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/service/2026/01/5575936a-7321-4acf-96bb-fd4cf3ee6a99-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/service/2026/01/5575936a-7321-4acf-96bb-fd4cf3ee6a99-thumb.webp	image/jpeg	service-1	\N	574095	\N	\N	2026-01-28 20:44:24.748	2026-01-28 20:44:24.748
+3b1f084f-03d2-4718-b2bc-57f2a9a3e26c	doctors/2026/01/60bc2d82-f880-4fa6-96c0-88bae6e3e382-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/60bc2d82-f880-4fa6-96c0-88bae6e3e382-original.png	doctors/2026/01/60bc2d82-f880-4fa6-96c0-88bae6e3e382-original.png	doctors/2026/01/60bc2d82-f880-4fa6-96c0-88bae6e3e382-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/60bc2d82-f880-4fa6-96c0-88bae6e3e382-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/60bc2d82-f880-4fa6-96c0-88bae6e3e382-thumb.webp	image/png	prof_chen_tao	\N	133934	\N	\N	2026-01-28 20:48:56.399	2026-01-28 20:48:56.399
+236e446c-a202-42de-96e4-3e51e617fcef	doctors/2026/01/c6ee5c0f-8fed-4b1d-8db7-b72bdfbfe6a1-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/c6ee5c0f-8fed-4b1d-8db7-b72bdfbfe6a1-original.png	doctors/2026/01/c6ee5c0f-8fed-4b1d-8db7-b72bdfbfe6a1-original.png	doctors/2026/01/c6ee5c0f-8fed-4b1d-8db7-b72bdfbfe6a1-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/c6ee5c0f-8fed-4b1d-8db7-b72bdfbfe6a1-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/c6ee5c0f-8fed-4b1d-8db7-b72bdfbfe6a1-thumb.webp	image/png	prof_wu_yanxin	\N	224734	\N	\N	2026-01-28 20:49:11.174	2026-01-28 20:49:11.174
+7d257e97-443e-496a-9007-eced9f8281c1	doctors/2026/01/70a21d21-01ab-4abc-9027-740c9b88ed4f-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/70a21d21-01ab-4abc-9027-740c9b88ed4f-original.png	doctors/2026/01/70a21d21-01ab-4abc-9027-740c9b88ed4f-original.png	doctors/2026/01/70a21d21-01ab-4abc-9027-740c9b88ed4f-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/70a21d21-01ab-4abc-9027-740c9b88ed4f-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/doctors/2026/01/70a21d21-01ab-4abc-9027-740c9b88ed4f-thumb.webp	image/png	prof xia_qu	\N	239736	\N	\N	2026-01-28 20:49:30.755	2026-01-28 20:49:30.755
+4248c651-a199-4ef4-bca5-8e635f470dda	service/2026/01/60cd05a0-ca1f-48a0-bf1d-3ce037f8685e-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/service/2026/01/60cd05a0-ca1f-48a0-bf1d-3ce037f8685e-original.jpg	service/2026/01/60cd05a0-ca1f-48a0-bf1d-3ce037f8685e-original.jpg	service/2026/01/60cd05a0-ca1f-48a0-bf1d-3ce037f8685e-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/service/2026/01/60cd05a0-ca1f-48a0-bf1d-3ce037f8685e-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/service/2026/01/60cd05a0-ca1f-48a0-bf1d-3ce037f8685e-thumb.webp	image/jpeg	service-2	\N	811961	\N	\N	2026-01-28 20:49:45.775	2026-01-28 20:49:45.775
+9f20f6c6-87a6-41f0-abae-97e2b0b53934	gallery/2026/01/72887491-c8e4-4307-89ce-d9846f731725-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/gallery/2026/01/72887491-c8e4-4307-89ce-d9846f731725-original.jpg	gallery/2026/01/72887491-c8e4-4307-89ce-d9846f731725-original.jpg	gallery/2026/01/72887491-c8e4-4307-89ce-d9846f731725-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/gallery/2026/01/72887491-c8e4-4307-89ce-d9846f731725-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/gallery/2026/01/72887491-c8e4-4307-89ce-d9846f731725-thumb.webp	image/jpeg	gallery-1	\N	728964	\N	\N	2026-01-28 20:50:11.988	2026-01-28 20:50:11.988
+400f0580-6761-4a64-9599-d774281c88d1	gallery/2026/01/e707ca65-897f-4665-9842-b3cfc6e0bfaa-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/gallery/2026/01/e707ca65-897f-4665-9842-b3cfc6e0bfaa-original.jpg	gallery/2026/01/e707ca65-897f-4665-9842-b3cfc6e0bfaa-original.jpg	gallery/2026/01/e707ca65-897f-4665-9842-b3cfc6e0bfaa-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/gallery/2026/01/e707ca65-897f-4665-9842-b3cfc6e0bfaa-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/gallery/2026/01/e707ca65-897f-4665-9842-b3cfc6e0bfaa-thumb.webp	image/jpeg	galler-2	\N	888238	\N	\N	2026-01-28 20:51:30.331	2026-01-28 20:51:30.331
+72907651-db71-4860-9716-ae5c4e14dd1c	hospitals/2026/01/e5a609fb-f7ce-4efc-9d98-a3d586966b43-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/e5a609fb-f7ce-4efc-9d98-a3d586966b43-original.jpg	hospitals/2026/01/e5a609fb-f7ce-4efc-9d98-a3d586966b43-original.jpg	hospitals/2026/01/e5a609fb-f7ce-4efc-9d98-a3d586966b43-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/e5a609fb-f7ce-4efc-9d98-a3d586966b43-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/e5a609fb-f7ce-4efc-9d98-a3d586966b43-thumb.webp	image/jpeg	Foshan Fosun Chancheng Hospital	\N	145116	\N	\N	2026-01-28 21:27:46.242	2026-01-28 21:27:46.242
+cd03cd14-6acc-4b91-b7dd-cb0de1689323	hospitals/2026/01/812f18f3-3603-46ca-8d2c-31fe418e9a68-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/812f18f3-3603-46ca-8d2c-31fe418e9a68-original.jpg	hospitals/2026/01/812f18f3-3603-46ca-8d2c-31fe418e9a68-original.jpg	hospitals/2026/01/812f18f3-3603-46ca-8d2c-31fe418e9a68-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/812f18f3-3603-46ca-8d2c-31fe418e9a68-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/812f18f3-3603-46ca-8d2c-31fe418e9a68-thumb.webp	image/jpeg	Foshan Fosun Chancheng Hospital-2	\N	146918	\N	\N	2026-01-28 21:28:01.145	2026-01-28 21:28:01.145
+a1994695-10e4-4bd3-ab0b-dcebdee38ad0	hospitals/2026/01/d138a9a2-e07e-48eb-91d8-3c17a522d55a-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/d138a9a2-e07e-48eb-91d8-3c17a522d55a-original.jpg	hospitals/2026/01/d138a9a2-e07e-48eb-91d8-3c17a522d55a-original.jpg	hospitals/2026/01/d138a9a2-e07e-48eb-91d8-3c17a522d55a-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/d138a9a2-e07e-48eb-91d8-3c17a522d55a-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/d138a9a2-e07e-48eb-91d8-3c17a522d55a-thumb.webp	image/jpeg	Jinshazou	\N	192501	\N	\N	2026-01-29 07:03:25.693	2026-01-29 07:03:25.693
+b148973c-4517-41ed-8371-62321a8d8fbe	hospitals/2026/01/c3753a29-da35-4057-b77d-116f1cd9768e-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/c3753a29-da35-4057-b77d-116f1cd9768e-original.jpg	hospitals/2026/01/c3753a29-da35-4057-b77d-116f1cd9768e-original.jpg	hospitals/2026/01/c3753a29-da35-4057-b77d-116f1cd9768e-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/c3753a29-da35-4057-b77d-116f1cd9768e-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/c3753a29-da35-4057-b77d-116f1cd9768e-thumb.webp	image/jpeg	Jinshazou2	\N	11159	\N	\N	2026-01-29 07:03:39.788	2026-01-29 07:03:39.788
+3d955fbb-0802-42e9-8fd5-71d91fbc6cad	hospitals/2026/01/2c153d77-400c-4f2d-912a-5e3f4b3e876d-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/2c153d77-400c-4f2d-912a-5e3f4b3e876d-original.jpg	hospitals/2026/01/2c153d77-400c-4f2d-912a-5e3f4b3e876d-original.jpg	hospitals/2026/01/2c153d77-400c-4f2d-912a-5e3f4b3e876d-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/2c153d77-400c-4f2d-912a-5e3f4b3e876d-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/2c153d77-400c-4f2d-912a-5e3f4b3e876d-thumb.webp	image/jpeg	Modern cancer	\N	126229	\N	\N	2026-01-29 07:03:58.857	2026-01-29 07:03:58.857
+3e4cc335-de06-4b53-8052-c36d803338fd	hospitals/2026/01/86eb4a56-7ac5-4146-8d12-2e29e5cac568-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/86eb4a56-7ac5-4146-8d12-2e29e5cac568-original.jpg	hospitals/2026/01/86eb4a56-7ac5-4146-8d12-2e29e5cac568-original.jpg	hospitals/2026/01/86eb4a56-7ac5-4146-8d12-2e29e5cac568-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/86eb4a56-7ac5-4146-8d12-2e29e5cac568-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/hospitals/2026/01/86eb4a56-7ac5-4146-8d12-2e29e5cac568-thumb.webp	image/jpeg	Modern cancer 2	\N	63821	\N	\N	2026-01-29 07:04:16.812	2026-01-29 07:04:16.812
+4c1074b3-8aa8-4603-a98b-8c5d546435a9	advancedhealthcareinchina/2026/01/f777779d-ecc7-4e9b-a216-aab4b9d1b9fe-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/f777779d-ecc7-4e9b-a216-aab4b9d1b9fe-original.png	advancedhealthcareinchina/2026/01/f777779d-ecc7-4e9b-a216-aab4b9d1b9fe-original.png	advancedhealthcareinchina/2026/01/f777779d-ecc7-4e9b-a216-aab4b9d1b9fe-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/f777779d-ecc7-4e9b-a216-aab4b9d1b9fe-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/f777779d-ecc7-4e9b-a216-aab4b9d1b9fe-thumb.webp	image/png	CAR-T Therapy	\N	318745	\N	\N	2026-01-29 09:41:50.481	2026-01-29 09:41:50.481
+78ae6ffe-9a1d-442e-b64e-ceca9cf75dbd	advancedhealthcareinchina/2026/01/e3f380bf-b1d0-4216-8314-9ca3d0ea04cf-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/e3f380bf-b1d0-4216-8314-9ca3d0ea04cf-original.jpg	advancedhealthcareinchina/2026/01/e3f380bf-b1d0-4216-8314-9ca3d0ea04cf-original.jpg	advancedhealthcareinchina/2026/01/e3f380bf-b1d0-4216-8314-9ca3d0ea04cf-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/e3f380bf-b1d0-4216-8314-9ca3d0ea04cf-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/e3f380bf-b1d0-4216-8314-9ca3d0ea04cf-thumb.webp	image/jpeg	Genomic Testing	\N	7933	\N	\N	2026-01-29 09:42:09.67	2026-01-29 09:42:09.67
+9c524033-6d38-4e20-b4bb-741944e81cc5	advancedhealthcareinchina/2026/01/7a66ef91-2171-4522-9067-89d539725aa1-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/7a66ef91-2171-4522-9067-89d539725aa1-original.jpg	advancedhealthcareinchina/2026/01/7a66ef91-2171-4522-9067-89d539725aa1-original.jpg	advancedhealthcareinchina/2026/01/7a66ef91-2171-4522-9067-89d539725aa1-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/7a66ef91-2171-4522-9067-89d539725aa1-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/7a66ef91-2171-4522-9067-89d539725aa1-thumb.webp	image/jpeg	IVF & Fertility Care	\N	26716	\N	\N	2026-01-29 09:42:34.587	2026-01-29 09:42:34.587
+224a6af5-afaf-49e1-837a-fb425e653545	advancedhealthcareinchina/2026/01/6c059d99-fc01-4857-80d5-522f559f5904-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/6c059d99-fc01-4857-80d5-522f559f5904-original.jpg	advancedhealthcareinchina/2026/01/6c059d99-fc01-4857-80d5-522f559f5904-original.jpg	advancedhealthcareinchina/2026/01/6c059d99-fc01-4857-80d5-522f559f5904-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/6c059d99-fc01-4857-80d5-522f559f5904-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/6c059d99-fc01-4857-80d5-522f559f5904-thumb.webp	image/jpeg	proton_therapy	\N	578064	\N	\N	2026-01-29 09:42:56.262	2026-01-29 09:42:56.262
+2cd5272a-b3f2-44af-bc02-cacb4e11a2af	advancedhealthcareinchina/2026/01/6693bf30-9ea2-4c8c-b974-9f9c716a3982-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/6693bf30-9ea2-4c8c-b974-9f9c716a3982-original.png	advancedhealthcareinchina/2026/01/6693bf30-9ea2-4c8c-b974-9f9c716a3982-original.png	advancedhealthcareinchina/2026/01/6693bf30-9ea2-4c8c-b974-9f9c716a3982-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/6693bf30-9ea2-4c8c-b974-9f9c716a3982-original.png	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/6693bf30-9ea2-4c8c-b974-9f9c716a3982-thumb.webp	image/png	Stroke Intervention	\N	368100	\N	\N	2026-01-29 09:44:24.515	2026-01-29 09:44:24.515
+89998e87-b45b-46b5-b2ee-a217396d7ba3	advancedhealthcareinchina/2026/01/df96f22f-48cb-457f-9d6e-7dcae5a36224-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/df96f22f-48cb-457f-9d6e-7dcae5a36224-original.jpg	advancedhealthcareinchina/2026/01/df96f22f-48cb-457f-9d6e-7dcae5a36224-original.jpg	advancedhealthcareinchina/2026/01/df96f22f-48cb-457f-9d6e-7dcae5a36224-thumb.webp	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/df96f22f-48cb-457f-9d6e-7dcae5a36224-original.jpg	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/advancedhealthcareinchina/2026/01/df96f22f-48cb-457f-9d6e-7dcae5a36224-thumb.webp	image/jpeg	Robotic Surgery	\N	51783	\N	\N	2026-01-29 09:44:58.293	2026-01-29 09:44:58.293
+c5b0441d-e101-4788-8d50-6173f6392794	patientstory/2026/01/9785e2c8-8a3e-42f2-81dc-c0083147d434-original.mp4	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/patientstory/2026/01/9785e2c8-8a3e-42f2-81dc-c0083147d434-original.mp4	patientstory/2026/01/9785e2c8-8a3e-42f2-81dc-c0083147d434-original.mp4	\N	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/patientstory/2026/01/9785e2c8-8a3e-42f2-81dc-c0083147d434-original.mp4	\N	video/mp4	korban_patient	\N	2483111	\N	\N	2026-01-29 10:24:39.353	2026-01-29 10:24:39.353
+d37aafad-b874-46d2-99ac-ac6422bedf6a	patientstory/2026/01/cbef6fb3-201d-4e06-a7e3-cdba3da51780-original.mp4	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/patientstory/2026/01/cbef6fb3-201d-4e06-a7e3-cdba3da51780-original.mp4	patientstory/2026/01/cbef6fb3-201d-4e06-a7e3-cdba3da51780-original.mp4	\N	https://pub-192a1e04feeb4ce482e04d1f02502d6b.r2.dev/patientstory/2026/01/cbef6fb3-201d-4e06-a7e3-cdba3da51780-original.mp4	\N	video/mp4	patient-story-2	\N	4090282	\N	\N	2026-01-29 10:31:17.193	2026-01-29 10:31:17.193
+\.
+
+
+--
+-- TOC entry 5178 (class 0 OID 16543)
+-- Dependencies: 229
+-- Data for Name: PatientStory; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."PatientStory" (id, title, slug, "isFeatured", excerpt, content, "shortDetails", "authorId", "publishedAt", "createdAt", "updatedAt") FROM stdin;
+fed8a80c-b9dc-43fd-ba51-73a7dc645bae	𝐑𝐞𝐠𝐮𝐥𝐚𝐫 𝐇𝐞𝐚𝐥𝐭𝐡 𝐂𝐡𝐞𝐜𝐤𝐮𝐩	𝐑𝐞𝐠𝐮𝐥𝐚𝐫-𝐇𝐞𝐚𝐥𝐭𝐡-𝐂𝐡𝐞𝐜𝐤𝐮𝐩	t	𝐑𝐞𝐠𝐮𝐥𝐚𝐫 𝐇𝐞𝐚𝐥𝐭𝐡 𝐂𝐡𝐞𝐜𝐤𝐮𝐩 	কম খরচে চায়নার 𝐆𝐮𝐚𝐧𝐠𝐳𝐡𝐨𝐮 𝐅𝐨𝐬𝐮𝐧 𝐂𝐡𝐚𝐧𝐜𝐡𝐞𝐧𝐠 𝐇𝐨𝐬𝐩𝐢𝐭𝐚𝐥 এ 𝐑𝐞𝐠𝐮𝐥𝐚𝐫 𝐇𝐞𝐚𝐥𝐭𝐡 𝐂𝐡𝐞𝐜𝐤𝐮𝐩 ⚕️✅\n⁣\n⁣\n✨ 𝐖𝐨𝐫𝐥𝐝'𝐬 𝐓𝐨𝐩 𝐇𝐨𝐬𝐩𝐢𝐭𝐚𝐥𝐬 | 𝟏𝟎𝟎𝟎+ 𝐒𝐮𝐜𝐜𝐞𝐬𝐬 𝐒𝐭𝐨𝐫𝐢𝐞𝐬\n⁣\n⁣🔰 𝐅𝐨𝐫 𝐌𝐨𝐫𝐞 𝐈𝐧𝐟𝐨𝐫𝐦𝐚𝐭𝐢𝐨𝐧⁣\n📞 +88 01975 404060\n⁣\n🔰𝐁𝐚𝐧𝐚𝐧𝐢 𝐎𝐟𝐟𝐢𝐜𝐞:\n🚩4th Floor (East Side),…\nSee more	{"𝐆𝐮𝐚𝐧𝐠𝐳𝐡𝐨𝐮 𝐅𝐨𝐬𝐮𝐧 𝐂𝐡𝐚𝐧𝐜𝐡𝐞𝐧𝐠 𝐇𝐨𝐬𝐩𝐢𝐭𝐚𝐥 এ 𝐑𝐞𝐠𝐮𝐥𝐚𝐫 𝐇𝐞𝐚𝐥𝐭𝐡 𝐂𝐡𝐞𝐜𝐤𝐮𝐩"}	\N	\N	2026-01-29 10:27:28.467	2026-01-29 10:27:28.467
+2b1e5db5-de48-449c-a1d8-5ff8b597ad6f	ক্যান্সারের সাথে এক দীর্ঘ লড়াই	ক্যান্সারের-সাথে-এক-দীর্ঘ-লড়াই	t	২০১৪ সাল থেকে ক্যান্সারের সাথে এক দীর্ঘ লড়াইয়ের পর, দেশে–বিদেশে নানা হাসপাতালে চিকিৎসার পর, আমার স্ত্রীর ক্যান্সার যখন কিছুটা অ্যাডভান্স স্টেজে পৌঁছায়, তখন আমরা আরও কার্যকর ও আধুনিক চিকিৎসার খোঁজে আসি 𝐁𝐞𝐥𝐭 & 𝐑𝐨𝐚𝐝 𝐇𝐞𝐚𝐥𝐭𝐡𝐜𝐚𝐫𝐞 𝐂𝐞𝐧𝐭𝐞𝐫–এ	২০১৪ সাল থেকে ক্যান্সারের সাথে এক দীর্ঘ লড়াইয়ের পর, দেশে–বিদেশে নানা হাসপাতালে চিকিৎসার পর, আমার স্ত্রীর ক্যান্সার যখন কিছুটা অ্যাডভান্স স্টেজে পৌঁছায়, তখন আমরা আরও কার্যকর ও আধুনিক চিকিৎসার খোঁজে আসি 𝐁𝐞𝐥𝐭 & 𝐑𝐨𝐚𝐝 𝐇𝐞𝐚𝐥𝐭𝐡𝐜𝐚𝐫𝐞 𝐂𝐞𝐧𝐭𝐞𝐫–এ\n⁣\n⁣\n𝐆𝐮𝐚𝐧𝐠𝐳𝐡𝐨𝐮 𝐌𝐨𝐝𝐞𝐫𝐧 𝐂𝐚𝐧𝐜𝐞𝐫 𝐇𝐨𝐬𝐩𝐢𝐭𝐚𝐥-𝐂𝐡𝐢𝐧𝐚 এর অভিজ্ঞ ডাক্তার, আধুনিক যন্ত্রপাতি এবং রোগীভিত্তিক চিকিৎসা পরিকল্পনা আমাদের নতুন আশা জাগিয়েছে। আমরা 𝐂𝐡𝐢𝐧𝐚 নির্বাচন করেছি মূলত তিনটি কারণে—\n✔️ 𝐖𝐞𝐬𝐭𝐞𝐫𝐧 𝐌𝐞𝐝𝐢𝐜𝐢𝐧𝐞\n✔️ 𝐂𝐡𝐢𝐧𝐞𝐬𝐞 𝐓𝐫𝐚𝐝𝐢𝐭𝐢𝐨𝐧𝐚𝐥 𝐌𝐞𝐝𝐢𝐜𝐢𝐧𝐞 (𝐓𝐂𝐌)\n✔️ 𝐄𝐟𝐟𝐞𝐜𝐭𝐢𝐯𝐞 𝐂𝐨𝐦𝐛𝐢𝐧𝐚𝐭𝐢𝐨𝐧 𝐓𝐫𝐞𝐚𝐭𝐦𝐞𝐧𝐭\n⁣\n⁣\nচিকিৎসা খরচ ব্যাংকক বা সিঙ্গাপুরের তুলনায় অনেকটাই সাশ্রয়ী। এছাড়া আন্তর্জাতিক রোগীদের জন্য দোভাষী ও হালাল কিচেনে রান্নার সুবিধা থাকায় চিকিৎসার পুরো যাত্রা হয়েছে সহজ ও নিশ্চিন্ত।\n⁣\n⁣\n👉 উন্নত ক্যান্সার চিকিৎসার জন্য আজই যোগাযোগ করুন\n𝐁𝐞𝐥𝐭 & 𝐑𝐨𝐚𝐝 𝐇𝐞𝐚𝐥𝐭𝐡𝐜𝐚𝐫𝐞 𝐂𝐞𝐧𝐭𝐞𝐫–এ\n⁣\n📞  +𝟖𝟖 𝟎𝟏𝟑𝟑𝟐-𝟓𝟏𝟏𝟖𝟑𝟖\n        +𝟖𝟖 𝟎𝟏𝟖𝟒𝟏-𝟎𝟕𝟕𝟎𝟒𝟏⁣\n⁣⁣\n🔰 𝐁𝐚𝐧𝐚𝐧𝐢 𝐎𝐟𝐟𝐢𝐜𝐞:\n🚩 4th Floor (East Side), Praasad Trade Center, 6 Kemal Ataturk Avenue, Banani, Dhaka-1212	{"২০১৪ সাল থেকে ক্যান্সারের সাথে এক দীর্ঘ লড়াইয়ের পর, দেশে–বিদেশে নানা হাসপাতালে চিকিৎসার পর, আমার স্ত্রীর ক্যান্সার যখন কিছুটা অ্যাডভান্স স্টেজে পৌঁছায়, তখন আমরা আরও কার্যকর ও আধুনিক চিকিৎসার খোঁজে আসি 𝐁𝐞𝐥𝐭 & 𝐑𝐨𝐚𝐝 𝐇𝐞𝐚𝐥𝐭𝐡𝐜𝐚𝐫𝐞 𝐂𝐞𝐧𝐭𝐞𝐫–এ"}	\N	\N	2026-01-29 10:30:43.947	2026-01-29 10:31:30.78
+\.
+
+
+--
+-- TOC entry 5186 (class 0 OID 16648)
+-- Dependencies: 237
+-- Data for Name: PatientStoryMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."PatientStoryMedia" (id, "patientStoryId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+d1c57473-7829-4891-981c-e8640d8e9010	fed8a80c-b9dc-43fd-ba51-73a7dc645bae	c5b0441d-e101-4788-8d50-6173f6392794	0	2026-01-29 10:27:28.499	2026-01-29 10:27:28.499
+b03c0ef7-f9f2-4e3d-8f8e-729fc6e666c8	2b1e5db5-de48-449c-a1d8-5ff8b597ad6f	d37aafad-b874-46d2-99ac-ac6422bedf6a	0	2026-01-29 10:31:30.797	2026-01-29 10:31:30.797
+\.
+
+
+--
+-- TOC entry 5170 (class 0 OID 16426)
+-- Dependencies: 221
+-- Data for Name: Province; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Province" (id, name, "createdAt", "updatedAt") FROM stdin;
+d50348c8-1243-4216-a771-e7367e5779a9	Guangdong	2026-01-28 08:20:42.401	2026-01-28 08:20:42.401
+4fe8420b-c4bc-4928-a352-2279d684006f	Zhejiang	2026-01-28 08:20:42.401	2026-01-28 08:20:42.401
+dae2f9b1-7846-486b-9a72-ef5032d200c0	Sichuan	2026-01-28 08:20:42.401	2026-01-28 08:20:42.401
+df8939a2-1c99-4875-b1e8-f41742d2ca73	Guandong	2026-01-28 21:19:50.592	2026-01-28 21:28:18.215
+\.
+
+
+--
+-- TOC entry 5174 (class 0 OID 16483)
+-- Dependencies: 225
+-- Data for Name: Service; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Service" (id, name, slug, "serviceType", "isFeatured", description, "shortDetails", "createdAt", "updatedAt") FROM stdin;
+6574aab6-704e-45a3-b43d-38ec384a04a6	Patient Care	patient-care	Comprehensive Patient Care	t	Personalized treatment plans\nMultilingual medical consultations\nPre-treatment diagnostics\nSurgical coordination\nPost-treatment rehabilitation	{"Personalized treatment plans","Multilingual medical consultations","Pre-treatment diagnostics","Surgical coordination","Post-treatment rehabilitation"}	2026-01-29 09:06:50.623	2026-01-29 09:07:01.84
+779b6fc9-a2b2-40ba-bf43-52e3122ecc67	Medical Tourism	medical-tourism-coordination	Medical Tourism Coordination	t	Hospital selection and appointment scheduling\nMedical visa assistance\nTravel logistics planning\nTreatment cost estimation\nMedical record translation services	{"Hospital selection and appointment scheduling","Medical visa assistance","Travel logistics planning","Treatment cost estimation","Medical record translation services"}	2026-01-29 09:04:55.922	2026-01-29 09:07:25.625
+1255e6e4-1387-4e5c-b5e1-b11d19ac708d	Ground Support	ground-support	On-Ground Support in China	f	Airport pickup and transfer\nAccommodation arrangements\n24/7 translation services\nHospital escort assistance\nLocal transportation coordination	{"Airport pickup and transfer","Accommodation arrangements","24/7 translation services","Hospital escort assistance","Local transportation coordination"}	2026-01-29 09:08:08.317	2026-01-29 09:08:08.317
+10f82fa6-1069-4bf1-95d3-2d5e61e4ff7a	Post-Treatment Support	post-treatment-support	Emergency and Post-Treatment Support	t	24/7 emergency helpline\nMedical evacuation coordination\nInsurance claim assistance\nFollow-up consultation scheduling\nLong-term health monitoring	{"24/7 emergency helpline","Medical evacuation coordination","Insurance claim assistance","Follow-up consultation scheduling","Long-term health monitoring"}	2026-01-29 09:10:10.702	2026-01-29 09:10:10.702
+bceaf6c9-4cce-4458-854a-c28e284351bd	Cultural Experiences	cultural-experiences	Tourism and Cultural Experiences	t	Customized tourism packages\nCultural immersion programs\nLocal cuisine experiences\nHistorical site tours\nShopping assistance	{"Customized tourism packages","Cultural immersion programs","Local cuisine experiences","Historical site tours","Shopping assistance"}	2026-01-29 09:09:02.076	2026-01-29 09:10:18.156
+\.
+
+
+--
+-- TOC entry 5183 (class 0 OID 16609)
+-- Dependencies: 234
+-- Data for Name: ServiceMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."ServiceMedia" (id, "serviceId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5169 (class 0 OID 16411)
+-- Dependencies: 220
+-- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."User" (id, email, "passwordHash", role, phone, wechat, whatsapp, country, "contactPerson", "companyName", address, age, "profileImageId", "createdAt", "updatedAt") FROM stdin;
+05e6f57c-61e5-4f83-8416-0c7800d81afe	partner@brhc.local	dev-only	partner	\N	\N	\N	\N	\N	\N	\N	\N	\N	2026-01-28 08:20:42.401	2026-01-28 08:20:42.401
+0b54ba28-8e22-4276-a359-ada7c92d033a	admin@brhc.local	$2b$12$uXfC0FbeS13mgHzsTuEJduOGsFC7dcnoE7OIxCBLNU9NOJ/9FAAsS	admin	\N	\N	\N	\N	\N	\N	\N	\N	\N	2026-01-28 08:20:42.398	2026-01-28 19:04:52.885
+\.
+
+
+--
+-- TOC entry 5180 (class 0 OID 16570)
+-- Dependencies: 231
+-- Data for Name: UserMedia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."UserMedia" (id, "userId", "mediaId", "sortOrder", "createdAt", "updatedAt") FROM stdin;
+\.
+
+
+--
+-- TOC entry 5168 (class 0 OID 16391)
+-- Dependencies: 219
+-- Data for Name: _prisma_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public._prisma_migrations (id, checksum, finished_at, migration_name, logs, rolled_back_at, started_at, applied_steps_count) FROM stdin;
+806c50ff-0092-453c-a03c-2be8960ec10b	46831bf00980f364e2b00edfd0f53aaa372aab2d71104972bba95cbf6e23f458	2026-01-28 14:20:00.250418+06	20260128082000_first	\N	\N	2026-01-28 14:20:00.152692+06	1
+ce269e5a-5ef8-4c8f-ad61-0c56eb08feaf	c648792fe5df72c7c599ce58bf7276cb022c1e110b327f0256fcb84bb85db8fe	2026-01-29 13:38:39.211642+06	20260129073839_add_hospital_contact_fields	\N	\N	2026-01-29 13:38:39.207005+06	1
+b303ae40-c586-416c-b53e-17df69063d0d	3d730dee4bd4a603f08128aa8bac4caf915abea0a52bd68ceeee38abb28a0cf4	2026-01-29 14:53:37.939652+06	20260129085337_add_doctor_extended_fields	\N	\N	2026-01-29 14:53:37.934997+06	1
+\.
+
+
+--
+-- TOC entry 4985 (class 2606 OID 16634)
+-- Name: AdvancedHealthcareInChinaMedia AdvancedHealthcareInChinaMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."AdvancedHealthcareInChinaMedia"
+    ADD CONSTRAINT "AdvancedHealthcareInChinaMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4948 (class 2606 OID 16513)
+-- Name: AdvancedHealthcareInChina AdvancedHealthcareInChina_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."AdvancedHealthcareInChina"
+    ADD CONSTRAINT "AdvancedHealthcareInChina_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4956 (class 2606 OID 16542)
+-- Name: BlogComment BlogComment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."BlogComment"
+    ADD CONSTRAINT "BlogComment_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4989 (class 2606 OID 16647)
+-- Name: BlogMedia BlogMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."BlogMedia"
+    ADD CONSTRAINT "BlogMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4952 (class 2606 OID 16529)
+-- Name: Blog Blog_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blog"
+    ADD CONSTRAINT "Blog_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4932 (class 2606 OID 16450)
+-- Name: City City_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."City"
+    ADD CONSTRAINT "City_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4977 (class 2606 OID 16608)
+-- Name: DoctorMedia DoctorMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."DoctorMedia"
+    ADD CONSTRAINT "DoctorMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4941 (class 2606 OID 16482)
+-- Name: Doctor Doctor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Doctor"
+    ADD CONSTRAINT "Doctor_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4996 (class 2606 OID 16672)
+-- Name: GalleryMedia GalleryMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."GalleryMedia"
+    ADD CONSTRAINT "GalleryMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4973 (class 2606 OID 16595)
+-- Name: HospitalMedia HospitalMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."HospitalMedia"
+    ADD CONSTRAINT "HospitalMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4936 (class 2606 OID 16467)
+-- Name: Hospital Hospital_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Hospital"
+    ADD CONSTRAINT "Hospital_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4963 (class 2606 OID 16569)
+-- Name: Media Media_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Media"
+    ADD CONSTRAINT "Media_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4993 (class 2606 OID 16660)
+-- Name: PatientStoryMedia PatientStoryMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."PatientStoryMedia"
+    ADD CONSTRAINT "PatientStoryMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4960 (class 2606 OID 16557)
+-- Name: PatientStory PatientStory_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."PatientStory"
+    ADD CONSTRAINT "PatientStory_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4930 (class 2606 OID 16437)
+-- Name: Province Province_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Province"
+    ADD CONSTRAINT "Province_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4980 (class 2606 OID 16621)
+-- Name: ServiceMedia ServiceMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."ServiceMedia"
+    ADD CONSTRAINT "ServiceMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4944 (class 2606 OID 16498)
+-- Name: Service Service_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Service"
+    ADD CONSTRAINT "Service_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4968 (class 2606 OID 16582)
+-- Name: UserMedia UserMedia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserMedia"
+    ADD CONSTRAINT "UserMedia_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4927 (class 2606 OID 16425)
+-- Name: User User_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."User"
+    ADD CONSTRAINT "User_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4924 (class 2606 OID 16404)
+-- Name: _prisma_migrations _prisma_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public._prisma_migrations
+    ADD CONSTRAINT _prisma_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4982 (class 1259 OID 16701)
+-- Name: AdvancedHealthcareInChinaMedia_advancedId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "AdvancedHealthcareInChinaMedia_advancedId_mediaId_key" ON public."AdvancedHealthcareInChinaMedia" USING btree ("advancedId", "mediaId");
+
+
+--
+-- TOC entry 4983 (class 1259 OID 16700)
+-- Name: AdvancedHealthcareInChinaMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "AdvancedHealthcareInChinaMedia_mediaId_idx" ON public."AdvancedHealthcareInChinaMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4949 (class 1259 OID 16683)
+-- Name: AdvancedHealthcareInChina_slug_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "AdvancedHealthcareInChina_slug_key" ON public."AdvancedHealthcareInChina" USING btree (slug);
+
+
+--
+-- TOC entry 4954 (class 1259 OID 16686)
+-- Name: BlogComment_blogId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "BlogComment_blogId_idx" ON public."BlogComment" USING btree ("blogId");
+
+
+--
+-- TOC entry 4957 (class 1259 OID 16687)
+-- Name: BlogComment_userId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "BlogComment_userId_idx" ON public."BlogComment" USING btree ("userId");
+
+
+--
+-- TOC entry 4986 (class 1259 OID 16703)
+-- Name: BlogMedia_blogId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "BlogMedia_blogId_mediaId_key" ON public."BlogMedia" USING btree ("blogId", "mediaId");
+
+
+--
+-- TOC entry 4987 (class 1259 OID 16702)
+-- Name: BlogMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "BlogMedia_mediaId_idx" ON public."BlogMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4950 (class 1259 OID 16685)
+-- Name: Blog_authorId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Blog_authorId_idx" ON public."Blog" USING btree ("authorId");
+
+
+--
+-- TOC entry 4953 (class 1259 OID 16684)
+-- Name: Blog_slug_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "Blog_slug_key" ON public."Blog" USING btree (slug);
+
+
+--
+-- TOC entry 4933 (class 1259 OID 16675)
+-- Name: City_provinceId_name_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "City_provinceId_name_key" ON public."City" USING btree ("provinceId", name);
+
+
+--
+-- TOC entry 4974 (class 1259 OID 16697)
+-- Name: DoctorMedia_doctorId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "DoctorMedia_doctorId_mediaId_key" ON public."DoctorMedia" USING btree ("doctorId", "mediaId");
+
+
+--
+-- TOC entry 4975 (class 1259 OID 16696)
+-- Name: DoctorMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "DoctorMedia_mediaId_idx" ON public."DoctorMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4939 (class 1259 OID 16680)
+-- Name: Doctor_hospitalId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Doctor_hospitalId_idx" ON public."Doctor" USING btree ("hospitalId");
+
+
+--
+-- TOC entry 4942 (class 1259 OID 16679)
+-- Name: Doctor_slug_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "Doctor_slug_key" ON public."Doctor" USING btree (slug);
+
+
+--
+-- TOC entry 4994 (class 1259 OID 16706)
+-- Name: GalleryMedia_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "GalleryMedia_mediaId_key" ON public."GalleryMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4970 (class 1259 OID 16695)
+-- Name: HospitalMedia_hospitalId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "HospitalMedia_hospitalId_mediaId_key" ON public."HospitalMedia" USING btree ("hospitalId", "mediaId");
+
+
+--
+-- TOC entry 4971 (class 1259 OID 16694)
+-- Name: HospitalMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "HospitalMedia_mediaId_idx" ON public."HospitalMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4934 (class 1259 OID 16678)
+-- Name: Hospital_cityId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Hospital_cityId_idx" ON public."Hospital" USING btree ("cityId");
+
+
+--
+-- TOC entry 4937 (class 1259 OID 16677)
+-- Name: Hospital_provinceId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Hospital_provinceId_idx" ON public."Hospital" USING btree ("provinceId");
+
+
+--
+-- TOC entry 4938 (class 1259 OID 16676)
+-- Name: Hospital_slug_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "Hospital_slug_key" ON public."Hospital" USING btree (slug);
+
+
+--
+-- TOC entry 4964 (class 1259 OID 16691)
+-- Name: Media_urlOriginal_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Media_urlOriginal_idx" ON public."Media" USING btree ("urlOriginal");
+
+
+--
+-- TOC entry 4965 (class 1259 OID 16690)
+-- Name: Media_url_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Media_url_idx" ON public."Media" USING btree (url);
+
+
+--
+-- TOC entry 4990 (class 1259 OID 16704)
+-- Name: PatientStoryMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "PatientStoryMedia_mediaId_idx" ON public."PatientStoryMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4991 (class 1259 OID 16705)
+-- Name: PatientStoryMedia_patientStoryId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "PatientStoryMedia_patientStoryId_mediaId_key" ON public."PatientStoryMedia" USING btree ("patientStoryId", "mediaId");
+
+
+--
+-- TOC entry 4958 (class 1259 OID 16689)
+-- Name: PatientStory_authorId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "PatientStory_authorId_idx" ON public."PatientStory" USING btree ("authorId");
+
+
+--
+-- TOC entry 4961 (class 1259 OID 16688)
+-- Name: PatientStory_slug_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "PatientStory_slug_key" ON public."PatientStory" USING btree (slug);
+
+
+--
+-- TOC entry 4928 (class 1259 OID 16674)
+-- Name: Province_name_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "Province_name_key" ON public."Province" USING btree (name);
+
+
+--
+-- TOC entry 4978 (class 1259 OID 16698)
+-- Name: ServiceMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "ServiceMedia_mediaId_idx" ON public."ServiceMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4981 (class 1259 OID 16699)
+-- Name: ServiceMedia_serviceId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "ServiceMedia_serviceId_mediaId_key" ON public."ServiceMedia" USING btree ("serviceId", "mediaId");
+
+
+--
+-- TOC entry 4945 (class 1259 OID 16682)
+-- Name: Service_serviceType_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "Service_serviceType_idx" ON public."Service" USING btree ("serviceType");
+
+
+--
+-- TOC entry 4946 (class 1259 OID 16681)
+-- Name: Service_slug_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "Service_slug_key" ON public."Service" USING btree (slug);
+
+
+--
+-- TOC entry 4966 (class 1259 OID 16692)
+-- Name: UserMedia_mediaId_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "UserMedia_mediaId_idx" ON public."UserMedia" USING btree ("mediaId");
+
+
+--
+-- TOC entry 4969 (class 1259 OID 16693)
+-- Name: UserMedia_userId_mediaId_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "UserMedia_userId_mediaId_key" ON public."UserMedia" USING btree ("userId", "mediaId");
+
+
+--
+-- TOC entry 4925 (class 1259 OID 16673)
+-- Name: User_email_key; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX "User_email_key" ON public."User" USING btree (email);
+
+
+--
+-- TOC entry 5014 (class 2606 OID 16792)
+-- Name: AdvancedHealthcareInChinaMedia AdvancedHealthcareInChinaMedia_advancedId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."AdvancedHealthcareInChinaMedia"
+    ADD CONSTRAINT "AdvancedHealthcareInChinaMedia_advancedId_fkey" FOREIGN KEY ("advancedId") REFERENCES public."AdvancedHealthcareInChina"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5015 (class 2606 OID 16797)
+-- Name: AdvancedHealthcareInChinaMedia AdvancedHealthcareInChinaMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."AdvancedHealthcareInChinaMedia"
+    ADD CONSTRAINT "AdvancedHealthcareInChinaMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5003 (class 2606 OID 16737)
+-- Name: BlogComment BlogComment_blogId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."BlogComment"
+    ADD CONSTRAINT "BlogComment_blogId_fkey" FOREIGN KEY ("blogId") REFERENCES public."Blog"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5004 (class 2606 OID 16742)
+-- Name: BlogComment BlogComment_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."BlogComment"
+    ADD CONSTRAINT "BlogComment_userId_fkey" FOREIGN KEY ("userId") REFERENCES public."User"(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 5016 (class 2606 OID 16802)
+-- Name: BlogMedia BlogMedia_blogId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."BlogMedia"
+    ADD CONSTRAINT "BlogMedia_blogId_fkey" FOREIGN KEY ("blogId") REFERENCES public."Blog"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5017 (class 2606 OID 16807)
+-- Name: BlogMedia BlogMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."BlogMedia"
+    ADD CONSTRAINT "BlogMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5002 (class 2606 OID 16732)
+-- Name: Blog Blog_authorId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Blog"
+    ADD CONSTRAINT "Blog_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES public."User"(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 4998 (class 2606 OID 16712)
+-- Name: City City_provinceId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."City"
+    ADD CONSTRAINT "City_provinceId_fkey" FOREIGN KEY ("provinceId") REFERENCES public."Province"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5010 (class 2606 OID 16772)
+-- Name: DoctorMedia DoctorMedia_doctorId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."DoctorMedia"
+    ADD CONSTRAINT "DoctorMedia_doctorId_fkey" FOREIGN KEY ("doctorId") REFERENCES public."Doctor"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5011 (class 2606 OID 16777)
+-- Name: DoctorMedia DoctorMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."DoctorMedia"
+    ADD CONSTRAINT "DoctorMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5001 (class 2606 OID 16727)
+-- Name: Doctor Doctor_hospitalId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Doctor"
+    ADD CONSTRAINT "Doctor_hospitalId_fkey" FOREIGN KEY ("hospitalId") REFERENCES public."Hospital"(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 5020 (class 2606 OID 16822)
+-- Name: GalleryMedia GalleryMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."GalleryMedia"
+    ADD CONSTRAINT "GalleryMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5008 (class 2606 OID 16762)
+-- Name: HospitalMedia HospitalMedia_hospitalId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."HospitalMedia"
+    ADD CONSTRAINT "HospitalMedia_hospitalId_fkey" FOREIGN KEY ("hospitalId") REFERENCES public."Hospital"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5009 (class 2606 OID 16767)
+-- Name: HospitalMedia HospitalMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."HospitalMedia"
+    ADD CONSTRAINT "HospitalMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4999 (class 2606 OID 16722)
+-- Name: Hospital Hospital_cityId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Hospital"
+    ADD CONSTRAINT "Hospital_cityId_fkey" FOREIGN KEY ("cityId") REFERENCES public."City"(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 5000 (class 2606 OID 16717)
+-- Name: Hospital Hospital_provinceId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Hospital"
+    ADD CONSTRAINT "Hospital_provinceId_fkey" FOREIGN KEY ("provinceId") REFERENCES public."Province"(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- TOC entry 5018 (class 2606 OID 16817)
+-- Name: PatientStoryMedia PatientStoryMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."PatientStoryMedia"
+    ADD CONSTRAINT "PatientStoryMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5019 (class 2606 OID 16812)
+-- Name: PatientStoryMedia PatientStoryMedia_patientStoryId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."PatientStoryMedia"
+    ADD CONSTRAINT "PatientStoryMedia_patientStoryId_fkey" FOREIGN KEY ("patientStoryId") REFERENCES public."PatientStory"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5005 (class 2606 OID 16747)
+-- Name: PatientStory PatientStory_authorId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."PatientStory"
+    ADD CONSTRAINT "PatientStory_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES public."User"(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 5012 (class 2606 OID 16787)
+-- Name: ServiceMedia ServiceMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."ServiceMedia"
+    ADD CONSTRAINT "ServiceMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5013 (class 2606 OID 16782)
+-- Name: ServiceMedia ServiceMedia_serviceId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."ServiceMedia"
+    ADD CONSTRAINT "ServiceMedia_serviceId_fkey" FOREIGN KEY ("serviceId") REFERENCES public."Service"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5006 (class 2606 OID 16757)
+-- Name: UserMedia UserMedia_mediaId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserMedia"
+    ADD CONSTRAINT "UserMedia_mediaId_fkey" FOREIGN KEY ("mediaId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 5007 (class 2606 OID 16752)
+-- Name: UserMedia UserMedia_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserMedia"
+    ADD CONSTRAINT "UserMedia_userId_fkey" FOREIGN KEY ("userId") REFERENCES public."User"(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4997 (class 2606 OID 16707)
+-- Name: User User_profileImageId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."User"
+    ADD CONSTRAINT "User_profileImageId_fkey" FOREIGN KEY ("profileImageId") REFERENCES public."Media"(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+-- Completed on 2026-01-30 02:44:17
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict laHTCOphd7EEEXy1o8MVFhSw3VMKViivwL5TXjFfEIOj6fQMUo6rkJp9PfcDEr3
+

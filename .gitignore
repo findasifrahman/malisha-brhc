@@ -1,0 +1,23 @@
+node_modules
+.pnpm-store
+.DS_Store
+
+# env
+.env
+.env.*
+!.env.example
+!apps/**/.env.example
+apps/**/.env
+
+# builds
+apps/web/dist
+apps/api/dist
+apps/web/node_modules
+apps/api/node_modules
+apps/node_modules
+
+# logs
+*.log
+
+# prisma
+prisma/dev.db

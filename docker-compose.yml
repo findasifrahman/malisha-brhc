@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: brhc-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: brhc
+    ports:
+      - "5432:5432"
+    volumes:
+      - brhc_pgdata:/var/lib/postgresql/data
+
+  api:
+    image: node:20-alpine
+    container_name: brhc-api
+    working_dir: /repo
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      CORS_ORIGIN: http://localhost:5173
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/brhc?schema=public
+      JWT_SECRET: dev_super_secret_change_me
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./:/repo
+    command: sh -lc "corepack enable && pnpm i --frozen-lockfile=false && pnpm --filter @brhc/api dev"
+
+  web:
+    image: node:20-alpine
+    container_name: brhc-web
+    working_dir: /repo
+    depends_on:
+      - api
+    environment:
+      VITE_API_BASE_URL: http://localhost:3001
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/repo
+    command: sh -lc "corepack enable && pnpm i --frozen-lockfile=false && pnpm --filter @brhc/web dev --host 0.0.0.0"
+
+volumes:
+  brhc_pgdata:

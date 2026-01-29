@@ -1,0 +1,354 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  admin
+  partner
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(partner)
+  phone        String?
+  wechat       String?
+  whatsapp     String?
+  country      String?
+  contactPerson String?
+  companyName  String?
+  address      String?
+  age          Int?
+  profileImageId String? @db.Uuid
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  profileImage Media? @relation("UserProfileImage", fields: [profileImageId], references: [id], onDelete: SetNull)
+
+  blogs        Blog[]
+  patientStories PatientStory[]
+  comments     BlogComment[]
+
+  media        UserMedia[]
+}
+
+model Province {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cities    City[]
+  hospitals Hospital[]
+}
+
+model City {
+  id         String   @id @default(uuid()) @db.Uuid
+  name       String
+  provinceId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  province   Province @relation(fields: [provinceId], references: [id], onDelete: Cascade)
+  hospitals  Hospital[]
+
+  @@unique([provinceId, name])
+}
+
+model Hospital {
+  id            String   @id @default(uuid()) @db.Uuid
+  name          String
+  slug          String   @unique
+  isFeatured    Boolean  @default(false)
+  provinceId    String   @db.Uuid
+  cityId        String   @db.Uuid
+  address       String?
+  videoUrl      String?
+  logoUrl       String?
+  website       String?
+  wechat        String?
+  whatsapp      String?
+  description   String?
+  shortDetails  String[] @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+
+  province      Province @relation(fields: [provinceId], references: [id], onDelete: Restrict)
+  city          City     @relation(fields: [cityId], references: [id], onDelete: Restrict)
+  doctors       Doctor[]
+  media         HospitalMedia[]
+
+  @@index([provinceId])
+  @@index([cityId])
+}
+
+model Doctor {
+  id            String   @id @default(uuid()) @db.Uuid
+  name          String
+  slug          String   @unique
+  title         String?
+  specialty     String?
+  isFeatured    Boolean  @default(false)
+  hospitalId    String?  @db.Uuid
+  nameCn        String?
+  socialAppointments String?
+  professionalExpertise String?
+  clinicalExperience String?
+  academicAchievement String?
+  other1DescName String?
+  otherDesc    String?
+  address       String?
+  phone         String?
+  wechat        String?
+  bio           String?
+  shortDetails  String[] @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hospital      Hospital? @relation(fields: [hospitalId], references: [id], onDelete: SetNull)
+  media         DoctorMedia[]
+
+  @@index([hospitalId])
+}
+
+model Service {
+  id            String   @id @default(uuid()) @db.Uuid
+  name          String
+  slug          String   @unique
+  serviceType   String
+  isFeatured    Boolean  @default(false)
+  description   String?
+  shortDetails  String[] @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  media         ServiceMedia[]
+
+  @@index([serviceType])
+}
+
+model AdvancedHealthcareInChina {
+  id            String   @id @default(uuid()) @db.Uuid
+  name          String
+  slug          String   @unique
+  isFeatured    Boolean  @default(false)
+  description   String?
+  shortDetails  String[] @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  media         AdvancedHealthcareInChinaMedia[]
+}
+
+model Blog {
+  id            String   @id @default(uuid()) @db.Uuid
+  title         String
+  slug          String   @unique
+  excerpt       String?
+  content       String?
+  isFeatured    Boolean  @default(false)
+  tags          String[] @db.Text
+  shortDetails  String[] @db.Text
+  authorId      String   @db.Uuid
+  publishedAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  author        User      @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  comments      BlogComment[]
+  media         BlogMedia[]
+
+  @@index([authorId])
+}
+
+model BlogComment {
+  id        String   @id @default(uuid()) @db.Uuid
+  blogId    String   @db.Uuid
+  userId    String?  @db.Uuid
+  name      String?
+  email     String?
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  blog      Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  user      User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([blogId])
+  @@index([userId])
+}
+
+model PatientStory {
+  id            String   @id @default(uuid()) @db.Uuid
+  title         String
+  slug          String   @unique
+  isFeatured    Boolean  @default(false)
+  excerpt       String?
+  content       String?
+  shortDetails  String[] @db.Text
+  authorId      String?  @db.Uuid
+  publishedAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  author        User? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  media         PatientStoryMedia[]
+
+  @@index([authorId])
+}
+
+model Media {
+  id           String   @id @default(uuid()) @db.Uuid
+  key          String?
+  url          String
+
+  keyOriginal  String?
+  keyThumb     String?
+  urlOriginal  String?
+  urlThumb     String?
+  mimeType     String?
+  title        String?
+  alt          String?
+  sizeBytes    Int?
+  width        Int?
+  height       Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  users        UserMedia[]
+  profileUsers User[] @relation("UserProfileImage")
+  hospitals    HospitalMedia[]
+  doctors      DoctorMedia[]
+  services     ServiceMedia[]
+  advanced     AdvancedHealthcareInChinaMedia[]
+  blogs        BlogMedia[]
+  patientStories PatientStoryMedia[]
+  gallery      GalleryMedia[]
+
+  @@index([url])
+  @@index([urlOriginal])
+}
+
+model UserMedia {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  mediaId   String   @db.Uuid
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  media     Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, mediaId])
+  @@index([mediaId])
+}
+
+model HospitalMedia {
+  id         String   @id @default(uuid()) @db.Uuid
+  hospitalId String   @db.Uuid
+  mediaId    String   @db.Uuid
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  hospital   Hospital @relation(fields: [hospitalId], references: [id], onDelete: Cascade)
+  media      Media    @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([hospitalId, mediaId])
+  @@index([mediaId])
+}
+
+model DoctorMedia {
+  id        String   @id @default(uuid()) @db.Uuid
+  doctorId  String   @db.Uuid
+  mediaId   String   @db.Uuid
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  doctor    Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  media     Media  @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([doctorId, mediaId])
+  @@index([mediaId])
+}
+
+model ServiceMedia {
+  id        String   @id @default(uuid()) @db.Uuid
+  serviceId String   @db.Uuid
+  mediaId   String   @db.Uuid
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  media     Media   @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, mediaId])
+  @@index([mediaId])
+}
+
+model AdvancedHealthcareInChinaMedia {
+  id         String   @id @default(uuid()) @db.Uuid
+  advancedId String   @db.Uuid
+  mediaId    String   @db.Uuid
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  advanced   AdvancedHealthcareInChina @relation(fields: [advancedId], references: [id], onDelete: Cascade)
+  media      Media                     @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([advancedId, mediaId])
+  @@index([mediaId])
+}
+
+model BlogMedia {
+  id        String   @id @default(uuid()) @db.Uuid
+  blogId    String   @db.Uuid
+  mediaId   String   @db.Uuid
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  blog      Blog  @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  media     Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([blogId, mediaId])
+  @@index([mediaId])
+}
+
+model PatientStoryMedia {
+  id             String   @id @default(uuid()) @db.Uuid
+  patientStoryId String   @db.Uuid
+  mediaId        String   @db.Uuid
+  sortOrder      Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  patientStory   PatientStory @relation(fields: [patientStoryId], references: [id], onDelete: Cascade)
+  media          Media        @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([patientStoryId, mediaId])
+  @@index([mediaId])
+}
+
+model GalleryMedia {
+  id        String   @id @default(uuid()) @db.Uuid
+  mediaId   String   @db.Uuid
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  media     Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([mediaId])
+}
