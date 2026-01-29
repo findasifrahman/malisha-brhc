@@ -53,8 +53,8 @@ export const publicRoutes: FastifyPluginAsync = async (app) => {
   })
 
   app.get('/public/services/types', async (_req, reply) => {
-    const rows = await app.prisma.service.findMany({ select: { serviceType: true }, distinct: ['serviceType'] as any, orderBy: { serviceType: 'asc' } })
-    return ok(reply, rows.map((r) => r.serviceType))
+    const rows = await app.prisma.service.findMany({ select: { serviceType: true }, distinct: ['serviceType'], orderBy: { serviceType: 'asc' } })
+    return ok(reply, rows.map((r: { serviceType: string | null }) => r.serviceType).filter(Boolean))
   })
 
   app.get('/public/hospitals', async (req, reply) => {
