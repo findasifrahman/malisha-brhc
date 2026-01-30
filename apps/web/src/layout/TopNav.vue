@@ -4,8 +4,8 @@
       <!-- Logo Section -->
       <div class="flex items-center gap-3">
         <button
-          class="rounded-lg p-3 text-white transition hover:bg-brand-primary-weak"
-          type="button"
+          class="rounded-lg p-3 text-white transition hover:bg-brand-primary-weak lg:hidden"
+          type="button" 
           @click="$emit('open-mobile')"
         >
           <Menu class="h-5 w-5" />
@@ -232,6 +232,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRouter, RouterLink, useRoute } from 'vue-router'
+import { Menu } from 'lucide-vue-next'
 
 import { BaseButton, BaseInput, Card, useToast } from '@brhc/ui'
 import NavDropdown from './NavDropdown.vue'
