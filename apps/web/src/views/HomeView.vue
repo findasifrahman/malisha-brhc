@@ -24,7 +24,7 @@
       </a>
     </div>
     <!-- Full-width hero section with background image -->
-    <section class="relative w-full min-h-[80vh] overflow-hidden pb-24">
+    <section class="relative w-full min-h-[85vh] overflow-hidden pb-24">
       <!-- Background Image with Overlay -->
       <img 
         src="/hero.jpg" 
@@ -149,7 +149,7 @@
         <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
           <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
             <div>
-              <h2 class="text-2xl lg:text-3xl font-bold text-white">Why Choose BRHC?</h2>
+              <h2 class="text-2xl lg:text-3xl font-bold text-gray-100">Why Choose BRHC?</h2>
               <p class="mt-1 text-sm lg:text-base text-gray-300">Access to China's Superior Healthcare System.</p>
             </div>
           </div>

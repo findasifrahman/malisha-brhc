@@ -4,7 +4,7 @@
       <!-- Logo Section -->
       <div class="flex items-center gap-3">
         <button
-          class="rounded-lg p-3 text-text-secondary transition hover:bg-brand-primary-weak hover:text-text-primary lg:hidden"
+          class="rounded-lg p-3 text-white transition hover:bg-brand-primary-weak"
           type="button"
           @click="$emit('open-mobile')"
         >
