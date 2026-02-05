@@ -65,7 +65,7 @@
 
             <div v-if="d.hospital?.name" class="mt-4 flex items-center gap-2 text-sm text-gray-700">
               <Building2 class="h-4 w-4 text-yellow-600" />
-              <span class="line-clamp-1">{{ d.hospital.name }}</span>
+              <span class="line-clamp-1"></span>
             </div>
 
             <div class="mt-4 grid grid-cols-1 gap-2 text-sm">

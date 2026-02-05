@@ -40,7 +40,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          Apply Now
+          Get a Quote
         </a>
         <button
           class="hidden lg:inline-flex items-center gap-2 rounded-xl bg-red-500 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-500/20 ring-1 ring-red-600/20 transition hover:bg-red-600"
