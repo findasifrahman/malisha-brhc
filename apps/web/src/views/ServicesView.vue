@@ -55,7 +55,7 @@
                 loading="lazy"
               />
               <div v-else class="flex h-full w-full items-center justify-center bg-gradient-to-br from-red-50 to-yellow-50">
-                <div class="text-sm font-semibold text-red-600">Service</div>
+                <div class="text-sm font-semibold text-red-600"></div>
               </div>
 
               <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-red-600 shadow-sm backdrop-blur">

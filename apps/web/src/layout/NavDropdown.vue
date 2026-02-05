@@ -1,8 +1,17 @@
 <template>
   <div class="group relative">
+    <RouterLink
+      v-if="to"
+      :to="to"
+      class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-red-600 transition-all duration-200 hover:bg-gray-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+    >
+      {{ label }}
+      <ChevronDown class="h-4 w-4 opacity-70 transition-transform duration-200 group-hover:rotate-180" />
+    </RouterLink>
     <button
+      v-else
       type="button"
-      class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-gray-100 transition-all duration-200 hover:bg-gray-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+      class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-red-600 transition-all duration-200 hover:bg-gray-100 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
     >
       {{ label }}
       <ChevronDown class="h-4 w-4 opacity-70 transition-transform duration-200 group-hover:rotate-180" />
@@ -32,5 +41,5 @@ import { ChevronDown } from 'lucide-vue-next'
 
 type NavItem = { label: string; description?: string; to: string }
 
-defineProps<{ label: string; items: NavItem[] }>()
+defineProps<{ label: string; items: NavItem[]; to?: string }>()
 </script>

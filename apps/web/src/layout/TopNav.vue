@@ -1,10 +1,10 @@
 <template>
-  <header class="sticky top-0 z-50 h-20 w-full relative w-full bg-gradient-to-br from-red-900 via-gray-950 to-gray-900 text-gray-300">
+  <header class="sticky top-0 z-50 h-20 w-full relative w-full bg-gradient-to-br from-gray-100 via-gray-250 to-gray-200 text-gray-300">
     <div class="flex h-full items-center justify-between px-4 lg:px-8">
       <!-- Logo Section -->
       <div class="flex items-center gap-3">
         <button
-          class="rounded-lg p-3 text-white transition hover:bg-brand-primary-weak lg:hidden"
+          class="rounded-lg p-3 text-red transition hover:bg-brand-primary-weak lg:hidden"
           type="button" 
           @click="$emit('open-mobile')"
         >
@@ -12,7 +12,7 @@
         </button>
         <RouterLink to="/" class="flex items-center gap-3">
           <img src="/logo.png" alt="BRHC" class="h-12 w-auto" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <div class="hidden h-12 w-12 rounded-lg bg-gradient-to-r from-red-600 to-red-700 items-center justify-center text-white font-bold text-lg" style="display: none;">
+          <div class="hidden h-12 w-12 rounded-lg bg-gradient-to-r from-red-600 to-red-700 items-center justify-center text-red font-bold text-lg" style="display: none;">
             BRHC
           </div>
         </RouterLink>
@@ -20,16 +20,16 @@
 
       <!-- Navigation Links -->
       <nav class="hidden items-center gap-1 lg:flex">
-        <NavLink style="color: white;" label="Home" to="/" />
-        <NavDropdown  label="Hospitals" :items="hospitalItems" />
-        <NavDropdown style="color: white;" label="Services" :items="services" />
-        <NavDropdown style="color: white;" label="Doctors" :items="doctorSpecialtyItems" />
-        <NavDropdown style="color: white;" label="Advanced Healthcare" :items="advancedItems" />
-        <NavDropdown style="color: white;" label="Blogs" :items="blogItems" />
-        <NavLink style="color: white;" label="Patient Stories" to="/patient-stories" />
-        <NavLink style="color: white;" label="About" to="/#about" />
-        <NavLink style="color: white;" label="Our Team" to="/#our-team" />
-        <NavLink style="color: white;" label="Contact" to="/contact" />
+        <NavLink style="color: red;" label="Home" to="/" />
+        <NavDropdown  label="Hospitals" :items="hospitalItems" to="/hospitals" />
+        <NavDropdown style="color: red;" label="Services" :items="services" to="/services" />
+        <NavDropdown style="color: rebeccapurple;" label="Doctors" :items="doctorSpecialtyItems" to="/doctors" />
+        <NavDropdown style="color: white;" label="Advanced Healthcare" :items="advancedItems" to="/healthcare-in-china" />
+        <NavDropdown style="color: white;" label="Blogs" :items="blogItems" to="/blogs" />
+        <NavLink style="color: red;" label="Patient Stories" to="/patient-stories" />
+        <NavLink style="color: red;" label="About" to="/#about" />
+        <NavLink style="color: red;" label="Our Team" to="/#our-team" />
+        <NavLink style="color: red;" label="Contact" to="/contact" />
       </nav>
 
       <!-- Login Button -->
@@ -53,7 +53,7 @@
 
         <BaseButton 
           v-if="!auth.isAuthed" 
-          class="hidden lg:inline-flex bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white border-0" 
+          class="hidden lg:inline-flex bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-red-300 border-0" 
           size="sm" 
           @click="goSignIn"
         >
@@ -66,7 +66,7 @@
             type="button"
             @click="open = !open"
           >
-            <span class="font-semibold">{{ displayName }}</span>
+            <span class="font-semibold text-red-600">{{ displayName }}</span>
             <ChevronDown class="h-4 w-4" />
           </button>
 
@@ -74,18 +74,18 @@
             v-if="open"
             class="absolute right-0 mt-2 w-64 overflow-hidden rounded-xl solid-surface shadow-lg"
           >
-            <RouterLink class="block px-4 py-3 text-sm font-medium transition hover:bg-surface-2" :to="profileTo" @click="open = false">
+            <RouterLink class="block px-4 py-3 text-sm font-medium transition text-red-500 hover:bg-surface-2" :to="profileTo" @click="open = false">
               Profile
             </RouterLink>
             <RouterLink
               v-if="auth.role === 'admin'"
-              class="block px-4 py-3 text-sm font-medium transition hover:bg-surface-2"
+              class="block px-4 py-3 text-sm font-medium transition text-red-500 hover:bg-surface-2"
               to="/admin"
               @click="open = false"
             >
               Admin Panel
             </RouterLink>
-            <button class="block w-full px-4 py-3 text-left text-sm font-medium transition hover:bg-surface-2" type="button" @click="logout">
+            <button class="block w-full px-4 py-3 text-left text-sm font-medium transition text-red-500 hover:bg-surface-2" type="button" @click="logout">
               Logout
             </button>
           </div>

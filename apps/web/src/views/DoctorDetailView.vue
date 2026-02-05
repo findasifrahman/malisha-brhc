@@ -27,7 +27,7 @@
 
           <div v-if="hero" class="bg-white">
             <video v-if="hero.mimeType?.startsWith('video/')" class="w-full" controls :src="hero.urlOriginal ?? hero.url"></video>
-            <img v-else class="h-80 w-full object-cover" :src="hero.urlOriginal ?? hero.url" :alt="hero.title ?? data.name" />
+            <img v-else class="h-100 w-full object-cover" :src="hero.urlOriginal ?? hero.url" :alt="hero.title ?? data.name" />
           </div>
 
           <div v-if="mediaItems.length" class="bg-white px-4 py-4">

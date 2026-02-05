@@ -31,7 +31,7 @@
 
       <div v-else class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         <RouterLink v-for="s in items" :key="s.id" :to="`/patient-stories/${s.slug}`" class="group">
-          <div class="relative overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-br from-white to-red-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-2xl">
+          <div class="relative overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-br from-white to-red-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-2xl h-full flex flex-col">
             <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-red-500/10 to-yellow-500/10 blur-2xl"></div>
 
           <div class="relative h-44 overflow-hidden">
@@ -60,7 +60,7 @@
             </div>
           </div>
 
-          <div class="relative p-6">
+          <div class="relative p-6 flex-1 flex flex-col justify-between">
             <div class="flex items-start justify-between gap-3">
               <div class="min-w-0">
                 <div class="truncate text-base font-bold text-gray-900 group-hover:text-red-600 transition-colors">{{ s.title }}</div>

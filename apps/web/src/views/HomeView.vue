@@ -45,7 +45,7 @@
       <div class="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-6 min-h-[560px] flex items-center">
         <div class="w-full max-w-[920px] mx-auto text-center">
           <!-- Main Title -->
-          <h1 class="text-5xl lg:text-6xl font-bold text-white tracking-tight drop-shadow-lg mb-6">
+          <h1 class="text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight drop-shadow-lg mb-6">
             Belt and Road Healthcare Center
           </h1>
           
@@ -147,10 +147,10 @@
     <section id="about" class="w-full pt-20 pb-20 bg-white">
       <div class="max-w-7xl mx-auto px-4 lg:px-6">
         <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-          <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+          <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
             <div>
-              <h2 class="text-2xl lg:text-3xl font-bold text-gray-100">Why Choose BRHC?</h2>
-              <p class="mt-1 text-sm lg:text-base text-gray-300">Access to China's Superior Healthcare System.</p>
+              <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Why Choose BRHC?</h2>
+              <p class="mt-1 text-sm lg:text-base text-red-700">Access to China's Superior Healthcare System.</p>
             </div>
           </div>
 
@@ -225,13 +225,13 @@
         <div class="space-y-16">
           <!-- Services Section -->
           <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Our Services</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">Featured healthcare services</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Our Services</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">Featured healthcare services</p>
               </div>
               <button
-                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/15"
+                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-red-500 shadow-sm backdrop-blur transition hover:bg-red-50/15"
                 @click="router.push('/services')"
               >
                 <span class="inline-flex items-center gap-2">
@@ -261,7 +261,7 @@
             
             <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <RouterLink v-for="s in featured.services.slice(0, 3)" :key="s.id" :to="`/services/${s.slug}`">
-                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 flex flex-col justify-between border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 flex flex-col justify-between border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden h-full">
                   <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-bl-2xl"></div>
                   <div class="relative">
                     <div class="flex items-start justify-between gap-3">
@@ -295,13 +295,13 @@
 
           <!-- Doctors Section -->
           <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Expert Doctors</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">Featured medical specialists</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Expert Doctors</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">Featured medical specialists</p>
               </div>
               <button
-                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/15"
+                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-red shadow-sm backdrop-blur transition hover:bg-red-50/15"
                 @click="router.push('/doctors')"
               >
                 <span class="inline-flex items-center gap-2">
@@ -331,7 +331,7 @@
             
             <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <RouterLink v-for="d in featured.doctors.slice(0, 3)" :key="d.id" :to="`/doctors/${d.slug}`">
-                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden h-full">
                   <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-bl-2xl"></div>
                   <div class="relative grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-stretch">
                     <div class="lg:col-span-7 flex flex-col">
@@ -360,10 +360,10 @@
                           v-if="d.heroUrl"
                           :src="d.heroUrl"
                           :alt="d.name"
-                          class="h-44 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full"
+                          class="h-32 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full lg:aspect-[1/3]"
                           loading="lazy"
                         />
-                        <div v-else class="h-44 w-full bg-gradient-to-br from-red-100 to-yellow-100 flex items-center justify-center lg:h-full">
+                        <div v-else class="h-32 w-full bg-gradient-to-br from-red-100 to-yellow-100 flex items-center justify-center lg:h-full lg:aspect-[1/3]">
                           <div class="text-sm font-semibold text-red-600">Doctor Profile</div>
                         </div>
                       </div>
@@ -378,16 +378,16 @@
 
           <!-- Hospitals Section -->
           <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Top Hospitals</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">Trusted facilities across China</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Top Hospitals</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">Trusted facilities across China</p>
               </div>
               <button
-                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/15"
+                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-red-500 shadow-sm backdrop-blur transition hover:bg-red-50/15"
                 @click="router.push('/hospitals')"
               >
-                <span class="inline-flex items-center gap-2">
+                <span class="inline-flex items-center gap-2 text-red-500">
                   See All
                   <ChevronRight class="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -412,7 +412,7 @@
 
             <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <RouterLink v-for="h in featured.hospitals.slice(0, 3)" :key="h.id" :to="`/hospitals/${h.slug}`">
-                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden h-full">
                   <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-bl-2xl"></div>
                   <div class="relative">
                     <div class="flex items-start justify-between gap-3">
@@ -445,16 +445,16 @@
 
           <!-- Patient Stories Section -->
           <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Patient Stories</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">Success stories from our patients</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Patient Stories</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">Success stories from our patients</p>
               </div>
               <button
                 class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/15"
                 @click="router.push('/patient-stories')"
               >
-                <span class="inline-flex items-center gap-2">
+                <span class="inline-flex items-center gap-2 text-red-500">
                   See All
                   <ChevronRight class="h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -542,13 +542,13 @@
 
           <!-- Gallery Section -->
           <section id="gallery" class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl scroll-mt-28">
-            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Gallery</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">A glimpse into our facilities & patient journeys</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Gallery</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">A glimpse into our facilities & patient journeys</p>
               </div>
               <RouterLink
-                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/15"
+                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-red-600 shadow-sm backdrop-blur transition hover:bg-red-50/15"
                 to="/#gallery"
               >
                 <span class="inline-flex items-center gap-2">
@@ -597,13 +597,13 @@
 
           <!-- Advanced Treatment Section -->
           <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
-            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Advanced Treatment</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">Modern innovations shaping better outcomes</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Advanced Treatment</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">Modern innovations shaping better outcomes</p>
               </div>
               <button
-                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm backdrop-blur transition hover:bg-white/15"
+                class="group shrink-0 rounded-xl bg-white/10 px-5 py-2.5 text-sm font-semibold text-red-600 shadow-sm backdrop-blur transition hover:bg-red-50/15"
                 @click="router.push('/healthcare-in-china')"
               >
                 <span class="inline-flex items-center gap-2">
@@ -660,12 +660,12 @@
 
           <!-- Our Team Section -->
           <section id="our-team" class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl scroll-mt-28">
-            <div class="flex items-end justify-between gap-4 bg-gradient-to-br from-gray-900 via-gray-950 to-gray-900 px-6 py-5">
+            <div class="flex items-end justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-white">Our Team</h2>
-                <p class="mt-1 text-sm lg:text-base text-gray-300">People behind your smooth medical journey</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Our Team</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">People behind your smooth medical journey</p>
               </div>
-              <div class="hidden lg:block text-sm text-gray-300">Available 24/7 for guidance</div>
+              <div class="hidden lg:block text-sm text-red-600">Available 24/7 for guidance</div>
             </div>
 
             <div class="space-y-8 p-6">
@@ -794,22 +794,22 @@ const slideshowImages = ref<any[]>([])
 const teamMembers = [
   {
     name: 'Sheikh Korban Ali',
-    designation: 'Assitant',
+    designation: 'Chairman',
     accent: 'text-red-600',
     image: '/korban.png',
-    line1: 'Coordinates care plans with China’s top hospital networks.',
+    line1: 'Chairman of MalishaGroup.',
     line2: 'Focused on safety, clarity, and outcomes.',
   },
   {
     name: 'Dr. Maruf Mollah',
-    designation: 'Patient Relations Lead',
+    designation: 'Managing Director',
     accent: 'text-yellow-600',
     image: '/maruf.jpg',
-    line1: 'Guides families through appointments, logistics, and follow-ups.',
+    line1: 'Managing Director of Malisha Group.',
     line2: 'Ensures you always have a clear next step.',
   },
   {
-    name: 'Sheikh Rashed',
+    name: 'Rashed',
     designation: 'International Coordinator',
     accent: 'text-purple-600',
     image: '/rashed.jpg',
@@ -817,8 +817,8 @@ const teamMembers = [
     line2: 'Brings comfort through clear communication.',
   },
   {
-    name: 'Komol Sheikh',
-    designation: 'COO',
+    name: 'Komol',
+    designation: 'International Coordinator',
     accent: 'text-purple-600',
     image: '/komol.jpg',
     line1: 'Monitors service quality and patient experience end-to-end.',
