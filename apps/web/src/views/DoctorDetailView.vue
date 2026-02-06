@@ -19,10 +19,7 @@
             <div v-if="data.specialty || data.title" class="mt-2 text-sm text-white/90">
               {{ data.specialty ?? data.title }}
             </div>
-            <div v-if="data.hospital?.name" class="mt-3 text-sm text-white/90">
-              Hospital:
-              <RouterLink class="underline underline-offset-2" :to="`/hospitals/${data.hospital.slug}`">{{ data.hospital.name }}</RouterLink>
-            </div>
+
           </div>
 
           <div v-if="hero" class="bg-white">
