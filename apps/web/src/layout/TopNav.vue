@@ -36,7 +36,7 @@
       <div class="flex items-center gap-3">
         <a
           class="hidden lg:inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-red-600 to-red-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md shadow-red-500/20 ring-1 ring-red-600/20 transition hover:from-red-700 hover:to-red-800"
-          href="https://chinahealthcare.center/"
+          href="https://forms.gle/NFGqaNKm1o333sfV6"
           target="_blank"
           rel="noopener noreferrer"
         >
