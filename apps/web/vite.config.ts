@@ -8,6 +8,6 @@ export default defineConfig({
   },
   preview: {
     host: true, // or '0.0.0.0'
-    allowedHosts: ['.railway.app','www.chinahealthcare.center','chinahealthcare.center'], // allows any *.railway.app subdomain
+    allowedHosts: ['.railway.app','www.chinahealthcare.center','.chinahealthcare.center'], // allows any *.railway.app subdomain
   },
 })
