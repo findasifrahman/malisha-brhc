@@ -15,7 +15,7 @@ export class ApiError extends Error {
   }
 }
 
-const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'http://localhost:3001'
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined) ?? 'https://malisha-brhc-production.up.railway.app'
 
 export async function apiFetch<T>(path: string, init?: RequestInit): Promise<ApiOk<T>> {
   const url = path.startsWith('http') ? path : `${API_BASE_URL}${path}`

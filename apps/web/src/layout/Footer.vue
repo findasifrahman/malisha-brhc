@@ -45,9 +45,9 @@
             <div>
               <div class="text-xs font-semibold text-white/90">Guangzhou Office</div>
               <div class="mt-1 space-y-1">
-                <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+862083701936">
+                <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8615989054366">
                   <Phone class="h-4 w-4 text-red-100" />
-                  +86-20-83701936
+                   +8615989054366
                 </a>
                 <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8615989054366">
                   <Phone class="h-4 w-4 text-red-100" />
@@ -56,22 +56,13 @@
               </div>
             </div>
 
-            <div>
-              <div class="text-xs font-semibold text-white/90">Kunming Office</div>
-              <div class="mt-1">
-                <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8613577031033">
-                  <Phone class="h-4 w-4 text-red-100" />
-                  +86-13577031033
-                </a>
-              </div>
-            </div>
 
             <div>
               <div class="text-xs font-semibold text-white/90">Dhaka Office</div>
               <div class="mt-1">
-                <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8801725158347">
+                <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8801332511838">
                   <Phone class="h-4 w-4 text-red-100" />
-                  +88-01725158347
+                  +88 01332-511838
                 </a>
               </div>
             </div>

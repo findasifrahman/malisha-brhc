@@ -28,8 +28,8 @@
                 </div>
                 <div class="mt-4 pt-4 border-t border-red-100 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Contact</div>
-                  <div class="mt-1">Tel: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+862083701936">+86-20-83701936</a></div>
-                  <div>Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8615989054366">+86-15989054366</a></div>
+                  <div class="mt-1">Tel: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8615989054366">+8615989054366</a></div>
+                  <div>Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8615989054366">+8615989054366</a></div>
                 </div>
               </div>
             </div>
