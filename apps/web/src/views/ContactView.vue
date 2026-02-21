@@ -10,11 +10,11 @@
 
     <!-- Office Locations -->
     <section class="w-full py-16 bg-white">
-      <div class="max-w-7xl mx-auto px-4 lg:px-6">
+      <div class="max-w-7xl mx-auto px-6 lg:px-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <!-- Guangzhou -->
           <div class="bg-gradient-to-br from-white to-red-50 rounded-2xl p-8 border border-red-100 shadow-lg hover:shadow-2xl transition-all duration-300">
-            <div class="flex items-start gap-4">
+            <div class="flex items-start gap-6">
               <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1" />
@@ -35,31 +35,11 @@
             </div>
           </div>
 
-          <!-- Kunming -->
-          <div class="bg-gradient-to-br from-white to-red-50 rounded-2xl p-8 border border-red-100 shadow-lg hover:shadow-2xl transition-all duration-300">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1" />
-                </svg>
-              </div>
-              <div class="min-w-0">
-                <div class="text-xl font-bold text-gray-900">Kunming Office</div>
-                <div class="mt-3 text-sm text-gray-700 leading-relaxed">
-                  <div class="font-semibold text-gray-900">Address</div>
-                  <div class="mt-1">Coming Soon</div>
-                </div>
-                <div class="mt-4 pt-4 border-t border-red-100 text-sm text-gray-700 leading-relaxed">
-                  <div class="font-semibold text-gray-900">Contact</div>
-                  <div class="mt-1">Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8613577031033">Soon</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
           <!-- Dhaka -->
           <div class="bg-gradient-to-br from-white to-red-50 rounded-2xl p-8 border border-red-100 shadow-lg hover:shadow-2xl transition-all duration-300">
-            <div class="flex items-start gap-4">
+            <div class="flex items-start gap-6">
               <div class="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -70,11 +50,11 @@
                 <div class="text-xl font-bold text-gray-900">Dhaka Office</div>
                 <div class="mt-3 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Address</div>
-                  <div class="mt-1">5th Floor (Lift-5), House No: 404, Road Number 29, Mohakhali DOHS, Mohakhali, Dhaka, Bangladesh</div>
+                  <div class="mt-1">4th Floor (East Side), Praasad Trade Center, 6 Kemal Ataturk Avenue, Dhaka, Bangladesh, 1212</div>
                 </div>
                 <div class="mt-4 pt-4 border-t border-red-100 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Contact</div>
-                  <div class="mt-1">Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8801725158347">+88-01725158347</a></div>
+                  <div class="mt-1">Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8801332511838">+8801332-511838</a></div>
                 </div>
               </div>
             </div>
@@ -237,7 +217,7 @@
                 Find Us on Map
               </h2>
               <p class="text-xl text-gray-600">
-                Dhaka Office — Mohakhali DOHS.
+                Dhaka Office — Banani Kemal Ataturk Avenue.
               </p>
             </div>
 
@@ -254,13 +234,13 @@
                 <div class="lg:col-span-2 p-8">
                   <div class="text-xl font-bold text-gray-900">Dhaka Office</div>
                   <div class="mt-3 text-sm text-gray-700 leading-relaxed">
-                    5th Floor (Lift-5), House No: 404, Road Number 29, Mohakhali DOHS, Mohakhali, Dhaka, Bangladesh
+                      4th Floor (East Side), Praasad Trade Center, 6 Kemal Ataturk Avenue, Dhaka, Bangladesh, 1212
                   </div>
 
                   <div class="mt-5 pt-5 border-t border-gray-200 space-y-2 text-sm">
                     <div class="flex items-center justify-between gap-3">
                       <div class="text-gray-600">Mobile</div>
-                      <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8801725158347">+88-01725158347</a>
+                      <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8801332-511838">+8801332-511838</a>
                     </div>
                     <div class="flex items-center justify-between gap-3">
                       <div class="text-gray-600">Hours</div>
