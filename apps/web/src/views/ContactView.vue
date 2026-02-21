@@ -47,11 +47,11 @@
                 <div class="text-xl font-bold text-gray-900">Kunming Office</div>
                 <div class="mt-3 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Address</div>
-                  <div class="mt-1">No. A2, 14th Floor, Zhiyuan Building, Wuhua District, Kunming City, Yunnan Province, P.R. China</div>
+                  <div class="mt-1">Coming Soon</div>
                 </div>
                 <div class="mt-4 pt-4 border-t border-red-100 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Contact</div>
-                  <div class="mt-1">Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8613577031033">+86-13577031033</a></div>
+                  <div class="mt-1">Mobile: <a class="text-red-500 font-semibold hover:text-red-600" href="tel:+8613577031033">Soon</a></div>
                 </div>
               </div>
             </div>

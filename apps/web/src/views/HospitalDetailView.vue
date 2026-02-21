@@ -23,7 +23,7 @@
 
           <div v-if="hero" class="bg-white">
             <video v-if="hero.mimeType?.startsWith('video/')" class="w-full" controls :src="hero.urlOriginal ?? hero.url"></video>
-            <img v-else class="h-80 w-full object-cover" :src="hero.urlOriginal ?? hero.url" :alt="hero.title ?? data.name" />
+            <img v-else class="h-80 w-full object-cover cursor-pointer" :src="hero.urlOriginal ?? hero.url" :alt="hero.title ?? data.name" @click="openSlideshow(hero)" />
           </div>
 
           <div v-if="mediaItems.length" class="bg-white px-4 py-4">
@@ -33,7 +33,7 @@
                 :key="m.id"
                 type="button"
                 class="overflow-hidden rounded-xl ring-1 ring-black/10 transition hover:ring-black/30"
-                @click="selectedMediaId = m.id"
+                @click="openSlideshow(m)"
               >
                 <div v-if="m.mimeType?.startsWith('video/')" class="flex h-14 w-full items-center justify-center bg-gray-100 text-xs text-gray-600">
                   Video
@@ -94,11 +94,71 @@
     </div>
 
     <div v-else class="mt-6 text-sm text-brhc-muted">Not found.</div>
+
+    <!-- Slideshow/Lightbox -->
+    <Teleport to="body">
+      <div v-if="slideshowOpen" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm">
+        <div class="absolute inset-0" @click="closeSlideshow"></div>
+
+        <button
+          class="absolute right-4 top-4 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+          @click="closeSlideshow"
+        >
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <button
+          class="absolute left-4 top-1/2 z-50 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+          :class="slideshowIndex <= 0 ? 'opacity-40 pointer-events-none' : ''"
+          @click="prevSlide"
+        >
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          class="absolute right-4 top-1/2 z-50 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20"
+          :class="slideshowIndex >= slideshowImages.length - 1 ? 'opacity-40 pointer-events-none' : ''"
+          @click="nextSlide"
+        >
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        <div class="relative z-40 flex h-full w-full items-center justify-center p-6">
+          <img
+            v-if="slideshowImages[slideshowIndex] && !slideshowImages[slideshowIndex].mimeType?.startsWith('video/')"
+            :src="slideshowImages[slideshowIndex].urlOriginal || slideshowImages[slideshowIndex].url"
+            :alt="slideshowImages[slideshowIndex].title || data.name"
+            class="max-h-[86vh] max-w-[92vw] object-contain"
+          />
+          <video
+            v-else-if="slideshowImages[slideshowIndex]"
+            :src="slideshowImages[slideshowIndex].urlOriginal || slideshowImages[slideshowIndex].url"
+            class="max-h-[86vh] max-w-[92vw] object-contain"
+            controls
+            autoplay
+            muted
+          />
+        </div>
+
+        <div
+          v-if="slideshowImages[slideshowIndex]?.title"
+          class="absolute bottom-4 left-1/2 z-50 -translate-x-1/2 max-w-[90vw] rounded-xl bg-black/60 px-4 py-2 text-center text-sm text-white"
+        >
+          {{ slideshowImages[slideshowIndex].title }}
+        </div>
+      </div>
+    </Teleport>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { BaseButton, Card, Skeleton, SkeletonText } from '@brhc/ui'
 import { getHospital, listHospitals } from '../lib/publicApi'
@@ -110,6 +170,11 @@ const loading = ref(false)
 const data = ref<any | null>(null)
 const selectedMediaId = ref<string | null>(null)
 const relatedHospitals = ref<any[]>([])
+
+// Slideshow functionality
+const slideshowOpen = ref(false)
+const slideshowIndex = ref(0)
+const slideshowImages = ref<any[]>([])
 
 const mediaItems = computed<any[]>(() => {
   const ms = (data.value?.media ?? []).map((x: any) => x.media).filter(Boolean)
@@ -151,4 +216,42 @@ async function load() {
 
 watch(() => route.params.slug, load)
 onMounted(load)
+
+// Slideshow functions
+function openSlideshow(media: any) {
+  slideshowImages.value = mediaItems.value
+  const idx = mediaItems.value.findIndex((m: any) => m.id === media.id)
+  slideshowIndex.value = idx >= 0 ? idx : 0
+  slideshowOpen.value = true
+}
+
+function closeSlideshow() {
+  slideshowOpen.value = false
+  slideshowIndex.value = 0
+}
+
+function prevSlide() {
+  if (slideshowIndex.value > 0) slideshowIndex.value -= 1
+}
+
+function nextSlide() {
+  if (slideshowIndex.value < slideshowImages.value.length - 1) slideshowIndex.value += 1
+}
+
+function onKeydown(e: KeyboardEvent) {
+  if (!slideshowOpen.value) return
+  if (e.key === 'Escape') closeSlideshow()
+  if (e.key === 'ArrowLeft') prevSlide()
+  if (e.key === 'ArrowRight') nextSlide()
+}
+
+// Add keyboard event listener
+onMounted(() => {
+  window.addEventListener('keydown', onKeydown)
+  load()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeydown)
+})
 </script>
