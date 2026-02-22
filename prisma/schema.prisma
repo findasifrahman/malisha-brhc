@@ -204,6 +204,25 @@ model PatientStory {
   @@index([authorId])
 }
 
+model Team {
+  id          String   @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String   @unique
+  designation String
+  role        String
+  shortDesc   String?
+  fullDesc    String?
+  mediaId     String?  @db.Uuid
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  media       Media?   @relation("TeamHeroImage", fields: [mediaId], references: [id], onDelete: SetNull)
+
+  @@index([mediaId])
+  @@index([designation])
+  @@index([role])
+}
+
 model Media {
   id           String   @id @default(uuid()) @db.Uuid
   key          String?
@@ -231,6 +250,7 @@ model Media {
   blogs        BlogMedia[]
   patientStories PatientStoryMedia[]
   gallery      GalleryMedia[]
+  teams        Team[] @relation("TeamHeroImage")
 
   @@index([url])
   @@index([urlOriginal])

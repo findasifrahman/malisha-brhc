@@ -17,6 +17,7 @@ const CategorySchema = z.enum([
   'doctors',
   'advancedhealthcareinchina',
   'patientstory',
+  'teams',
 ])
 
 export const mediaRoutes: FastifyPluginAsync = async (app) => {

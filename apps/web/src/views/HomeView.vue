@@ -320,7 +320,7 @@
               </div>
             </div>
             
-            <div v-else-if="featured.doctors.length === 0" class="text-center py-12">
+            <div v-else-if="!hasAnyHomeDoctorGroups" class="text-center py-12">
               <div class="inline-flex items-center justify-center w-16 h-16 bg-yellow-100 rounded-full mb-4">
                 <svg class="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -329,49 +329,65 @@
               <p class="text-lg text-gray-500">No featured doctors yet — check back soon.</p>
             </div>
             
-            <div v-else class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <RouterLink v-for="d in featured.doctors.slice(0, 3)" :key="d.id" :to="`/doctors/${d.slug}`">
-                <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden h-full">
-                  <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-bl-2xl"></div>
-                  <div class="relative grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-stretch">
-                    <div class="lg:col-span-7 flex flex-col">
-                      <div class="flex items-start justify-between gap-3">
-                        <div class="flex-1">
-                          <div class="text-lg font-bold text-gray-900 group-hover:text-red-500 transition-colors">{{ d.name }}</div>
-                          <div class="mt-1 text-sm text-gray-500">{{ d.specialty ?? d.title ?? '' }}</div>
-                          <div v-if="d.hospital?.name" class="mt-1 text-xs font-medium text-gray-500">{{ d.hospital.name }}</div>
-                        </div>
-                        <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
-                          <Heart class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" />
-                        </div>
-                      </div>
-
-                      <div class="mt-4 space-y-2 text-sm text-gray-600">
-                        <div v-for="(sd, idx) in (d.shortDetails ?? []).slice(0, 3)" :key="idx" class="flex items-start gap-2">
-                          <span class="mt-2 h-1.5 w-1.5 rounded-full" :class="Number(idx) % 2 === 0 ? 'bg-red-500' : 'bg-yellow-500'"></span>
-                          <span :class="Number(idx) % 2 === 0 ? 'text-gray-700' : 'text-red-600'">{{ sd }}</span>
-                        </div>
-                      </div>
+            <div v-else class="space-y-10">
+              <template v-for="spec in doctorSpecialties" :key="spec">
+                <div v-if="(homeDoctorsBySpecialty[spec]?.length ?? 0) > 0" class="overflow-hidden rounded-3xl border border-red-100 bg-white shadow-sm">
+                  <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-white via-red-50/40 to-yellow-50/30 px-6 py-5">
+                    <div class="min-w-0">
+                      <div class="truncate text-lg font-bold text-gray-900">{{ spec }}</div>
+                      <div class="mt-1 text-sm text-gray-600">{{ homeDoctorsBySpecialty[spec]?.length ?? 0 }} doctors</div>
                     </div>
+                    <BaseButton size="sm" variant="outline" @click="router.push({ path: '/doctors', query: { specialty: spec } })">View</BaseButton>
+                  </div>
 
-                    <div class="lg:col-span-5">
-                      <div class="h-full overflow-hidden rounded-2xl border border-red-100 bg-white shadow-sm">
-                        <img
-                          v-if="d.heroUrl"
-                          :src="d.heroUrl"
-                          :alt="d.name"
-                          class="h-32 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full lg:aspect-[1/3]"
-                          loading="lazy"
-                        />
-                        <div v-else class="h-32 w-full bg-gradient-to-br from-red-100 to-yellow-100 flex items-center justify-center lg:h-full lg:aspect-[1/3]">
-                          <div class="text-sm font-semibold text-red-600">Doctor Profile</div>
+                  <div class="p-6">
+                    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                      <RouterLink v-for="d in (homeDoctorsBySpecialty[spec] ?? []).slice(0, 3)" :key="d.id" :to="`/doctors/${d.slug}`">
+                        <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden h-full">
+                          <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-bl-2xl"></div>
+                          <div class="relative grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-stretch">
+                            <div class="lg:col-span-7 flex flex-col">
+                              <div class="flex items-start justify-between gap-3">
+                                <div class="flex-1">
+                                  <div class="text-lg font-bold text-gray-900 group-hover:text-red-500 transition-colors">{{ d.name }}</div>
+                                  <div class="mt-1 text-sm text-gray-500">{{ d.specialty ?? d.title ?? '' }}</div>
+                                  <div v-if="d.hospital?.name" class="mt-1 text-xs font-medium text-gray-500">{{ d.hospital.name }}</div>
+                                </div>
+                                <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
+                                  <Heart class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" />
+                                </div>
+                              </div>
+
+                              <div class="mt-4 space-y-2 text-sm text-gray-600">
+                                <div v-for="(sd, idx) in (d.shortDetails ?? []).slice(0, 3)" :key="idx" class="flex items-start gap-2">
+                                  <span class="mt-2 h-1.5 w-1.5 rounded-full" :class="Number(idx) % 2 === 0 ? 'bg-red-500' : 'bg-yellow-500'"></span>
+                                  <span :class="Number(idx) % 2 === 0 ? 'text-gray-700' : 'text-red-600'">{{ sd }}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="lg:col-span-5">
+                              <div class="h-full overflow-hidden rounded-2xl border border-red-100 bg-white shadow-sm">
+                                <img
+                                  v-if="d.heroUrl"
+                                  :src="d.heroUrl"
+                                  :alt="d.name"
+                                  class="h-32 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full lg:aspect-[1/3]"
+                                  loading="lazy"
+                                />
+                                <div v-else class="h-32 w-full bg-gradient-to-br from-red-100 to-yellow-100 flex items-center justify-center lg:h-full lg:aspect-[1/3]">
+                                  <div class="text-sm font-semibold text-red-600">Doctor Profile</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <Badge v-if="d.isFeatured" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-0">Featured</Badge>
                         </div>
-                      </div>
+                      </RouterLink>
                     </div>
                   </div>
-                  <Badge v-if="d.isFeatured" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-0">Featured</Badge>
                 </div>
-              </RouterLink>
+              </template>
             </div>
           </div>
           </div>
@@ -669,16 +685,22 @@
             </div>
 
             <div class="space-y-8 p-6">
-              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <div v-for="m in teamMembers" :key="m.name" class="group rounded-2xl border border-red-100 bg-gradient-to-br from-white to-red-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+              <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 auto-rows-fr">
+                <RouterLink
+                  v-for="m in teams"
+                  :key="m.id"
+                  :to="`/teams/${m.slug}`"
+                  class="group rounded-2xl border border-red-100 bg-gradient-to-br from-white to-red-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl h-full flex flex-col"
+                >
                   <div class="relative">
                     <div class="absolute -top-3 -right-3 h-12 w-12 rounded-2xl bg-gradient-to-br from-yellow-400/30 to-red-500/20 blur-xl"></div>
                     <div class="flex items-start justify-between gap-3">
-                      <div class="flex-1">
-                        <div class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors">{{ m.name }}</div>
-                        <div class="mt-1 text-sm font-semibold" :class="m.accent">{{ m.designation }}</div>
+                      <div class="flex-1 min-w-0">
+                        <div class="text-lg font-bold text-gray-900 group-hover:text-red-600 transition-colors truncate">{{ m.name }}</div>
+                        <div class="mt-1 text-sm font-semibold text-red-600 truncate">{{ m.designation }}</div>
+                        <div class="mt-1 text-xs font-medium text-gray-600 truncate">{{ m.role }}</div>
                       </div>
-                      <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center">
+                      <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shrink-0">
                         <svg class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
@@ -687,14 +709,22 @@
                   </div>
 
                   <div class="mt-4 overflow-hidden rounded-xl border border-red-100 bg-white">
-                    <img :src="m.image" :alt="m.name" class="h-40 w-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                    <img
+                      v-if="m.media?.url"
+                      :src="m.media.urlThumb || m.media.url"
+                      :alt="m.media.alt || m.media.title || m.name"
+                      class="h-40 w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div v-else class="flex h-40 w-full items-center justify-center bg-gradient-to-br from-red-50 to-yellow-50">
+                      <div class="text-sm font-semibold text-red-600">Team</div>
+                    </div>
                   </div>
 
-                  <div class="mt-4 space-y-2 text-sm leading-6 text-gray-600">
-                    <div>{{ m.line1 }}</div>
-                    <div class="text-gray-700 font-medium">{{ m.line2 }}</div>
+                  <div class="mt-4 text-sm leading-6 text-gray-600 line-clamp-3">
+                    {{ m.shortDesc || '' }}
                   </div>
-                </div>
+                </RouterLink>
               </div>
             </div>
           </section>
@@ -761,7 +791,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import { Badge, BaseButton, BaseInput, Skeleton, SkeletonText, useToast } from '@brhc/ui'
 import { ChevronRight, Phone, Search, Heart, Globe, CheckCircle } from 'lucide-vue-next'
 import SectionHeader from '../components/SectionHeader.vue'
-import { listServices, listDoctors, listHospitals, listPatientStories, listGallery, listHealthcareInChina, getService, getDoctor, getHospital, getPatientStory, getHealthcareInChina, searchAll } from '../lib/publicApi'
+import { listServices, listDoctors, listHospitals, listPatientStories, listGallery, listHealthcareInChina, getService, getDoctor, getHospital, getPatientStory, getHealthcareInChina, searchAll, listTeams } from '../lib/publicApi'
 
 const router = useRouter()
 
@@ -791,40 +821,14 @@ const slideshowOpen = ref(false)
 const slideshowIndex = ref(0)
 const slideshowImages = ref<any[]>([])
 
-const teamMembers = [
-  {
-    name: 'Sheikh Korban Ali',
-    designation: 'Chairman',
-    accent: 'text-red-600',
-    image: '/korban.png',
-    line1: 'Chairman of MalishaGroup.',
-    line2: 'Focused on safety, clarity, and outcomes.',
-  },
-  {
-    name: 'Dr. Maruf Mollah',
-    designation: 'Managing Director',
-    accent: 'text-yellow-600',
-    image: '/maruf.jpg',
-    line1: 'Managing Director of Malisha Group.',
-    line2: 'Ensures you always have a clear next step.',
-  },
-  {
-    name: 'Rashed',
-    designation: 'International Coordinator',
-    accent: 'text-purple-600',
-    image: '/rashed.jpg',
-    line1: 'Supports translation, documentation, and travel coordination.',
-    line2: 'Brings comfort through clear communication.',
-  },
-  {
-    name: 'Komol',
-    designation: 'International Coordinator',
-    accent: 'text-purple-600',
-    image: '/komol.jpg',
-    line1: 'Monitors service quality and patient experience end-to-end.',
-    line2: 'Improving every detail—every day.',
-  },
-]
+const teams = ref<any[]>([])
+
+const doctorSpecialties = ['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
+const homeDoctorsBySpecialty = ref<Record<string, any[]>>({})
+const hasAnyHomeDoctorGroups = computed(() => {
+  const groups = homeDoctorsBySpecialty.value
+  return doctorSpecialties.some((s) => (groups[s]?.length ?? 0) > 0)
+})
 
 function patientStoryMediaColClass(idx: number) {
   return idx % 2 === 0 ? 'lg:col-span-5' : 'lg:col-span-5 lg:order-2'
@@ -912,12 +916,19 @@ onMounted(async () => {
   try {
     const [servicesRes, doctorsRes, hospitalsRes, storiesRes, galleryRes, advancedRes] = await Promise.all([
       listServices({ page: 1, pageSize: 3, sort: 'updatedAt:desc' }),
-      listDoctors({ page: 1, pageSize: 3, sort: 'updatedAt:desc' }),
+      listDoctors({ page: 1, pageSize: 100, sort: 'updatedAt:desc' }),
       listHospitals({ page: 1, pageSize: 3, sort: 'updatedAt:desc' }),
       listPatientStories({ page: 1, pageSize: 2, sort: 'updatedAt:desc' }),
       listGallery({ page: 1, pageSize: 24 }),
       listHealthcareInChina({ page: 1, pageSize: 3, sort: 'updatedAt:desc' }),
     ])
+
+    try {
+      const teamsRes = await listTeams({ page: 1, pageSize: 8, sort: 'updatedAt:desc' })
+      teams.value = (teamsRes.items ?? []).slice(0, 8)
+    } catch {
+      teams.value = []
+    }
 
     const serviceDetails = await Promise.all(
       (servicesRes.items ?? []).slice(0, 3).map(async (s: any) => {
@@ -932,18 +943,17 @@ onMounted(async () => {
       }),
     )
 
-    const doctorDetails = await Promise.all(
-      (doctorsRes.items ?? []).slice(0, 3).map(async (d: any) => {
-        try {
-          const full = await getDoctor(d.slug)
-          const media = (full.data as any)?.media?.[0]?.media
-          const heroUrl = media?.urlThumb || media?.url || null
-          return { ...d, heroUrl }
-        } catch {
-          return { ...d, heroUrl: null }
-        }
-      }),
-    )
+    const doctorGroups: Record<string, any[]> = {}
+    for (const d of (doctorsRes.items ?? []) as any[]) {
+      const spec = typeof d?.specialty === 'string' ? d.specialty.trim() : ''
+      if (!spec || !doctorSpecialties.includes(spec as any)) continue
+      if (!doctorGroups[spec]) doctorGroups[spec] = []
+      if (doctorGroups[spec].length >= 3) continue
+      const media = d?.media?.[0]?.media
+      const heroUrl = media?.urlThumb || media?.url || null
+      doctorGroups[spec].push({ ...d, heroUrl })
+    }
+    homeDoctorsBySpecialty.value = doctorGroups
 
     const hospitalDetails = await Promise.all(
       (hospitalsRes.items ?? []).slice(0, 3).map(async (h: any) => {
@@ -987,7 +997,7 @@ onMounted(async () => {
     )
 
     featured.services = serviceDetails
-    featured.doctors = doctorDetails
+    featured.doctors = []
     featured.hospitals = hospitalDetails
     featured.patientStories = storyDetails
     featured.gallery = galleryRes.items ?? []
@@ -995,10 +1005,12 @@ onMounted(async () => {
   } catch {
     featured.services = []
     featured.doctors = []
+    homeDoctorsBySpecialty.value = {}
     featured.hospitals = []
     featured.patientStories = []
     featured.gallery = []
     featured.advanced = []
+    teams.value = []
   } finally {
     featuredLoading.value = false
   }

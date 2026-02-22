@@ -232,7 +232,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRouter, RouterLink, useRoute } from 'vue-router'
-import { Menu } from 'lucide-vue-next'
+import { ChevronDown, Globe, Handshake, Lock, Menu, ShieldCheck } from 'lucide-vue-next'
 
 import { BaseButton, BaseInput, Card, useToast } from '@brhc/ui'
 import NavDropdown from './NavDropdown.vue'

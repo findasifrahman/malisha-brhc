@@ -25,61 +25,134 @@
         </div>
       </div>
 
-    <div v-else-if="items.length === 0" class="rounded-2xl border border-red-100 bg-white p-6 text-sm text-brhc-muted">
-      No doctors found.
-    </div>
+      <div
+        v-else-if="filteredMode && items.length === 0"
+        class="rounded-2xl border border-red-100 bg-white p-6 text-sm text-brhc-muted"
+      >
+        No doctors found.
+      </div>
 
-      <div v-else class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div v-else-if="filteredMode" class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
         <RouterLink v-for="d in items" :key="d.id" :to="`/doctors/${d.slug}`" class="group">
           <div class="relative overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-br from-white to-red-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-2xl h-full flex flex-col">
             <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-red-500/10 to-yellow-500/10 blur-2xl"></div>
 
-          <div class="relative h-49 overflow-hidden">
-            <img
-              v-if="d.heroUrl"
-              :src="d.heroUrl"
-              :alt="d.name"
-              class="h-52 w-full object-cover object-center transition-transform duration-700 group-hover:scale-105 aspect-[1/3]"
-              loading="lazy"
-            />
-            <div v-else class="flex h-full w-full items-center justify-center bg-gradient-to-br from-red-50 to-yellow-50 aspect-[1/3]">
-              <div class="text-sm font-semibold text-red-600">Doctor</div>
-            </div>
-
-            <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-red-600 shadow-sm backdrop-blur">
-              <Stethoscope class="h-4 w-4" />
-              Specialist
-            </div>
-          </div>
-
-          <div class="relative p-6 flex-1 flex flex-col justify-between">
-            <div class="flex items-start justify-between gap-3">
-              <div class="min-w-0">
-                <div class="truncate text-base font-bold text-gray-900 group-hover:text-red-600 transition-colors">{{ d.name }}</div>
-                <div class="mt-1 truncate text-sm text-gray-600">{{ d.specialty ?? d.title ?? '' }}</div>
+            <div class="relative h-49 overflow-hidden">
+              <img
+                v-if="d.heroUrl"
+                :src="d.heroUrl"
+                :alt="d.name"
+                class="h-52 w-full object-cover object-center transition-transform duration-700 group-hover:scale-105 aspect-[1/3]"
+                loading="lazy"
+              />
+              <div v-else class="flex h-full w-full items-center justify-center bg-gradient-to-br from-red-50 to-yellow-50 aspect-[1/3]">
+                <div class="text-sm font-semibold text-red-600">Doctor</div>
               </div>
-              <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-sm">
-                <Sparkles class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" />
+
+              <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-red-600 shadow-sm backdrop-blur">
+                <Stethoscope class="h-4 w-4" />
+                Specialist
               </div>
             </div>
 
-            <div v-if="d.hospital?.name" class="mt-4 flex items-center gap-2 text-sm text-gray-700">
-              <Building2 class="h-4 w-4 text-yellow-600" />
-              <span class="line-clamp-1"></span>
-            </div>
+            <div class="relative p-6 flex-1 flex flex-col justify-between">
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <div class="truncate text-base font-bold text-gray-900 group-hover:text-red-600 transition-colors">{{ d.name }}</div>
+                  <div class="mt-1 truncate text-sm text-gray-600">{{ d.specialty ?? d.title ?? '' }}</div>
+                </div>
+                <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-sm">
+                  <Sparkles class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" />
+                </div>
+              </div>
 
-            <div class="mt-4 grid grid-cols-1 gap-2 text-sm">
-              <div v-for="(sd, idx) in (d.shortDetails ?? []).slice(0, 2)" :key="idx" class="flex items-start gap-2">
-                <span class="mt-2 h-1.5 w-1.5 rounded-full" :class="Number(idx) % 2 === 0 ? 'bg-red-500' : 'bg-yellow-500'"></span>
-                <span :class="Number(idx) % 2 === 0 ? 'text-gray-700' : 'text-red-600'">{{ sd }}</span>
+              <div v-if="d.hospital?.name" class="mt-4 flex items-center gap-2 text-sm text-gray-700">
+                <Building2 class="h-4 w-4 text-yellow-600" />
+                <span class="line-clamp-1">{{ d.hospital.name }}</span>
+              </div>
+
+              <div class="mt-4 grid grid-cols-1 gap-2 text-sm">
+                <div v-for="(sd, idx) in (d.shortDetails ?? []).slice(0, 2)" :key="idx" class="flex items-start gap-2">
+                  <span class="mt-2 h-1.5 w-1.5 rounded-full" :class="Number(idx) % 2 === 0 ? 'bg-red-500' : 'bg-yellow-500'"></span>
+                  <span :class="Number(idx) % 2 === 0 ? 'text-gray-700' : 'text-red-600'">{{ sd }}</span>
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </RouterLink>
       </div>
 
-      <div v-if="meta" class="pt-2">
+      <div v-else class="space-y-10">
+        <template v-for="spec in doctorSpecialties" :key="spec">
+          <div v-if="(groupedBySpecialty[spec]?.length ?? 0) > 0" class="overflow-hidden rounded-3xl border border-red-100 bg-white shadow-sm">
+            <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-white via-red-50/40 to-yellow-50/30 px-6 py-5">
+              <div class="min-w-0">
+                <div class="truncate text-lg font-bold text-gray-900">{{ spec }}</div>
+                <div class="mt-1 text-sm text-gray-600">{{ groupedBySpecialty[spec]?.length ?? 0 }} doctors</div>
+              </div>
+              <BaseButton size="sm" variant="outline" @click="router.push({ path: '/doctors', query: { specialty: spec } })">View</BaseButton>
+            </div>
+
+            <div class="p-6">
+              <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+                <RouterLink v-for="d in (groupedBySpecialty[spec] ?? []).slice(0, 12)" :key="d.id" :to="`/doctors/${d.slug}`" class="group">
+                  <div class="relative overflow-hidden rounded-3xl border border-red-100 bg-gradient-to-br from-white to-red-50 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-red-200 hover:shadow-2xl h-full flex flex-col">
+                    <div class="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-red-500/10 to-yellow-500/10 blur-2xl"></div>
+
+                  <div class="relative h-49 overflow-hidden">
+                    <img
+                      v-if="d.heroUrl"
+                      :src="d.heroUrl"
+                      :alt="d.name"
+                      class="h-52 w-full object-cover object-center transition-transform duration-700 group-hover:scale-105 aspect-[1/3]"
+                      loading="lazy"
+                    />
+                    <div v-else class="flex h-full w-full items-center justify-center bg-gradient-to-br from-red-50 to-yellow-50 aspect-[1/3]">
+                      <div class="text-sm font-semibold text-red-600">Doctor</div>
+                    </div>
+
+                    <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-red-600 shadow-sm backdrop-blur">
+                      <Stethoscope class="h-4 w-4" />
+                      Specialist
+                    </div>
+                  </div>
+
+                  <div class="relative p-6 flex-1 flex flex-col justify-between">
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="min-w-0">
+                        <div class="truncate text-base font-bold text-gray-900 group-hover:text-red-600 transition-colors">{{ d.name }}</div>
+                        <div class="mt-1 truncate text-sm text-gray-600">{{ d.specialty ?? d.title ?? '' }}</div>
+                      </div>
+                      <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-sm">
+                        <Sparkles class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" />
+                      </div>
+                    </div>
+
+                    <div v-if="d.hospital?.name" class="mt-4 flex items-center gap-2 text-sm text-gray-700">
+                      <Building2 class="h-4 w-4 text-yellow-600" />
+                      <span class="line-clamp-1">{{ d.hospital.name }}</span>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-1 gap-2 text-sm">
+                      <div v-for="(sd, idx) in (d.shortDetails ?? []).slice(0, 2)" :key="idx" class="flex items-start gap-2">
+                        <span class="mt-2 h-1.5 w-1.5 rounded-full" :class="Number(idx) % 2 === 0 ? 'bg-red-500' : 'bg-yellow-500'"></span>
+                        <span :class="Number(idx) % 2 === 0 ? 'text-gray-700' : 'text-red-600'">{{ sd }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </RouterLink>
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <div v-if="!hasAnyGroupedDoctors" class="rounded-2xl border border-red-100 bg-white p-6 text-sm text-brhc-muted">
+          No doctors found.
+        </div>
+      </div>
+
+      <div v-if="filteredMode && meta" class="pt-2">
         <Pagination :page="meta.page" :totalPages="totalPages" @update:page="setPage" />
       </div>
     </div>
@@ -91,17 +164,28 @@ import { computed, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { BaseButton, BaseInput, Pagination, SectionHeader, Skeleton, SkeletonText } from '@brhc/ui'
 import { Building2, Search, Sparkles, Stethoscope } from 'lucide-vue-next'
-import { getDoctor, listDoctors } from '../lib/publicApi'
+import { listDoctors } from '../lib/publicApi'
 
 const route = useRoute()
 const router = useRouter()
 
 const q = ref((route.query.q as string | undefined) ?? '')
+const specialty = ref((route.query.specialty as string | undefined) ?? '')
 const page = ref(Number(route.query.page ?? 1))
 
 const items = ref<any[]>([])
+const groupedBySpecialty = ref<Record<string, any[]>>({})
 const meta = ref<{ page: number; pageSize: number; total: number } | null>(null)
 const loading = ref(false)
+
+const doctorSpecialties = ['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
+
+const filteredMode = computed(() => Boolean((q.value ?? '').trim()) || Boolean((specialty.value ?? '').trim()))
+
+const hasAnyGroupedDoctors = computed(() => {
+  const groups = groupedBySpecialty.value
+  return doctorSpecialties.some((s) => (groups[s]?.length ?? 0) > 0)
+})
 
 const totalPages = computed(() => {
   if (!meta.value) return undefined
@@ -111,28 +195,39 @@ const totalPages = computed(() => {
 async function load() {
   loading.value = true
   try {
-    const res = await listDoctors({ page: page.value, pageSize: 12, q: q.value || undefined })
-    const detailed = await Promise.all(
-      (res.items ?? []).map(async (d: any) => {
-        try {
-          const full = await getDoctor(d.slug)
-          const media = (full.data as any)?.media?.[0]?.media
-          const heroUrl = media?.urlThumb || media?.url || null
-          return { ...d, heroUrl }
-        } catch {
-          return { ...d, heroUrl: null }
-        }
-      }),
-    )
-    items.value = detailed
-    meta.value = res.meta
+    if (filteredMode.value) {
+      const effectiveQ = q.value || specialty.value
+      const res = await listDoctors({ page: page.value, pageSize: 12, q: effectiveQ || undefined })
+      items.value = (res.items ?? []).map((d: any) => {
+        const media = d?.media?.[0]?.media
+        const heroUrl = media?.urlThumb || media?.url || null
+        return { ...d, heroUrl }
+      })
+      meta.value = res.meta
+      groupedBySpecialty.value = {}
+      return
+    }
+
+    const res = await listDoctors({ page: 1, pageSize: 100 })
+    const groups: Record<string, any[]> = {}
+    for (const d of res.items ?? []) {
+      const spec = (d?.specialty ?? '').trim()
+      if (!spec || !doctorSpecialties.includes(spec as any)) continue
+      if (!groups[spec]) groups[spec] = []
+      const media = d?.media?.[0]?.media
+      const heroUrl = media?.urlThumb || media?.url || null
+      groups[spec].push({ ...d, heroUrl })
+    }
+    groupedBySpecialty.value = groups
+    items.value = []
+    meta.value = null
   } finally {
     loading.value = false
   }
 }
 
 function refresh() {
-  router.replace({ query: { ...route.query, q: q.value || undefined, page: 1 } })
+  router.replace({ query: { ...route.query, q: q.value || undefined, specialty: specialty.value || undefined, page: 1 } })
 }
 
 function setPage(p: number) {
@@ -143,6 +238,7 @@ watch(
   () => route.query,
   () => {
     q.value = (route.query.q as string | undefined) ?? ''
+    specialty.value = (route.query.specialty as string | undefined) ?? ''
     page.value = Number(route.query.page ?? 1)
     void load()
   },

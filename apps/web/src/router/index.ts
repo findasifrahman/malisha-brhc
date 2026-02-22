@@ -37,6 +37,8 @@ export const router = createRouter({
     { path: '/patient-stories', name: 'patient-stories', component: () => import('../views/PatientStoriesView.vue') },
     { path: '/patient-stories/:slug', name: 'patient-story-detail', component: () => import('../views/PatientStoryDetailView.vue') },
 
+    { path: '/teams/:slug', name: 'team-detail', component: () => import('../views/TeamDetailView.vue') },
+
     { path: '/blogs', name: 'blogs', component: () => import('../views/BlogsView.vue') },
     { path: '/blogs/:slug', name: 'blog-detail', component: () => import('../views/BlogDetailView.vue') },
 
@@ -65,6 +67,7 @@ export const router = createRouter({
         { path: 'advanced', name: 'admin-advanced', component: () => import('../views/admin/AdminAdvancedView.vue') },
         { path: 'blogs', name: 'admin-blogs', component: () => import('../views/admin/AdminBlogsView.vue') },
         { path: 'patient-stories', name: 'admin-patient-stories', component: () => import('../views/admin/AdminPatientStoriesView.vue') },
+        { path: 'teams', name: 'admin-teams', component: () => import('../views/admin/AdminTeamsView.vue') },
         { path: 'locations', name: 'admin-locations', component: () => import('../views/admin/AdminLocationsView.vue') },
         { path: 'media', name: 'admin-media', component: () => import('../views/admin/AdminMediaView.vue') },
         { path: 'users', name: 'admin-users', component: () => import('../views/admin/AdminUsersView.vue') },

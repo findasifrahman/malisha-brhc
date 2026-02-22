@@ -23,6 +23,36 @@ export const publicRoutes: FastifyPluginAsync = async (app) => {
     })
   })
 
+  app.get('/public/teams', async (req, reply) => {
+    const query = parseQuery(req, ListQuerySchema)
+    const { skip, take } = toSkipTake(query.page, query.pageSize)
+    const sort = parseSort(query.sort, { field: 'updatedAt', direction: 'desc' })
+
+    const where = query.q
+      ? {
+          OR: [
+            { name: { contains: query.q, mode: 'insensitive' as const } },
+            { designation: { contains: query.q, mode: 'insensitive' as const } },
+            { role: { contains: query.q, mode: 'insensitive' as const } },
+          ],
+        }
+      : {}
+
+    const [items, total] = await Promise.all([
+      app.prisma.team.findMany({ where, include: { media: true }, skip, take, orderBy: { [sort.field]: sort.direction } as any }),
+      app.prisma.team.count({ where }),
+    ])
+
+    return ok(reply, items, { page: query.page, pageSize: query.pageSize, total })
+  })
+
+  app.get('/public/teams/:slug', async (req, reply) => {
+    const params = parseParams(req, z.object({ slug: z.string().min(1) }))
+    const item = await app.prisma.team.findUnique({ where: { slug: params.slug }, include: { media: true } })
+    if (!item) return reply.status(404).send({ ok: false, error: { code: 'NOT_FOUND', message: 'Team member not found' } })
+    return ok(reply, item)
+  })
+
   app.get('/public/services', async (req, reply) => {
     const query = parseQuery(req, ListQuerySchema)
     const { skip, take } = toSkipTake(query.page, query.pageSize)
@@ -105,7 +135,13 @@ export const publicRoutes: FastifyPluginAsync = async (app) => {
       : {}
 
     const [items, total] = await Promise.all([
-      app.prisma.doctor.findMany({ where, include: { hospital: true }, skip, take, orderBy: { [sort.field]: sort.direction } as any }),
+      app.prisma.doctor.findMany({
+        where,
+        include: { hospital: true, media: { include: { media: true } } },
+        skip,
+        take,
+        orderBy: { [sort.field]: sort.direction } as any,
+      }),
       app.prisma.doctor.count({ where }),
     ])
 
@@ -280,7 +316,17 @@ export const publicRoutes: FastifyPluginAsync = async (app) => {
 
     const [hospitals, doctors, advanced] = await Promise.all([
       app.prisma.hospital.findMany({ where: { name: { contains: query.q, mode: 'insensitive' } }, take: query.limit, orderBy: { updatedAt: 'desc' } }),
-      app.prisma.doctor.findMany({ where: { name: { contains: query.q, mode: 'insensitive' } }, take: query.limit, orderBy: { updatedAt: 'desc' } }),
+      app.prisma.doctor.findMany({
+        where: {
+          OR: [
+            { name: { contains: query.q, mode: 'insensitive' } },
+            { specialty: { contains: query.q, mode: 'insensitive' } },
+            { title: { contains: query.q, mode: 'insensitive' } },
+          ],
+        },
+        take: query.limit,
+        orderBy: { updatedAt: 'desc' },
+      }),
       app.prisma.advancedHealthcareInChina.findMany({ where: { name: { contains: query.q, mode: 'insensitive' } }, take: query.limit, orderBy: { updatedAt: 'desc' } }),
     ])
 

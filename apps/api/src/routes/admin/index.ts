@@ -9,6 +9,7 @@ import { adminUsersRoutes } from './users.js'
 import { adminPatientStoriesRoutes } from './patientstories.js'
 import { adminMediaRoutes } from './media.js'
 import { adminLocationsRoutes } from './locations.js'
+import { adminTeamsRoutes } from './teams.js'
 
 export const adminRoutes: FastifyPluginAsync = async (app) => {
   await app.register(async (admin) => {
@@ -24,5 +25,6 @@ export const adminRoutes: FastifyPluginAsync = async (app) => {
     await admin.register(adminPatientStoriesRoutes)
     await admin.register(adminMediaRoutes)
     await admin.register(adminLocationsRoutes)
+    await admin.register(adminTeamsRoutes)
   })
 }

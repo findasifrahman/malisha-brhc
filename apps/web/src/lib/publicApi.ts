@@ -30,6 +30,7 @@ export type Doctor = {
   shortDetails: string[]
   bio?: string | null
   hospital?: { id: string; name: string; slug: string } | null
+  media?: Array<{ media: Media }> | null
 }
 
 export type Hospital = {
@@ -61,6 +62,17 @@ export type PatientStory = {
   content?: string | null
   shortDetails: string[]
   publishedAt?: string | null
+}
+
+export type Team = {
+  id: string
+  name: string
+  slug: string
+  designation: string
+  role: string
+  shortDesc?: string | null
+  fullDesc?: string | null
+  media?: Media | null
 }
 
 export type Blog = {
@@ -168,6 +180,15 @@ export async function addBlogComment(slug: string, input: { name: string; email?
 export async function listGallery(params: { page?: number; pageSize?: number; q?: string } = {}) {
   const res = await apiFetch<Media[]>(`/public/media/gallery${toQuery(params)}`)
   return { items: res.data, meta: res.meta as any }
+}
+
+export async function listTeams(params: { page?: number; pageSize?: number; q?: string; sort?: string } = {}) {
+  const res = await apiFetch<Team[]>(`/public/teams${toQuery(params)}`)
+  return { items: res.data, meta: res.meta as any }
+}
+
+export async function getTeam(slug: string) {
+  return apiFetch<Team>(`/public/teams/${encodeURIComponent(slug)}`)
 }
 
 export async function searchAll(q: string, limit = 10) {

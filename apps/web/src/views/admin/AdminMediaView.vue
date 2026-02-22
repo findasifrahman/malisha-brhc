@@ -79,6 +79,7 @@
               <option value="doctors">doctors</option>
               <option value="advancedhealthcareinchina">advancedhealthcareinchina</option>
               <option value="patientstory">patientstory</option>
+              <option value="teams">teams</option>
             </BaseSelect>
           </div>
         </div>

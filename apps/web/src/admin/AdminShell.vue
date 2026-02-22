@@ -109,6 +109,7 @@ const items = computed(() => [
   { label: 'Advanced Healthcare', to: '/admin/advanced', icon: Globe },
   { label: 'Blogs', to: '/admin/blogs', icon: FileText },
   { label: 'Patient Stories', to: '/admin/patient-stories', icon: HeartHandshake },
+  { label: 'Teams', to: '/admin/teams', icon: Users },
   { label: 'Locations', to: '/admin/locations', icon: MapPinned },
   { label: 'Media', to: '/admin/media', icon: Image },
   { label: 'Users', to: '/admin/users', icon: Users },
