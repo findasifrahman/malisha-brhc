@@ -197,7 +197,10 @@ const doctorSpecialties = ['Rheumatology and Immunology','Rehabilitation Medicin
 'Gastrointestinal Surgery',
 'Neuro-Oncology Surgery',
 'Organ Transplantation',
-'Hepatobiliary Surgery',,'Oncology','Medicine','Orthopedics'] as const
+'Hepatobiliary Surgery',
+'Oncology',
+'Medicine',
+'Orthopedics'] as const
 //['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
 
 const filteredMode = computed(() => Boolean((q.value ?? '').trim()) || Boolean((specialty.value ?? '').trim()))
