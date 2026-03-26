@@ -88,6 +88,7 @@
             <div class="text-sm font-semibold text-brhc-muted">Specialty</div>
             <div class="mt-2">
               <BaseSelect v-model="form.specialty">
+                <!--
                 <option value="">(none)</option>
                 <option value="Oncology">Oncology</option>
                 <option value="Orthopedics">Orthopedics</option>
@@ -95,6 +96,27 @@
                 <option value="Nephrology">Nephrology</option>
                 <option value="Skin">Skin</option>
                 <option value="Medicine">Medicine</option>
+                -->
+                <option v-for="s in ['Rheumatology and Immunology','Rehabilitation Medicine',
+                    'Reproductive Medicine',
+                    'Obstetrics and Gynecology',
+                    'Gynecologic',
+                    'Ophthalmology',
+                    'Oral and Maxillofacial Surgery',
+                    'Neurology',
+                    'Neurosurgery',
+                    'Pediatric Hematology and Oncology',
+                    'Pediatric Surgery',
+                    'Otorhinolaryngology',
+                    'Cardiovascular Surgery',
+                    'Breast Surgery',
+                    'Orthopedic Surgery',
+                    'Thyroid Surgery',
+                    'Colorectal Surgery',
+                    'Gastrointestinal Surgery',
+                    'Neuro-Oncology Surgery',
+                    'Organ Transplantation',
+                    'Hepatobiliary Surgery','Oncology','Medicine','Orthopedics']" :key="s" :value="s">{{ s }}</option>
               </BaseSelect>
             </div>
           </div>

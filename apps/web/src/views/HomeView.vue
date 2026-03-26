@@ -824,7 +824,27 @@ const slideshowImages = ref<any[]>([])
 
 const teams = ref<any[]>([])
 
-const doctorSpecialties = ['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
+const doctorSpecialties = ['Rheumatology and Immunology','Rehabilitation Medicine',
+'Reproductive Medicine',
+'Obstetrics and Gynecology',
+'Gynecologic',
+'Ophthalmology',
+'Oral and Maxillofacial Surgery',
+'Neurology',
+'Neurosurgery',
+'Pediatric Hematology and Oncology',
+'Pediatric Surgery',
+'Otorhinolaryngology',
+'Cardiovascular Surgery',
+'Breast Surgery',
+'Orthopedic Surgery',
+'Thyroid Surgery',
+'Colorectal Surgery',
+'Gastrointestinal Surgery',
+'Neuro-Oncology Surgery',
+'Organ Transplantation',
+'Hepatobiliary Surgery','Oncology','Medicine','Orthopedics'] as const
+//['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
 const homeDoctorsBySpecialty = ref<Record<string, any[]>>({})
 const hasAnyHomeDoctorGroups = computed(() => {
   const groups = homeDoctorsBySpecialty.value

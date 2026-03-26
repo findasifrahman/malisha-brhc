@@ -23,7 +23,14 @@
         <NavLink style="color: red;" label="Home" to="/" />
         <NavDropdown  label="Hospitals" :items="hospitalItems" to="/hospitals" />
         <NavDropdown style="color: red;" label="Services" :items="services" to="/services" />
-        <NavDropdown style="color: rebeccapurple;" label="Doctors" :items="doctorSpecialtyItems" to="/doctors" />
+        <NavDropdown
+          style="color: rebeccapurple;"
+          label="Doctors"
+          :items="doctorSpecialtyItems"
+          to="/doctors"
+          :columns="2"
+          panel-class="w-[min(60rem,calc(100vw-2rem))]"
+        />
         <NavDropdown style="color: white;" label="Advanced Healthcare" :items="advancedItems" to="/healthcare-in-china" />
         <NavDropdown style="color: white;" label="Blogs" :items="blogItems" to="/blogs" />
         <NavLink style="color: red;" label="Patient Stories" to="/patient-stories" />
@@ -303,12 +310,34 @@ const blogItems = computed<NavItem[]>(() => {
 })
 
 const doctorsBySpecialty = ref<Record<string, Array<{ name: string; slug: string; hospital?: string }>>>({})
-const doctorSpecialties = ['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
+const doctorSpecialties = ['Rheumatology and Immunology','Rehabilitation Medicine',
+'Reproductive Medicine',
+'Obstetrics and Gynecology',
+'Gynecologic',
+'Ophthalmology',
+'Oral and Maxillofacial Surgery',
+'Neurology',
+'Neurosurgery',
+'Pediatric Hematology and Oncology',
+'Pediatric Surgery',
+'Otorhinolaryngology',
+'Cardiovascular Surgery',
+'Breast Surgery',
+'Orthopedic Surgery',
+'Thyroid Surgery',
+'Colorectal Surgery',
+'Gastrointestinal Surgery',
+'Neuro-Oncology Surgery',
+'Organ Transplantation',
+'Hepatobiliary Surgery','Oncology','Medicine','Orthopedics'] as const
+//[ 'Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
 
 const doctorSpecialtyItems = computed<NavItem[]>(() => {
   return doctorSpecialties.map((spec) => ({
     label: spec,
-    description: doctorsBySpecialty.value[spec]?.length ? `${doctorsBySpecialty.value[spec].length} doctors` : 'View doctors',
+    description: doctorsBySpecialty.value[spec]?.length
+      ? `${doctorsBySpecialty.value[spec].length} doctor${doctorsBySpecialty.value[spec].length === 1 ? '' : 's'}`
+      : undefined,
     to: `/doctors?specialty=${encodeURIComponent(spec)}`,
   }))
 })

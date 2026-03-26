@@ -178,7 +178,27 @@ const groupedBySpecialty = ref<Record<string, any[]>>({})
 const meta = ref<{ page: number; pageSize: number; total: number } | null>(null)
 const loading = ref(false)
 
-const doctorSpecialties = ['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
+const doctorSpecialties = ['Rheumatology and Immunology','Rehabilitation Medicine',
+'Reproductive Medicine',
+'Obstetrics and Gynecology',
+'Gynecologic',
+'Ophthalmology',
+'Oral and Maxillofacial Surgery',
+'Neurology',
+'Neurosurgery',
+'Pediatric Hematology and Oncology',
+'Pediatric Surgery',
+'Otorhinolaryngology',
+'Cardiovascular Surgery',
+'Breast Surgery',
+'Orthopedic Surgery',
+'Thyroid Surgery',
+'Colorectal Surgery',
+'Gastrointestinal Surgery',
+'Neuro-Oncology Surgery',
+'Organ Transplantation',
+'Hepatobiliary Surgery',,'Oncology','Medicine','Orthopedics'] as const
+//['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
 
 const filteredMode = computed(() => Boolean((q.value ?? '').trim()) || Boolean((specialty.value ?? '').trim()))
 
