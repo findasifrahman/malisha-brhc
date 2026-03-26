@@ -27,7 +27,7 @@
     <section class="relative w-full min-h-[85vh] overflow-hidden pb-24">
       <!-- Background Image with Overlay -->
       <img 
-        src="/hero.jpg" 
+        src="/hero.png" 
         alt="Hero background"
         class="absolute inset-0 w-full h-full object-cover"
         onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
@@ -42,18 +42,19 @@
       <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
 
       <!-- Hero Content Container -->
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-6 min-h-[560px] flex items-center">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-6 min-h-[700px] flex items-center">
         <div class="w-full max-w-[920px] mx-auto text-center">
           <!-- Main Title -->
-          <h1 class="text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight drop-shadow-lg mb-6">
+          <h1 class="text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight drop-shadow-lg mb-1">
             Belt and Road Healthcare Center
           </h1>
           
-          <!-- Subtitle -->
+          <!-- Subtitle 
+
           <p class="text-sm lg:text-xl text-yellow-100/95 max-w-2xl mx-auto drop-shadow-md mb-8">
             To establish itself as the leading global hub for medical tourism, empowering individuals with access to China's advanced healthcare system while promoting global health equity and collaboration
           </p>
-
+        -->
           <!-- Search Bar Section - Integrated Pill -->
           <div ref="searchBoxRef" class="relative mx-auto w-full max-w-[820px]">
             <div class="flex items-stretch rounded-full overflow-hidden bg-white/90 backdrop-blur-md border border-white/20 shadow-xl focus-within:ring-4 focus-within:ring-white/30 transition-all duration-200">
@@ -159,7 +160,7 @@
               <div class="lg:col-span-5">
                 <div class="overflow-hidden rounded-3xl border border-gray-200 shadow-2xl h-full bg-white">
                   <img 
-                    src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                    src="/BRHC-Back.png" 
                     alt="BRHC Healthcare - China Medical Support"
                     class="w-full h-full object-cover"
                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -207,7 +208,7 @@
 
                   <div class="mt-8 pt-6 border-t border-gray-200 flex items-center gap-3 text-lg">
                     <Phone class="h-6 w-6 text-teal-600" />
-                    <span class="text-gray-600">Call us:</span>
+                    <span class="text-gray-600">Call us whatsapp:</span>
                     <a class="font-semibold text-teal-600 hover:text-teal-700 transition" :href="`tel:${phoneNumber}`">{{ phoneLabel }}</a>
                   </div>
                 </div>
