@@ -47,10 +47,6 @@
               <div class="mt-1 space-y-1">
                 <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8615989054366">
                   <Phone class="h-4 w-4 text-red-100" />
-                   +8615989054366
-                </a>
-                <a class="flex items-center gap-2 hover:text-red-300 text-red-50" href="tel:+8615989054366">
-                  <Phone class="h-4 w-4 text-red-100" />
                   +86-15989054366
                 </a>
               </div>
@@ -94,7 +90,7 @@
               <Facebook class="h-5 w-5 text-white" />
             </a>
             <a
-              :href="facebookUrl"
+              :href="linkedinUrl"
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10 hover:ring-white/20"
@@ -150,6 +146,7 @@ import { Clock, ExternalLink, Facebook, Linkedin, MapPin, Phone, QrCode, Youtube
 const year = new Date().getFullYear()
 
 const facebookUrl = 'https://www.facebook.com/brcchealthcare'
+const linkedinUrl = 'https://www.linkedin.com/company/brcchealthcarecenter'
 const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(facebookUrl)}`
 
 function openFacebook() {
