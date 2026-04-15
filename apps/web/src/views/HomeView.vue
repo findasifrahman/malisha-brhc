@@ -331,30 +331,30 @@
             </div>
             
             <div v-else class="space-y-10">
-              <template v-for="spec in doctorSpecialties" :key="spec">
-                <div v-if="(homeDoctorsBySpecialty[spec]?.length ?? 0) > 0" class="overflow-hidden rounded-3xl border border-red-100 bg-white shadow-sm">
+              <template v-for="entry in visibleHomeDoctorSpecialties" :key="entry.spec">
+                <div class="overflow-hidden rounded-3xl border border-red-100 bg-white shadow-sm">
                   <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-white via-red-50/40 to-yellow-50/30 px-6 py-5">
                     <div class="min-w-0">
-                      <div class="truncate text-lg font-bold text-gray-900">{{ spec }}</div>
-                      <div class="mt-1 text-sm text-gray-600">{{ homeDoctorsBySpecialty[spec]?.length ?? 0 }} doctors</div>
+                      <div class="truncate text-lg font-bold text-gray-900">{{ entry.spec }}</div>
+                      <div class="mt-1 text-sm text-gray-600">{{ entry.doctors.length }} doctors</div>
                     </div>
-                    <BaseButton size="sm" variant="outline" @click="router.push({ path: '/doctors', query: { specialty: spec } })">View</BaseButton>
+                    <BaseButton size="sm" variant="outline" @click="router.push({ path: '/doctors', query: { specialty: entry.spec } })">View</BaseButton>
                   </div>
 
                   <div class="p-6">
                     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                      <RouterLink v-for="d in (homeDoctorsBySpecialty[spec] ?? []).slice(0, 3)" :key="d.id" :to="`/doctors/${d.slug}`">
-                        <div class="group bg-gradient-to-br from-white to-red-50 rounded-2xl p-6 border border-red-100 hover:border-red-300 hover:shadow-2xl transition-all duration-300 relative overflow-hidden h-full">
-                          <div class="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-red-500/10 to-yellow-500/10 rounded-bl-2xl"></div>
+                      <RouterLink v-for="d in entry.doctors.slice(0, 3)" :key="d.id" :to="`/doctors/${d.slug}`">
+                        <div class="group relative h-full overflow-hidden rounded-2xl border border-red-100 bg-gradient-to-br from-white to-red-50 p-6 transition-all duration-300 hover:border-red-300 hover:shadow-2xl">
+                          <div class="absolute right-0 top-0 h-20 w-20 rounded-bl-2xl bg-gradient-to-br from-red-500/10 to-yellow-500/10"></div>
                           <div class="relative grid grid-cols-1 gap-4 lg:grid-cols-12 lg:items-stretch">
-                            <div class="lg:col-span-7 flex flex-col">
+                            <div class="flex flex-col lg:col-span-7">
                               <div class="flex items-start justify-between gap-3">
                                 <div class="flex-1">
-                                  <div class="text-lg font-bold text-gray-900 group-hover:text-red-500 transition-colors">{{ d.name }}</div>
+                                  <div class="text-lg font-bold text-gray-900 transition-colors group-hover:text-red-500">{{ d.name }}</div>
                                   <div class="mt-1 text-sm text-gray-500">{{ d.specialty ?? d.title ?? '' }}</div>
                                   <div v-if="d.hospital?.name" class="mt-1 text-xs font-medium text-gray-500">{{ d.hospital.name }}</div>
                                 </div>
-                                <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center">
+                                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-red-500 to-red-600">
                                   <Heart class="h-5 w-5 text-white transition-transform duration-500 group-hover:rotate-6" />
                                 </div>
                               </div>
@@ -376,19 +376,37 @@
                                   class="h-32 w-full object-cover transition-transform duration-700 group-hover:scale-105 lg:h-full lg:aspect-[1/3]"
                                   loading="lazy"
                                 />
-                                <div v-else class="h-32 w-full bg-gradient-to-br from-red-100 to-yellow-100 flex items-center justify-center lg:h-full lg:aspect-[1/3]">
+                                <div v-else class="flex h-32 w-full items-center justify-center bg-gradient-to-br from-red-100 to-yellow-100 lg:h-full lg:aspect-[1/3]">
                                   <div class="text-sm font-semibold text-red-600">Doctor Profile</div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <Badge v-if="d.isFeatured" class="bg-gradient-to-r from-yellow-400 to-yellow-500 text-white border-0">Featured</Badge>
+                          <Badge v-if="d.isFeatured" class="border-0 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white">Featured</Badge>
                         </div>
                       </RouterLink>
                     </div>
                   </div>
                 </div>
               </template>
+
+              <div v-if="hiddenHomeDoctorSpecialties.length" class="rounded-3xl border border-red-100 bg-white p-6 shadow-sm">
+                <div class="mb-4">
+                  <div class="text-lg font-bold text-gray-900">More Specialties</div>
+                  <div class="mt-1 text-sm text-gray-600">Browse the remaining doctor categories</div>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                  <button
+                    v-for="entry in hiddenHomeDoctorSpecialties"
+                    :key="entry.spec"
+                    type="button"
+                    class="inline-flex items-center rounded-full border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 shadow-sm transition hover:border-red-300 hover:bg-red-50 hover:text-red-700"
+                    @click="router.push({ path: '/doctors', query: { specialty: entry.spec } })"
+                  >
+                    {{ entry.spec }}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           </div>
@@ -846,10 +864,17 @@ const doctorSpecialties = ['Rheumatology and Immunology','Rehabilitation Medicin
 'Hepatobiliary Surgery','Oncology','Medicine','Orthopedics'] as const
 //['Oncology', 'Orthopedics', 'Cardiology', 'Nephrology', 'Skin', 'Medicine'] as const
 const homeDoctorsBySpecialty = ref<Record<string, any[]>>({})
-const hasAnyHomeDoctorGroups = computed(() => {
-  const groups = homeDoctorsBySpecialty.value
-  return doctorSpecialties.some((s) => (groups[s]?.length ?? 0) > 0)
+const homeDoctorSpecialtyEntries = computed(() => {
+  return doctorSpecialties
+    .map((spec) => ({
+      spec,
+      doctors: homeDoctorsBySpecialty.value[spec] ?? [],
+    }))
+    .filter((entry) => entry.doctors.length > 0)
 })
+const visibleHomeDoctorSpecialties = computed(() => homeDoctorSpecialtyEntries.value.slice(0, 3))
+const hiddenHomeDoctorSpecialties = computed(() => homeDoctorSpecialtyEntries.value.slice(3))
+const hasAnyHomeDoctorGroups = computed(() => homeDoctorSpecialtyEntries.value.length > 0)
 
 function patientStoryMediaColClass(idx: number) {
   return idx % 2 === 0 ? 'lg:col-span-5' : 'lg:col-span-5 lg:order-2'
