@@ -48,9 +48,6 @@
           <h1 class="text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight drop-shadow-lg mb-1">
             Belt and Road Healthcare Center
           </h1>
-          <p class="mx-auto mt-4 max-w-3xl text-sm leading-7 text-yellow-100/95 drop-shadow-md lg:text-lg">
-            Helping Bangladeshi patients find trusted hospitals, specialist doctors, visa guidance, and medical treatment in China with Bangla-friendly support.
-          </p>
           <!-- Search Bar Section - Integrated Pill -->
           <div ref="searchBoxRef" class="relative mx-auto w-full max-w-[820px]">
             <div class="flex items-stretch rounded-full overflow-hidden bg-white/90 backdrop-blur-md border border-white/20 shadow-xl focus-within:ring-4 focus-within:ring-white/30 transition-all duration-200">
@@ -112,6 +109,10 @@
               </div>
             </div>
           </div>
+
+          <p class="mx-auto mt-5 max-w-3xl px-4 text-sm leading-7 text-yellow-100/95 drop-shadow-md lg:text-lg">
+            Helping Bangladeshi patients find trusted hospitals, specialist doctors, visa guidance, and medical treatment in China with Bangla-friendly support.
+          </p>
         </div>
       </div>
 
@@ -750,7 +751,7 @@
             <div class="h-full overflow-hidden rounded-3xl border border-red-100 bg-white shadow-xl">
               <div class="flex h-full flex-col bg-gradient-to-br from-red-600 via-red-700 to-red-800 text-white">
                 <div class="px-6 py-6">
-                  <p class="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-200">Bangla + English</p>
+                  <p class="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-200"></p>
                   <h2 class="mt-2 text-3xl font-bold tracking-tight lg:text-4xl">Treatment in China for Bangladeshi Patients</h2>
                   <p class="mt-4 max-w-xl text-sm leading-7 text-white/90 lg:text-base">
                     If you are searching for <span class="font-semibold text-yellow-200">China medical visa from Bangladesh</span>, hospital selection, or specialist treatment in China, this page is built for you.
@@ -760,14 +761,14 @@
                 <div class="mt-auto border-t border-white/15 bg-white/10 px-6 py-6">
                   <div class="grid gap-4">
                     <div class="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                      <div class="text-sm font-semibold uppercase tracking-wide text-yellow-200">বাংলা</div>
+
                       <p class="mt-2 text-base leading-7 text-white/90">
                         বাংলাদেশ থেকে চীনে চিকিৎসা নিতে চাইলে BRHC আপনাকে হাসপাতাল খুঁজে দেওয়া, ডাক্তার নির্বাচন, ভিসা গাইড, রিপোর্ট রিভিউ, এবং চীনে পৌঁছানোর পর পেশেন্ট সাপোর্টে সাহায্য করে।
                       </p>
                     </div>
 
                     <div class="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-                      <div class="text-sm font-semibold uppercase tracking-wide text-yellow-200">English</div>
+
                       <p class="mt-2 text-base leading-7 text-white/90">
                         We help Bangladeshi patients compare hospitals, understand the China medical visa process, and plan treatment in China with clear support from first inquiry to follow-up care.
                       </p>
@@ -789,7 +790,7 @@
             <div class="h-full overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
               <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
                 <div>
-                  <h2 class="text-2xl lg:text-3xl font-bold text-red-500">FAQ for Bangladeshi Patients</h2>
+                  <h2 class="text-2xl lg:text-3xl font-bold text-red-500">FAQ for Patients</h2>
                   <p class="mt-1 text-sm lg:text-base text-red-700">Common search questions about China medical visa and treatment in China.</p>
                 </div>
               </div>
