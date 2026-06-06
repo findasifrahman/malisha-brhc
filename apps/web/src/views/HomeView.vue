@@ -48,13 +48,9 @@
           <h1 class="text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight drop-shadow-lg mb-1">
             Belt and Road Healthcare Center
           </h1>
-          
-          <!-- Subtitle 
-
-          <p class="text-sm lg:text-xl text-yellow-100/95 max-w-2xl mx-auto drop-shadow-md mb-8">
-            To establish itself as the leading global hub for medical tourism, empowering individuals with access to China's advanced healthcare system while promoting global health equity and collaboration
+          <p class="mx-auto mt-4 max-w-3xl text-sm leading-7 text-yellow-100/95 drop-shadow-md lg:text-lg">
+            Helping Bangladeshi patients find trusted hospitals, specialist doctors, visa guidance, and medical treatment in China with Bangla-friendly support.
           </p>
-        -->
           <!-- Search Bar Section - Integrated Pill -->
           <div ref="searchBoxRef" class="relative mx-auto w-full max-w-[820px]">
             <div class="flex items-stretch rounded-full overflow-hidden bg-white/90 backdrop-blur-md border border-white/20 shadow-xl focus-within:ring-4 focus-within:ring-white/30 transition-all duration-200">
@@ -212,6 +208,73 @@
                     <a class="font-semibold text-teal-600 hover:text-teal-700 transition" :href="`tel:${phoneNumber}`">{{ phoneLabel }}</a>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bangla/English SEO landing section -->
+    <section id="china-patient-guide" class="w-full py-20 bg-gradient-to-b from-white via-red-50/40 to-yellow-50/50 scroll-mt-28">
+      <div class="max-w-7xl mx-auto px-4 lg:px-6">
+        <div class="grid gap-8 lg:grid-cols-12">
+          <div class="lg:col-span-5">
+            <div class="sticky top-28 overflow-hidden rounded-3xl border border-red-100 bg-white shadow-xl">
+              <div class="bg-gradient-to-br from-red-600 via-red-700 to-red-800 px-6 py-6 text-white">
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-yellow-200">Bangla + English</p>
+                <h2 class="mt-2 text-3xl font-bold tracking-tight lg:text-4xl">Treatment in China for Bangladeshi Patients</h2>
+                <p class="mt-4 max-w-xl text-sm leading-7 text-white/90 lg:text-base">
+                  If you are searching for <span class="font-semibold text-yellow-200">China medical visa from Bangladesh</span>, hospital selection, or specialist treatment in China, this page is built for you.
+                </p>
+              </div>
+
+              <div class="space-y-5 p-6">
+                <div class="rounded-2xl border border-red-100 bg-red-50 p-5">
+                  <div class="text-sm font-semibold uppercase tracking-wide text-red-600">বাংলা</div>
+                  <p class="mt-2 text-base leading-7 text-gray-700">
+                    বাংলাদেশ থেকে চীনে চিকিৎসা নিতে চাইলে BRHC আপনাকে হাসপাতাল খুঁজে দেওয়া, ডাক্তার নির্বাচন, ভিসা গাইড, রিপোর্ট রিভিউ, এবং চীনে পৌঁছানোর পর পেশেন্ট সাপোর্টে সাহায্য করে।
+                  </p>
+                </div>
+
+                <div class="rounded-2xl border border-yellow-100 bg-yellow-50 p-5">
+                  <div class="text-sm font-semibold uppercase tracking-wide text-yellow-700">English</div>
+                  <p class="mt-2 text-base leading-7 text-gray-700">
+                    We help Bangladeshi patients compare hospitals, understand the China medical visa process, and plan treatment in China with clear support from first inquiry to follow-up care.
+                  </p>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                  <RouterLink to="/contact" class="rounded-2xl bg-red-600 px-5 py-4 text-center text-sm font-semibold text-white transition hover:bg-red-700">
+                    Get treatment help
+                  </RouterLink>
+                  <RouterLink to="/search" class="rounded-2xl border border-red-200 bg-white px-5 py-4 text-center text-sm font-semibold text-red-700 transition hover:bg-red-50">
+                    Search hospitals
+                  </RouterLink>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <div class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl">
+              <div class="flex items-center justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
+                <div>
+                  <h2 class="text-2xl lg:text-3xl font-bold text-red-500">FAQ for Bangladeshi Patients</h2>
+                  <p class="mt-1 text-sm lg:text-base text-red-700">Common search questions about China medical visa and treatment in China.</p>
+                </div>
+              </div>
+
+              <div class="divide-y divide-gray-100 px-6 py-2">
+                <details v-for="faq in chinaFaqs" :key="faq.question" class="group py-5">
+                  <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
+                    <span class="text-lg font-semibold text-gray-900 group-open:text-red-600">{{ faq.question }}</span>
+                    <ChevronRight class="h-5 w-5 shrink-0 text-gray-400 transition-transform group-open:rotate-90 group-open:text-red-600" />
+                  </summary>
+                  <p class="mt-3 max-w-3xl text-sm leading-7 text-gray-600 lg:text-base">
+                    {{ faq.answer }}
+                  </p>
+                </details>
               </div>
             </div>
           </div>
@@ -816,6 +879,28 @@ const router = useRouter()
 
 const phoneNumber = '+8615989054366'
 const phoneLabel = '+86 15989054366'
+const chinaFaqs = [
+  {
+    question: 'How do I apply for a China medical visa from Bangladesh?',
+    answer:
+      'Start with a medical consultation and hospital review. BRHC can help you gather the required documents, prepare the medical support letter, and guide you through the China medical visa process from Bangladesh step by step.',
+  },
+  {
+    question: 'Can you help with treatment in China for Bangladeshi patients?',
+    answer:
+      'Yes. We help Bangladeshi patients choose hospitals, connect with specialists, plan appointments, and arrange travel support so treatment in China is easier to manage.',
+  },
+  {
+    question: 'What diseases and treatments are commonly searched?',
+    answer:
+      'Common searches include cancer treatment, orthopedics, cardiology, neurology, fertility, surgery, and second opinions. Patients also search for affordable treatment options and specialist hospitals in China.',
+  },
+  {
+    question: 'Do you support Bangla language communication?',
+    answer:
+      'Yes. We support Bangla and English communication so patients and families can understand the hospital process, medical reports, and next steps clearly.',
+  },
+]
 
 const search = ref('')
 const searchOpen = ref(false)
@@ -935,6 +1020,30 @@ function openSlideshow(image: any) {
   slideshowOpen.value = true
 }
 
+function syncFaqSchema() {
+  if (typeof document === 'undefined') return
+
+  const existing = document.getElementById('home-faq-schema')
+  if (existing) existing.remove()
+
+  const script = document.createElement('script')
+  script.id = 'home-faq-schema'
+  script.type = 'application/ld+json'
+  script.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: chinaFaqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  })
+  document.head.appendChild(script)
+}
+
 function closeSlideshow() {
   slideshowOpen.value = false
   slideshowIndex.value = 0
@@ -958,6 +1067,7 @@ function onKeydown(e: KeyboardEvent) {
 onMounted(async () => {
   window.addEventListener('keydown', onKeydown)
   document.addEventListener('pointerdown', onDocPointerDown)
+  syncFaqSchema()
   featuredLoading.value = true
   try {
     const [servicesRes, doctorsRes, hospitalsRes, storiesRes, galleryRes, advancedRes] = await Promise.all([
