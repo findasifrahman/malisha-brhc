@@ -42,15 +42,15 @@
       <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
 
       <!-- Hero Content Container -->
-      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-6 min-h-[700px] flex items-center">
-        <div class="w-full max-w-[920px] mx-auto text-center">
+      <div class="relative z-10 w-full max-w-7xl mx-auto px-4 lg:px-6 min-h-[760px] flex items-start pt-16 lg:pt-24">
+        <div class="w-full max-w-[920px] mx-auto rounded-[2rem] border border-white/10 bg-black/25 px-5 py-8 text-center shadow-2xl backdrop-blur-sm lg:px-10 lg:py-10">
           <!-- Main Title -->
-          <h1 class="text-5xl lg:text-6xl font-bold text-gray-200 tracking-tight drop-shadow-lg mb-1">
+          <h1 class="text-4xl leading-tight lg:text-6xl font-bold text-white tracking-tight drop-shadow-lg">
             Belt and Road Healthcare Center
           </h1>
           <!-- Search Bar Section - Integrated Pill -->
-          <div ref="searchBoxRef" class="relative mx-auto w-full max-w-[820px]">
-            <div class="flex items-stretch rounded-full overflow-hidden bg-white/90 backdrop-blur-md border border-white/20 shadow-xl focus-within:ring-4 focus-within:ring-white/30 transition-all duration-200">
+          <div ref="searchBoxRef" class="relative mx-auto mt-6 w-full max-w-[820px]">
+            <div class="flex items-stretch rounded-full overflow-hidden bg-white/95 backdrop-blur-md border border-white/20 shadow-xl focus-within:ring-4 focus-within:ring-white/30 transition-all duration-200">
               <input
                 v-model="search"
                 placeholder="Search hospital name or doctor specialty..."
@@ -110,7 +110,7 @@
             </div>
           </div>
 
-          <p class="mx-auto mt-5 max-w-3xl px-4 text-sm leading-7 text-yellow-100/95 drop-shadow-md lg:text-lg">
+          <p class="mx-auto mt-5 max-w-3xl px-2 text-sm leading-7 text-yellow-50 drop-shadow-md lg:text-lg">
             Helping Bangladeshi patients find trusted hospitals, specialist doctors, visa guidance, and medical treatment in China with Bangla-friendly support.
           </p>
         </div>
