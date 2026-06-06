@@ -24,7 +24,7 @@
                 <div class="text-xl font-bold text-gray-900">Guangzhou Office</div>
                 <div class="mt-3 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Address</div>
-                  <div class="mt-1">Room 13D, Rongjian Building, Jiansheliu Malu, Yuexiu District, Guangzhou City, Guangdong Province, P.R. China 510030</div>
+                  <div class="mt-1">Room 1510-1512, Guangdong International Building (Crowne Plaza Building), Huanshi Donglu 399, Yuexiu District, Guangzhou,China</div>
                 </div>
                 <div class="mt-4 pt-4 border-t border-red-100 text-sm text-gray-700 leading-relaxed">
                   <div class="font-semibold text-gray-900">Contact</div>
