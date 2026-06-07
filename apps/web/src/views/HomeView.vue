@@ -747,8 +747,7 @@
           <section id="seo-guides" class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl scroll-mt-28">
             <div class="flex items-end justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">SEO Guides</h2>
-                <p class="mt-1 text-sm lg:text-base text-red-600">Dedicated pages for the most common Bangladesh-to-China searches</p>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Guides</h2>
               </div>
               <div class="hidden gap-3 lg:flex">
                 <RouterLink to="/guides" class="rounded-xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50">
@@ -778,7 +777,7 @@
           <section id="seo-location-pages" class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl scroll-mt-28">
             <div class="flex items-end justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
               <div>
-                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Location Pages</h2>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Location</h2>
                 <p class="mt-1 text-sm lg:text-base text-red-600">City-focused pages for Guangzhou and Kunming treatment planning</p>
               </div>
             </div>
