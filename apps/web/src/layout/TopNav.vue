@@ -32,6 +32,7 @@
           panel-class="w-[min(60rem,calc(100vw-2rem))]"
         />
         <NavDropdown style="color: white;" label="Advanced Healthcare" :items="advancedItems" to="/healthcare-in-china" />
+        <NavLink style="color: red;" label="Guides" to="/guides" />
         <NavDropdown style="color: white;" label="Blogs" :items="blogItems" to="/blogs" />
         <NavLink style="color: red;" label="Patient Stories" to="/patient-stories" />
         <NavLink style="color: red;" label="About" to="/#about" />
@@ -301,8 +302,8 @@ const advancedItems = computed<NavItem[]>(() => {
 
 function trim15(s: string) {
   const t = (s ?? '').trim()
-  if (t.length <= 25) return t
-  return `${t.slice(0, 25)}…`
+  if (t.length <= 35) return t
+  return `${t.slice(0, 35)}…`
 }
 
 const blogItems = computed<NavItem[]>(() => {

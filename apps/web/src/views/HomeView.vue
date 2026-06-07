@@ -750,9 +750,14 @@
                 <h2 class="text-2xl lg:text-3xl font-bold text-red-500">SEO Guides</h2>
                 <p class="mt-1 text-sm lg:text-base text-red-600">Dedicated pages for the most common Bangladesh-to-China searches</p>
               </div>
-              <RouterLink to="/contact" class="hidden rounded-xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 lg:inline-flex">
-                Need help?
-              </RouterLink>
+              <div class="hidden gap-3 lg:flex">
+                <RouterLink to="/guides" class="rounded-xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50">
+                  View all guides
+                </RouterLink>
+                <RouterLink to="/contact" class="rounded-xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50">
+                  Need help?
+                </RouterLink>
+              </div>
             </div>
 
             <div class="grid gap-4 p-6 sm:grid-cols-2 xl:grid-cols-5">

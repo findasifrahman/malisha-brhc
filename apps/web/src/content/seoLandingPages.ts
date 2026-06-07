@@ -562,13 +562,25 @@ export const seoLandingPages: SeoLandingPage[] = [
     path: '/guides/guangzhou-treatment-guide',
     title: 'Guangzhou Treatment Guide | BRHC',
     description:
-      'A Guangzhou-focused guide for Bangladeshi patients looking at oncology, surgery, international hospitals, and the practical steps around travel and treatment.',
+      'A Guangzhou-based guide for Bangladeshi patients looking at oncology, surgery, international hospitals, and the practical steps around travel and treatment.',
     keywords: [
       'Guangzhou treatment guide',
       'Guangzhou hospitals',
       'treatment in Guangzhou from Bangladesh',
       'Guangzhou cancer hospital',
       'Guangzhou surgery cost',
+      'China surgery cost',
+      'China cancer cost',
+      'China oncology',
+      'China kidney transplant',
+      'China cardiology',
+      'China digestive disease',
+      'Guangzhou medical travel',
+      'Guangzhou medical tourism',
+      'China mediacal tourism from Bangladesh',
+      'Guangzhou medical visa from Bangladesh',
+      'China heart disease treatment from Bangladesh'
+
     ],
     eyebrow: 'City Guide',
     heroLead:
@@ -666,7 +678,7 @@ export const seoLandingPages: SeoLandingPage[] = [
     path: '/guides/kunming-treatment-guide',
     title: 'Kunming Treatment Guide | BRHC',
     description:
-      'A Kunming-focused treatment page for Bangladeshi patients exploring Yunnan, cross-border care, cost planning, and city-based hospital selection.',
+      'A Kunming-based treatment page for Bangladeshi patients exploring Yunnan, cross-border care, cost planning, and city-based hospital selection.',
     keywords: [
       'Kunming treatment guide',
       'Kunming hospitals',

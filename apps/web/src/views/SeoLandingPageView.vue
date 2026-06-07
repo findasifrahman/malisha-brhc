@@ -4,7 +4,7 @@
       <nav class="text-xs font-semibold uppercase tracking-[0.18em] text-red-500">
         <RouterLink to="/" class="text-gray-500 hover:text-red-600">Home</RouterLink>
         <span class="mx-2 text-gray-300">/</span>
-        <RouterLink to="/healthcare-in-china" class="text-gray-500 hover:text-red-600">Guides</RouterLink>
+        <RouterLink to="/guides" class="text-gray-500 hover:text-red-600">Guides</RouterLink>
         <span class="mx-2 text-gray-300">/</span>
         <span class="text-gray-700">{{ page.title }}</span>
       </nav>

@@ -68,6 +68,17 @@ const seoByRoute: Record<string, SeoMeta> = {
       'China healthcare guide',
     ],
   },
+  guides: {
+    title: 'Guides | BRHC',
+    description: 'A central guide hub for Bangladeshi patients researching treatment in China, medical visas, city pages, hospitals, and pricing.',
+    keywords: [
+      'guides',
+      'China medical visa from Bangladesh',
+      'treatment in China from Bangladesh',
+      'surgery cost in Guangzhou',
+      'best hospitals in China for Bangladeshi patients',
+    ],
+  },
   'patient-stories': {
     title: 'Patient Stories | BRHC',
     description: 'Read patient stories about treatment journeys in China and medical travel support for Bangladeshi families.',
@@ -175,6 +186,7 @@ export const router = createRouter({
     { path: '/healthcare-in-china', name: 'healthcare', component: () => import('../views/HealthcareInChinaView.vue') },
     { path: '/healthcare-in-china/:slug', name: 'healthcare-detail', component: () => import('../views/HealthcareInChinaDetailView.vue') },
 
+    { path: '/guides', name: 'guides', component: () => import('../views/GuidesIndexView.vue') },
     { path: '/guides/treatment-in-china-from-bangladesh', name: 'seo-treatment-china-bangladesh', component: () => import('../views/SeoLandingPageView.vue') },
     { path: '/guides/china-medical-visa-from-bangladesh', name: 'seo-china-medical-visa', component: () => import('../views/SeoLandingPageView.vue') },
     { path: '/guides/cancer-treatment-in-china-from-bangladesh', name: 'seo-cancer-treatment-china', component: () => import('../views/SeoLandingPageView.vue') },
