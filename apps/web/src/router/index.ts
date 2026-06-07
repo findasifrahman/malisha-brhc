@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import { useAuthStore } from '../stores/auth'
+import { seoLandingPages } from '../content/seoLandingPages'
 
 type SeoMeta = {
   title: string
@@ -99,6 +100,16 @@ const seoByRoute: Record<string, SeoMeta> = {
     keywords: ['BRHC sign up', 'partner registration', 'account creation'],
     noindex: true,
   },
+  ...Object.fromEntries(
+    seoLandingPages.map((page) => [
+      page.routeName,
+      {
+        title: page.title,
+        description: page.description,
+        keywords: page.keywords,
+      } satisfies SeoMeta,
+    ]),
+  ),
 }
 
 function setMetaTag(attribute: 'name' | 'property', key: string, content: string) {
@@ -163,6 +174,14 @@ export const router = createRouter({
 
     { path: '/healthcare-in-china', name: 'healthcare', component: () => import('../views/HealthcareInChinaView.vue') },
     { path: '/healthcare-in-china/:slug', name: 'healthcare-detail', component: () => import('../views/HealthcareInChinaDetailView.vue') },
+
+    { path: '/guides/treatment-in-china-from-bangladesh', name: 'seo-treatment-china-bangladesh', component: () => import('../views/SeoLandingPageView.vue') },
+    { path: '/guides/china-medical-visa-from-bangladesh', name: 'seo-china-medical-visa', component: () => import('../views/SeoLandingPageView.vue') },
+    { path: '/guides/cancer-treatment-in-china-from-bangladesh', name: 'seo-cancer-treatment-china', component: () => import('../views/SeoLandingPageView.vue') },
+    { path: '/guides/surgery-cost-in-guangzhou', name: 'seo-surgery-cost-guangzhou', component: () => import('../views/SeoLandingPageView.vue') },
+    { path: '/guides/best-hospitals-in-china-for-bangladeshi-patients', name: 'seo-best-hospitals-china-bangladesh', component: () => import('../views/SeoLandingPageView.vue') },
+    { path: '/guides/guangzhou-treatment-guide', name: 'seo-guangzhou-treatment-page', component: () => import('../views/SeoLandingPageView.vue') },
+    { path: '/guides/kunming-treatment-guide', name: 'seo-kunming-treatment-page', component: () => import('../views/SeoLandingPageView.vue') },
 
     { path: '/patient-stories', name: 'patient-stories', component: () => import('../views/PatientStoriesView.vue') },
     { path: '/patient-stories/:slug', name: 'patient-story-detail', component: () => import('../views/PatientStoryDetailView.vue') },

@@ -301,8 +301,8 @@ const advancedItems = computed<NavItem[]>(() => {
 
 function trim15(s: string) {
   const t = (s ?? '').trim()
-  if (t.length <= 15) return t
-  return `${t.slice(0, 15)}…`
+  if (t.length <= 25) return t
+  return `${t.slice(0, 25)}…`
 }
 
 const blogItems = computed<NavItem[]>(() => {

@@ -352,6 +352,41 @@ async function main() {
       tags: 'advanced, innovation, china',
       excerpt: 'Six trends shaping advanced care pathways.',
     },
+    {
+      title: 'Bangladesh Treatment Checklist for China',
+      featured: true,
+      tags: 'bangladesh, checklist, treatment, china',
+      excerpt: 'A practical checklist before requesting hospital review.',
+      publishedAt: new Date(Date.now() + 5 * 60_000),
+    },
+    {
+      title: 'China Medical Visa From Bangladesh Step by Step Guide',
+      featured: true,
+      tags: 'visa, bangladesh, medical, china',
+      excerpt: 'A step-by-step explanation of the current visa flow.',
+      publishedAt: new Date(Date.now() + 4 * 60_000),
+    },
+    {
+      title: 'Cancer Treatment in China From Bangladesh What Families Should Prepare',
+      featured: true,
+      tags: 'cancer, oncology, bangladesh, china',
+      excerpt: 'What to prepare before sending an oncology case file.',
+      publishedAt: new Date(Date.now() + 3 * 60_000),
+    },
+    {
+      title: 'How to Estimate Surgery Cost in Guangzhou',
+      featured: true,
+      tags: 'surgery, guangzhou, cost, china',
+      excerpt: 'How families can compare surgery quotes more clearly.',
+      publishedAt: new Date(Date.now() + 2 * 60_000),
+    },
+    {
+      title: 'How to Choose a Hospital in China for Bangladeshi Patients',
+      featured: true,
+      tags: 'hospital, china, guidance, patient',
+      excerpt: 'How to compare hospitals before booking travel.',
+      publishedAt: new Date(Date.now() + 1 * 60_000),
+    },
   ]
 
   const blogs = [] as Array<{ id: string; slug: string }>
@@ -366,7 +401,7 @@ async function main() {
         tags: splitCsvToArray(b.tags),
         shortDetails: splitCsvToArray('Trusted guidance, Clear steps, Coordinated support'),
         authorId: adminUser.id,
-        publishedAt: new Date(),
+        publishedAt: b.publishedAt ?? new Date(),
       },
     })
     blogs.push({ id: created.id, slug: created.slug })

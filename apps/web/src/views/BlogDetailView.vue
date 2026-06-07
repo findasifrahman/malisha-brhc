@@ -62,6 +62,24 @@
             </RouterLink>
           </div>
         </Card>
+
+        <Card v-if="relatedGuideLinks.length" className="mt-6 p-6" :hoverable="false">
+          <div class="flex items-center justify-between gap-3">
+            <div class="text-lg font-semibold text-red-600">Related Guides</div>
+            <RouterLink class="text-sm font-semibold text-red-600 underline underline-offset-4" to="/guides/treatment-in-china-from-bangladesh">See guide hub</RouterLink>
+          </div>
+          <div class="mt-4 space-y-3">
+            <RouterLink
+              v-for="guide in relatedGuideLinks"
+              :key="guide.to"
+              :to="guide.to"
+              class="block rounded-2xl bg-white/5 p-4 ring-1 ring-white/10 transition hover:ring-white/20"
+            >
+              <div class="text-base font-semibold">{{ guide.label }}</div>
+              <div class="mt-1 text-sm text-brhc-muted">Continue to the matching SEO guide.</div>
+            </RouterLink>
+          </div>
+        </Card>
       </div>
 
       <div class="lg:col-span-7 space-y-6">
@@ -123,6 +141,37 @@ const loading = ref(false)
 const data = ref<any | null>(null)
 const selectedMediaId = ref<string | null>(null)
 const relatedBlogs = ref<any[]>([])
+const relatedGuideLinks = computed(() => {
+  const slug = route.params.slug as string
+  const relatedBySlug: Record<string, Array<{ label: string; to: string }>> = {
+    'bangladesh-treatment-checklist-for-china': [
+      { label: 'Treatment in China from Bangladesh', to: '/guides/treatment-in-china-from-bangladesh' },
+      { label: 'Best hospitals in China', to: '/guides/best-hospitals-in-china-for-bangladeshi-patients' },
+    ],
+    'china-medical-visa-from-bangladesh-step-by-step-guide': [
+      { label: 'China medical visa from Bangladesh', to: '/guides/china-medical-visa-from-bangladesh' },
+      { label: 'Treatment in China from Bangladesh', to: '/guides/treatment-in-china-from-bangladesh' },
+    ],
+    'cancer-treatment-in-china-from-bangladesh-what-families-should-prepare': [
+      { label: 'Cancer treatment in China from Bangladesh', to: '/guides/cancer-treatment-in-china-from-bangladesh' },
+      { label: 'Guangzhou treatment guide', to: '/guides/guangzhou-treatment-guide' },
+    ],
+    'how-to-estimate-surgery-cost-in-guangzhou': [
+      { label: 'Surgery cost in Guangzhou', to: '/guides/surgery-cost-in-guangzhou' },
+      { label: 'Guangzhou treatment guide', to: '/guides/guangzhou-treatment-guide' },
+    ],
+    'how-to-choose-a-hospital-in-china': [
+      { label: 'Best hospitals in China for Bangladeshi patients', to: '/guides/best-hospitals-in-china-for-bangladeshi-patients' },
+      { label: 'Kunming treatment guide', to: '/guides/kunming-treatment-guide' },
+    ],
+    'how-to-choose-a-hospital-in-china-for-bangladeshi-patients': [
+      { label: 'Best hospitals in China for Bangladeshi patients', to: '/guides/best-hospitals-in-china-for-bangladeshi-patients' },
+      { label: 'Guangzhou treatment guide', to: '/guides/guangzhou-treatment-guide' },
+    ],
+  }
+
+  return relatedBySlug[slug] ?? []
+})
 
 const mediaItems = computed<any[]>(() => {
   const ms = (data.value?.media ?? []).map((x: any) => x.media).filter(Boolean)

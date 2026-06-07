@@ -743,6 +743,55 @@
               </div>
             </div>
           </section>
+
+          <section id="seo-guides" class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl scroll-mt-28">
+            <div class="flex items-end justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
+              <div>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">SEO Guides</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">Dedicated pages for the most common Bangladesh-to-China searches</p>
+              </div>
+              <RouterLink to="/contact" class="hidden rounded-xl border border-red-200 bg-white px-4 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 lg:inline-flex">
+                Need help?
+              </RouterLink>
+            </div>
+
+            <div class="grid gap-4 p-6 sm:grid-cols-2 xl:grid-cols-5">
+              <RouterLink
+                v-for="guide in seoGuides"
+                :key="guide.routeName"
+                :to="guide.path"
+                class="group rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-red-50 p-5 transition hover:-translate-y-1 hover:border-red-300 hover:shadow-lg"
+              >
+                <div class="text-xs font-semibold uppercase tracking-[0.22em] text-red-500">{{ guide.eyebrow }}</div>
+                <div class="mt-2 text-lg font-bold text-gray-900 group-hover:text-red-600">{{ guide.title }}</div>
+                <div class="mt-3 text-sm leading-6 text-gray-600 line-clamp-4">{{ guide.description }}</div>
+                <div class="mt-4 text-sm font-semibold text-red-600">Open guide</div>
+              </RouterLink>
+            </div>
+          </section>
+
+          <section id="seo-location-pages" class="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl scroll-mt-28">
+            <div class="flex items-end justify-between gap-4 bg-gradient-to-br from-gray-100 via-gray-150 to-gray-100 px-6 py-5">
+              <div>
+                <h2 class="text-2xl lg:text-3xl font-bold text-red-500">Location Pages</h2>
+                <p class="mt-1 text-sm lg:text-base text-red-600">City-focused pages for Guangzhou and Kunming treatment planning</p>
+              </div>
+            </div>
+
+            <div class="grid gap-4 p-6 sm:grid-cols-2 xl:grid-cols-2">
+              <RouterLink
+                v-for="location in seoLocations"
+                :key="location.routeName"
+                :to="location.path"
+                class="group rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-yellow-50 p-5 transition hover:-translate-y-1 hover:border-red-300 hover:shadow-lg"
+              >
+                <div class="text-xs font-semibold uppercase tracking-[0.22em] text-red-500">{{ location.eyebrow }}</div>
+                <div class="mt-2 text-lg font-bold text-gray-900 group-hover:text-red-600">{{ location.title }}</div>
+                <div class="mt-3 text-sm leading-6 text-gray-600 line-clamp-4">{{ location.description }}</div>
+                <div class="mt-4 text-sm font-semibold text-red-600">Open city guide</div>
+              </RouterLink>
+            </div>
+          </section>
         </div>
 
         <!-- Bangla/English SEO landing section -->
@@ -872,6 +921,7 @@ import { Badge, BaseButton, BaseInput, Skeleton, SkeletonText, useToast } from '
 import { ChevronRight, Phone, Search, Heart, Globe, CheckCircle } from 'lucide-vue-next'
 import SectionHeader from '../components/SectionHeader.vue'
 import { listServices, listDoctors, listHospitals, listPatientStories, listGallery, listHealthcareInChina, getService, getDoctor, getHospital, getPatientStory, getHealthcareInChina, searchAll, listTeams } from '../lib/publicApi'
+import { seoLandingPages } from '../content/seoLandingPages'
 
 const router = useRouter()
 
@@ -924,6 +974,8 @@ const slideshowIndex = ref(0)
 const slideshowImages = ref<any[]>([])
 
 const teams = ref<any[]>([])
+const seoGuides = computed(() => seoLandingPages.filter((page) => page.kind === 'guide'))
+const seoLocations = computed(() => seoLandingPages.filter((page) => page.kind === 'location'))
 
 const doctorSpecialties = ['Rheumatology and Immunology','Rehabilitation Medicine',
 'Reproductive Medicine',
