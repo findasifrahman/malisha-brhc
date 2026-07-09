@@ -133,7 +133,7 @@
 
       <div class="mt-8 pt-8 border-t border-gray-800 flex flex-wrap items-center justify-between gap-3">
         <div class="text-xs text-red-100">© {{ year }} BRHC. All rights reserved.</div>
-        <div class="text-xs text-red-100">Built by www.asifrahman.info</div>
+        <div class="text-xs text-red-100">Built by: https://asifrahman-two.vercel.app </div>
       </div>
     </div>
   </footer>
