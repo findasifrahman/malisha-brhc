@@ -1,15 +1,15 @@
 # API
 NODE_ENV=development
 PORT=3001
-CORS_ORIGIN=http://localhost:5173
+CORS_ORIGIN=
 
 # Database
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/brhc?schema=public
+DATABASE_URL=
 
 # Auth
-JWT_SECRET=dev_super_secret_change_me
+JWT_SECRET=
 
-# Cloudflare R2 (optional for now)
+# Cloudflare R2 
 R2_ACCOUNT_ID=
 R2_ACCESS_KEY_ID=
 R2_SECRET_ACCESS_KEY=

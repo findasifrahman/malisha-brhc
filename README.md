@@ -7,13 +7,13 @@
 - `packages/ui` - shared UI kit (`@brhc/ui`) used by the web app
 - `packages/config` - shared ESLint/Prettier/TSConfig presets (`@brhc/config`)
 - `prisma/` - Prisma schema + seed script
-- `docs/` - additional documentation (`setup.md`, `railway.md`)
+
 
 ## Requirements
 
 - Node.js (recommended: latest LTS)
 - pnpm (repo is pinned via `packageManager` in `package.json`)
-- Docker (recommended for local Postgres)
+- Docker 
 
 ## Environment files
 
@@ -26,15 +26,15 @@ Copy and configure:
 
 #### API (`apps/api/.env`)
 
-- `DATABASE_URL` - Postgres connection string
-- `JWT_SECRET` - JWT signing secret
+- `DATABASE_URL` - 
+- `JWT_SECRET` - 
 
-Optional / recommended:
+Optional :
 
 - `PORT=3001`
 - `CORS_ORIGIN=http://localhost:5173` (or `*` / comma-separated allowlist)
 
-R2 (only required if using media upload/delete in production):
+R2 :
 
 - `R2_ACCOUNT_ID`
 - `R2_ACCESS_KEY_ID`
@@ -64,15 +64,7 @@ R2 (only required if using media upload/delete in production):
 - `pnpm db:migrate`
 - `pnpm db:seed`
 
-### Option B: Use a remote Postgres (Railway/Supabase/etc.)
 
-1) Create a Postgres database remotely.
-2) Set `DATABASE_URL` in `apps/api/.env` (or your deployment environment).
-3) Run Prisma commands against that database:
-
-- `pnpm db:generate`
-- `pnpm db:migrate`
-- `pnpm db:seed`
 
 ## Run the repo (local dev)
 
@@ -100,6 +92,3 @@ From app folders:
 - `pnpm --filter @brhc/api build` / `pnpm --filter @brhc/api start`
 - `pnpm --filter @brhc/web build` / `pnpm --filter @brhc/web start`
 
-## Deployment
-
-See `docs/railway.md` for Railway (Postgres + API + Web) setup and required environment variables.
